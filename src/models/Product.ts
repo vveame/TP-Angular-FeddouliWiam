@@ -5,13 +5,13 @@ export class Product{
     private productQuantity: number = 0;
     private productImage: string;
 
-    constructor(productId: number, productTitle: string, productPrice: number, productQuantity: number, productImage: string) {
-        this.productId = productId;
-        this.productTitle = productTitle;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productImage = productImage;
-    }
+    constructor(data: any) {
+        this.productId = data.productId;
+        this.productTitle = data.productTitle;
+        this.productPrice = data.productPrice;
+        this.productQuantity = data.productQuantity;
+        this.productImage = data.productImage;
+      }
 
     public printProduct(): String {
         return `Product ID: ${this.productId}, Title: ${this.productTitle}, Price: ${this.productPrice}`;

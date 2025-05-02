@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # TP-Angular-FeddouliWiam.
 
 Nom et Prenom : Feddouli Wiam
@@ -10,7 +9,7 @@ Ecran de liste des produits:
 
 Détails des produits
 ![image](https://github.com/user-attachments/assets/8296491d-7a60-4c6b-8088-1e65291a559d)
-=======
+
 # TP2
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
@@ -70,4 +69,3 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
->>>>>>> 515f11b (Added TP4 Angular)
