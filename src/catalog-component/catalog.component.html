@@ -11,4 +11,8 @@
   </ng-container>
 </ul>
 
-<app-product-details-component [product]="selectedProduct"></app-product-details-component>
+<app-product-details-component 
+  *ngIf="selectedProduct"
+  [product]="selectedProduct"
+  (close)="selectedProduct = null">
+</app-product-details-component>
