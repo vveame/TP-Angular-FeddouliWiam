@@ -37,7 +37,7 @@ app.get("/api/products", (req, res) => {
       productTitle: "Ordinateur Portable",
       productPrice: 7000,
       productQuantity: 2000,
-      productImage: baseImageUrl + "portable.png",
+      productImage: baseImageUrl + "laptop.png",
     },
     {
       productId: 5,
