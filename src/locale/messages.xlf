@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="fr-CA" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="1640406284231021332" datatype="html">
+        <source>Liste des produits</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/catalog-component/catalog.component.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="187187500641108332" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ product.getProductTitle() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/catalog-component/catalog.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7708270344948043036" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ selectedProduct === product ? &apos;Cacher&apos; : &apos;Détails&apos; }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/catalog-component/catalog.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1048895743677949299" datatype="html">
+        <source>Détails du produit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/product-details-component/product-details.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2317696743303356470" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Titre:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> <x id="INTERPOLATION" equiv-text="{{ product.getProductTitle() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/product-details-component/product-details.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1781281262384790626" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Prix:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> <x id="INTERPOLATION" equiv-text="{{ product.getProductPrice() }}"/> DH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/product-details-component/product-details.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3882607488353274562" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quantité:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> <x id="INTERPOLATION" equiv-text="{{ product.getProductQuantity() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/product-details-component/product-details.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3530425179656642568" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Catégorie:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> <x id="INTERPOLATION" equiv-text="{{ product.getProductCategory() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/product-details-component/product-details.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

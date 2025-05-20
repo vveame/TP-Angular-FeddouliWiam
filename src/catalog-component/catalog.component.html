@@ -1,10 +1,11 @@
+<h3 i18n>Liste des produits</h3>
 <ul>
   <ng-container *ngFor="let product of products">
     <li *ngIf="product.getProductQuantity() > 0"
         [ngStyle]="{ 'color': product.getProductQuantity() < 10 ? 'red' : 'black' }">
       <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
-      <span>{{ product.getProductTitle() }}</span>
-      <button (click)="selectProduct(product)">
+      <span i18n>{{ product.getProductTitle() }}</span>
+      <button (click)="selectProduct(product)" i18n>
         {{ selectedProduct === product ? 'Cacher' : 'Détails' }}
       </button>
     </li>

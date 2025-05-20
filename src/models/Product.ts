@@ -4,6 +4,7 @@ export class Product{
     private productPrice: number;
     private productQuantity: number = 0;
     private productImage: string;
+    private productCategory: string;
 
     constructor(data: any) {
         this.productId = data.productId;
@@ -11,11 +12,8 @@ export class Product{
         this.productPrice = data.productPrice;
         this.productQuantity = data.productQuantity;
         this.productImage = data.productImage;
+        this.productCategory = data.productCategory;
       }
-
-    public printProduct(): String {
-        return `Product ID: ${this.productId}, Title: ${this.productTitle}, Price: ${this.productPrice}`;
-    }
 
     public getProductId(): number {
         return this.productId;
@@ -55,5 +53,13 @@ export class Product{
 
     public setProductImage(productImage: string): void {
         this.productImage = productImage;
+    }
+
+    public getProductCategory(): string {
+        return this.productCategory;
+    }
+
+    public setProductCategory(productCategory: string): void {
+        this.productCategory = productCategory;
     }
 }

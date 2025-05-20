@@ -1,11 +1,12 @@
 <div *ngIf="product" class="modal-overlay" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="close-button" (click)="closeModal()">&times;</button>
-    <h3>Détails du produit</h3>
+    <h3 i18n>Détails du produit</h3>
     <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="150" height="150">
     <p><strong>ID:</strong> {{ product.getProductId() }}</p>
-    <p><strong>Titre:</strong> {{ product.getProductTitle() }}</p>
-    <p><strong>Prix:</strong> {{ product.getProductPrice() }} DH</p>
-    <p><strong>Quantité:</strong> {{ product.getProductQuantity() }}</p>
+    <p i18n><strong>Titre:</strong> {{ product.getProductTitle() }}</p>
+    <p i18n><strong>Prix:</strong> {{ product.getProductPrice() }} DH</p>
+    <p i18n><strong>Quantité:</strong> {{ product.getProductQuantity() }}</p>
+    <p i18n><strong>Catégorie:</strong> {{ product.getProductCategory() }}</p>
   </div>
 </div>
