@@ -1,16 +1,24 @@
 # TP-Angular-FeddouliWiam
 
+## Informations personnelles
+
 Nom et Prenom : Feddouli Wiam
 
 Num Inscription : DCC0001/24
 
-Ecran de liste des produits:
+## Captures d'ecran
 
-![image](https://github.com/user-attachments/assets/6283501d-a185-457c-a2bb-a714e6fddebe)
+Page de liste des produits :
 
-Détails des produits:
+![image](https://github.com/user-attachments/assets/b9231fff-a9a3-45b1-996f-03b0337a532f)
 
-![image](https://github.com/user-attachments/assets/910314b4-2d24-4a8f-a913-0be16731f2ba)
+Page de détails des produits:
+
+![image](https://github.com/user-attachments/assets/2737ff0c-47db-4146-89bf-51373142ef79)
+
+Page signIn :
+
+![image](https://github.com/user-attachments/assets/46bdd76e-b03c-4148-9815-896340b7a56f)
 
 # Downloaded dependencies
 
