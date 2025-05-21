@@ -3,6 +3,12 @@ enum UserType {
     Member = "Member",
     Guest = "Guest"
 }
+
+export interface IUserCredentials {
+    email: string;
+    password: string;
+}
+
 export class User {
     private userId: number;
     private firstName: string;

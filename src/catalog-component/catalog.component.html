@@ -1,19 +1,27 @@
+<div class="filters">
+
+  <a routerLink="/catalog" [queryParams]="{filter:'Accessoires'}" routerLinkActive="active" class="button"> Accessoires
+  </a>
+
+  <a routerLink="/catalog" [queryParams]="{filter:'Ordinateurs'}" routerLinkActive="active" class="button"> Ordinateurs
+  </a>
+
+  <a routerLink="/catalog" [queryParams]="{filter:'Ecrans'}" routerLinkActive="active" class="button"> Ecrans </a>
+
+  <a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button"> All </a>
+
+  <a routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button"> Signin </a>
+
+</div>
+
 <h3 i18n>Liste des produits</h3>
 <ul>
   <ng-container *ngFor="let product of products">
     <li *ngIf="product.getProductQuantity() > 0"
-        [ngStyle]="{ 'color': product.getProductQuantity() < 10 ? 'red' : 'black' }">
+      [ngStyle]="{ 'color': product.getProductQuantity() < 10 ? 'red' : 'black' }">
       <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
       <span i18n>{{ product.getProductTitle() }}</span>
-      <button (click)="selectProduct(product)" i18n>
-        {{ selectedProduct === product ? 'Cacher' : 'Détails' }}
-      </button>
+      <button (click)="goToProductDetails(product)" i18n>Détails</button>
     </li>
   </ng-container>
 </ul>
-
-<app-product-details-component 
-  *ngIf="selectedProduct"
-  [product]="selectedProduct"
-  (close)="selectedProduct = null">
-</app-product-details-component>

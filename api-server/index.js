@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require('path');
 
+
 const app = express();
 const port = 3000;
 
@@ -13,9 +14,8 @@ let cart = [];
 let baseImageUrl = "assets/images/";
 
 // API ROUTES
-app.get("/api/products", (req, res) => {
-  let products = [
-    {
+const products = [
+  {
       productId: 1,
       productTitle: "Clavier Gamer",
       productPrice: 300,
@@ -55,8 +55,22 @@ app.get("/api/products", (req, res) => {
       productImage: baseImageUrl + "tapis.png",
       productCategory: "Accessoires",
     },
-  ];
+];
+
+// GET all products
+app.get("/api/products", (req, res) => {
   res.send(products);
+});
+
+// GET single product by ID
+app.get("/api/products/:id", (req, res) => {
+  const productId = parseInt(req.params.id);
+  const product = products.find(p => p.productId === productId);
+  if (product) {
+    res.status(200).send(product);
+  } else {
+    res.status(404).send("Product not found");
+  }
 });
 
 app.post("/api/cart", (req, res) => {
@@ -88,6 +102,29 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`API Server & Angular localized app listening on port ${port}`);
-  console.log(`➡️  http://localhost:${port}/fr-CA`);
-  console.log(`➡️  http://localhost:${port}/en-US`);
+  console.log(`-> http://localhost:${port}/fr-CA`);
+  console.log(`-> http://localhost:${port}/en-US`);
+});
+
+const users = {
+  "email@email.com": {
+    firstName: "Wiam",
+    lastName: "Fd",
+    email: "email@email.com",
+    password: "test",
+  }
+};
+
+app.post("/api/signin", (req, res) => {
+  const user = users[req.body.email];
+  if (user && user.password === req.body.password) {
+    res.status(200).send({
+      userId: user.userId,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
+  } else {
+    res.status(401).send("Invalid user credentials.");
+  }
 });
