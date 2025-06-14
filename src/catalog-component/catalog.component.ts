@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product-service';
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../services/cart-service';
+import { ShoppingCartComponent } from "../shopping-cart/shopping-cart.component";
 
 @Component({
   selector: 'app-catalog-component',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, ShoppingCartComponent],
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.css']
 })
@@ -19,8 +21,10 @@ export class CatalogComponent implements OnInit {
   filter: string = "";
   products: Product[] = [];
   allProducts: Product[] = [];
+  showCart: boolean = false;
 
   constructor(private productService: ProductService,
+    private cartService: CartService,
     private router: Router,
     private route: ActivatedRoute) {
   }
@@ -59,6 +63,16 @@ export class CatalogComponent implements OnInit {
     this.router.navigate(['/product-details', product.getProductId()], {
     state: { product }
   });
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    // Optional: auto-open cart
+    this.showCart = true;
+  }
+
+  toggleCart() {
+    this.showCart = !this.showCart;
   }
 
 }

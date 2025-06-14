@@ -22,6 +22,19 @@
       <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
       <span i18n>{{ product.getProductTitle() }}</span>
       <button (click)="goToProductDetails(product)" i18n>Détails</button>
+      <button (click)="addToCart(product)">Ajouter au Panier</button>
     </li>
   </ng-container>
 </ul>
+
+<!-- Overlay -->
+<div class="modal-overlay" [ngClass]="{ 'show': showCart }" (click)="toggleCart()"></div>
+
+<!-- Modal content -->
+<div class="cart-modal" [ngClass]="{ 'show': showCart }">
+  <app-shopping-cart></app-shopping-cart>
+  <button class="close-btn" (click)="toggleCart()">×</button>
+</div>
+
+<!-- Button to open modal -->
+<button class="toggle-cart-btn" (click)="toggleCart()">Voir Panier</button>

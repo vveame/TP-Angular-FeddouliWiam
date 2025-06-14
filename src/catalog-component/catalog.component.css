@@ -1,3 +1,4 @@
+/* --- Filtrage et boutons de filtres --- */
 .filters {
   display: flex;
   justify-content: center;
@@ -29,6 +30,7 @@
   font-weight: bold;
 }
 
+/* --- Liste des produits --- */
 ul {
   list-style-type: none;
   padding: 0;
@@ -45,7 +47,7 @@ li {
   border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 12px;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 li:hover {
@@ -53,11 +55,13 @@ li:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* --- Image dans la liste --- */
 li img {
   border-radius: 8px;
   margin-right: 12px;
 }
 
+/* --- Nom ou titre produit --- */
 li span {
   flex-grow: 1;
   font-weight: 600;
@@ -65,6 +69,7 @@ li span {
   margin-left: 10px;
 }
 
+/* --- Boutons ajouter au panier --- */
 button {
   padding: 6px 12px;
   background-color: #007bff;
@@ -80,6 +85,7 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* --- Titre section catalogue --- */
 h3 {
   text-align: center;
   background-color: white;
@@ -93,4 +99,78 @@ h3 {
   font-weight: bold;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   letter-spacing: 1px;
+}
+
+/* --- Overlay derrière la modale --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Modale panier --- */
+.cart-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 100%;
+  max-width: 500px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cart-modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- Bouton fermer modale --- */
+.close-btn {
+  position: absolute;
+  top: 10px; right: 14px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1976d2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* --- Bouton ouvrir modale panier --- */
+.toggle-cart-btn {
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+  margin: 20px auto;
+  display: block;
+}
+
+.toggle-cart-btn:hover {
+  background-color: #145ca1;
+  transform: scale(1.05);
 }

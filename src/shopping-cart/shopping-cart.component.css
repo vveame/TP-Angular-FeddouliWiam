@@ -1,0 +1,149 @@
+/* --- Contenu général de la modale panier --- */
+.cart-content {
+  max-height: 70vh;
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  overflow-y: auto;
+}
+
+/* --- Titre --- */
+.cart-content h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+/* --- Tableau --- */
+.cart-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-bottom: 20px;
+}
+
+/* --- En-tête du tableau --- */
+.cart-content th {
+  background-color: #1976d2;
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  border-radius: 12px 12px 0 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* --- Lignes du corps du tableau --- */
+.cart-content tbody tr {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.cart-content tbody tr:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* --- Cellules du tableau --- */
+.cart-content td {
+  padding: 12px 15px;
+  vertical-align: middle;
+  font-size: 15px;
+  color: #333;
+}
+
+/* --- Boutons +/- de quantité --- */
+.cart-content td button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.cart-content td button:hover {
+  background-color: #145ca1;
+}
+
+/* --- Bouton supprimer (dernier bouton dans la cellule) --- */
+.cart-content td button:last-child {
+  background-color: transparent;
+  color: #d32f2f;
+  font-size: 20px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s ease;
+}
+
+.cart-content td button:last-child:hover {
+  transform: scale(1.2);
+}
+
+/* --- Séparateur horizontal --- */
+.cart-content hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+/* --- Totaux --- */
+.cart-content p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #444;
+}
+
+.cart-content p strong {
+  color: #1976d2;
+}
+
+/* --- Boutons d’actions en bas (ex: commander, vider panier) --- */
+.cart-content button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-content button:hover {
+  background-color: #145ca1;
+}
+
+/* --- Bouton commander (dernier bouton) --- */
+.cart-content button:last-child {
+  background-color: #43a047; /* Vert */
+}
+
+.cart-content button:last-child:hover {
+  background-color: #2e7d32;
+}
+
+/* --- Message panier vide --- */
+.cart-content p:emptyCart {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 40px;
+}

@@ -1,0 +1,43 @@
+<h2>Mon Panier</h2>
+
+<div class="cart-content">
+  <div *ngIf="cart.itemsProduct.length > 0; else emptyCart">
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart.itemsProduct">
+          <td>{{ item.itemProduct.getProductTitle() }}</td>
+          <td>
+            <button (click)="decreaseQuantity(item.itemProduct.getProductId())">-</button>
+            {{ item.quantity }}
+            <button (click)="increaseQuantity(item.itemProduct.getProductId())">+</button>
+          </td>
+          <td>{{ item.itemProduct.getProductPrice() }} MAD</td>
+          <td>{{ item.quantity * item.itemProduct.getProductPrice() }} MAD</td>
+          <td>
+            <button (click)="remove(item.itemProduct.getProductId())">❌</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+    <p><strong>Total Produits :</strong> {{ cart.totalItems }}</p>
+    <p><strong>Total à Payer :</strong> {{ cart.totalPrice }} MAD</p>
+
+    <button (click)="clearCart()">Vider le Panier</button>
+    <button (click)="checkout()">Passer la commande</button>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Votre panier est vide.</p>
+  </ng-template>
+</div>
