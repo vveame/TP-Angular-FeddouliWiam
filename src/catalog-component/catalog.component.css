@@ -111,11 +111,13 @@ h3 {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  visibility: hidden;
 }
 
 .modal-overlay.show {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
 }
 
 /* --- Modale panier --- */
@@ -124,19 +126,23 @@ h3 {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   background-color: #ffffff;
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .cart-modal.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* --- Bouton fermer modale --- */
@@ -173,4 +179,9 @@ h3 {
 .toggle-cart-btn:hover {
   background-color: #145ca1;
   transform: scale(1.05);
+}
+
+.product-buttons {
+  display: flex;
+  gap: 8px;
 }

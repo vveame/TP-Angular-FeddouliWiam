@@ -21,8 +21,10 @@
       [ngStyle]="{ 'color': product.getProductQuantity() < 10 ? 'red' : 'black' }">
       <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
       <span i18n>{{ product.getProductTitle() }}</span>
-      <button (click)="goToProductDetails(product)" i18n>Détails</button>
-      <button (click)="addToCart(product)">Ajouter au Panier</button>
+      <div class="product-buttons">
+        <button (click)="goToProductDetails(product)" i18n>Détails</button>
+        <button (click)="addToCart(product)">+</button>
+      </div>
     </li>
   </ng-container>
 </ul>

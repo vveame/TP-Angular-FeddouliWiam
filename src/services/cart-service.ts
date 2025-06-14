@@ -43,9 +43,20 @@ export class CartService {
   addToCart(product: Product) {
     const index = this.items.findIndex(item => item.itemProduct.getProductId() === product.getProductId());
     if (index !== -1) {
-      this.items[index].quantity++;
+      const existing = this.items[index];
+      if (existing.quantity < product.getProductQuantity()) {
+        existing.quantity++;
+      } else {
+        alert('Stock insuffisant pour ce produit');
+        return;
+      }
     } else {
-      this.items.push({ itemProduct: product, quantity: 1 });
+      if (product.getProductQuantity() > 0) {
+        this.items.push({ itemProduct: product, quantity: 1 });
+      } else {
+        alert('Produit en rupture de stock');
+        return;
+      }
     }
     this.updateCart();
   }

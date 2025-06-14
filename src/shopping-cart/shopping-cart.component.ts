@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class ShoppingCartComponent implements OnInit {
   cart!: ShoppingCart;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe(cart => this.cart = cart);
@@ -21,7 +21,14 @@ export class ShoppingCartComponent implements OnInit {
 
   increaseQuantity(productId: number) {
     const item = this.cart.itemsProduct.find(i => i.itemProduct.getProductId() === productId);
-    if (item) this.cartService.updateQuantity(productId, item.quantity + 1);
+    if (!item) return;
+
+    const available = item.itemProduct.getProductQuantity();
+    if (item.quantity < available) {
+      this.cartService.updateQuantity(productId, item.quantity + 1);
+    } else {
+      alert('Quantité maximale disponible atteinte');
+    }
   }
 
   decreaseQuantity(productId: number) {
