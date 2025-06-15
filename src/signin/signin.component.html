@@ -3,9 +3,9 @@
     <img class="logo" src="/assets/images/logo.png" />
     <div class="sign-in">Sign In</div>
     <div class="sub-text">to discover more...</div>
-    
+
     <input name="email" required email #email="ngModel" [(ngModel)]="credentials.email" placeholder="Email Address"
-      type="text" autocomplete="email"/>
+      type="text" autocomplete="email" />
 
     <em class="error" *ngIf="email.errors?.['required'] && email.touched">Email is required</em>
     <em class="error" *ngIf="email.errors?.['email'] && email.touched">Must be a valid email format</em>
@@ -13,15 +13,20 @@
     <div></div>
 
     <input name="password" required #password="ngModel" [(ngModel)]="credentials.password" placeholder="Password"
-      type="password" autocomplete="current-password"/>
+      type="password" autocomplete="current-password" />
     <em class="error" *ngIf="password.invalid && password.touched">Password is required</em>
-  
+
     <div class="buttons">
       <button type="submit" [disabled]="signInForm.form.invalid" class="button cta">Sign In</button>
     </div>
 
-    <div class="signInError" *ngIf="signInError">
-      Sign In Error !!. Please try again.
+    <div class="login-link">
+      Don’t have an account yet?
+      <a routerLink="/signup" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"> Sign up to get started!</a>
+    </div>
+
+    <div *ngIf="signInError" class="signInError">
+      {{ signInError }}
     </div>
   </form>
 </div>

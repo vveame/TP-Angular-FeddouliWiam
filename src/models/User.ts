@@ -5,8 +5,12 @@ enum UserType {
 }
 
 export interface IUserCredentials {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
+}
+
+export interface ISignUpCredentials extends IUserCredentials {
+  fullName: string;
 }
 
 export class User {

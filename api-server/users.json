@@ -1,0 +1,12 @@
+{
+  "karima@email": {
+    "fullName": "karima",
+    "email": "karima@email",
+    "password": "password"
+  },
+  "wiam@email": {
+    "fullName": "wiam",
+    "email": "wiam@email",
+    "password": "wiam123"
+  }
+}

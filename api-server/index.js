@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
+const usersFilePath = path.join(__dirname, 'users.json');
 
 
 const app = express();
@@ -10,7 +12,6 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-let cart = [];
 let baseImageUrl = "assets/images/";
 
 // API ROUTES
@@ -73,13 +74,6 @@ app.get("/api/products/:id", (req, res) => {
   }
 });
 
-app.post("/api/cart", (req, res) => {
-  cart = req.body;
-  setTimeout(() => res.status(201).send(), 20);
-});
-
-app.get("/api/cart", (req, res) => res.send(cart));
-
 // LOCALIZED ANGULAR APP
 const LOCALES = ['fr-CA', 'en-US'];
 
@@ -106,25 +100,51 @@ app.listen(port, () => {
   console.log(`-> http://localhost:${port}/en-US`);
 });
 
-const users = {
-  "email@email.com": {
-    firstName: "Wiam",
-    lastName: "Fd",
-    email: "email@email.com",
-    password: "test",
+// Handeling users API routes
+
+function readUsersFromFile() {
+  if (!fs.existsSync(usersFilePath)) {
+    fs.writeFileSync(usersFilePath, JSON.stringify({}));
   }
-};
+  const data = fs.readFileSync(usersFilePath);
+  return JSON.parse(data);
+}
+
+function writeUsersToFile(users) {
+  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
+}
 
 app.post("/api/signin", (req, res) => {
-  const user = users[req.body.email];
-  if (user && user.password === req.body.password) {
+  const { email, password } = req.body;
+  const users = readUsersFromFile();
+
+  const user = users[email];
+  if (user && user.password === password) {
     res.status(200).send({
-      userId: user.userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
       email: user.email,
     });
   } else {
     res.status(401).send("Invalid user credentials.");
   }
+});
+
+app.post("/api/signup", (req, res) => {
+  const { email, password, fullName } = req.body;
+
+  const users = readUsersFromFile();
+
+  if (users[email]) {
+    return res.status(409).send("User already exists.");
+  }
+
+  users[email] = {
+    fullName,
+    email,
+    password
+  };
+
+  writeUsersToFile(users);
+
+  res.status(201).send("User registered successfully.");
 });

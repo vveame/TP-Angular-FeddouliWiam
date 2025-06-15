@@ -1,0 +1,76 @@
+<div class="container">
+  <form #signUpForm="ngForm" class="form" (ngSubmit)="signUp()">
+    <img class="logo" src="/assets/images/logo.png" />
+    <div class="sign-in">Sign Up</div>
+    <div class="sub-text">Create your account to get started...</div>
+
+    <input
+      name="fullName"
+      required
+      [(ngModel)]="credentials.fullName"
+      #fullName="ngModel"
+      placeholder="Full Name"
+      type="text"
+      autocomplete="name"
+    />
+    <em class="error" *ngIf="fullName.errors?.['required'] && fullName.touched">
+      Full name is required
+    </em>
+    
+    <input
+      name="email"
+      required
+      email
+      #email="ngModel"
+      [(ngModel)]="credentials.email"
+      placeholder="Email Address"
+      type="text"
+      autocomplete="email"
+    />
+    <em class="error" *ngIf="email.errors?.['required'] && email.touched">Email is required</em>
+    <em class="error" *ngIf="email.errors?.['email'] && email.touched">Must be a valid email format</em>
+
+    <input
+      name="password"
+      required
+      minlength="6"
+      #password="ngModel"
+      [(ngModel)]="credentials.password"
+      placeholder="Password"
+      type="password"
+      autocomplete="new-password"
+    />
+    <em class="error" *ngIf="password.errors?.['required'] && password.touched">Password is required</em>
+    <em class="error" *ngIf="password.errors?.['minlength'] && password.touched">Password must be at least 6 characters</em>
+
+    <input
+      name="confirmPassword"
+      required
+      [(ngModel)]="confirmPassword"
+      placeholder="Confirm Password"
+      type="password"
+      autocomplete="new-password"
+      (blur)="confirmPasswordTouched = true"
+    />
+    <em class="error" *ngIf="confirmPasswordError && confirmPasswordTouched">
+      Passwords must match
+    </em>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="signUpForm.invalid || confirmPasswordError" class="button cta">Sign Up</button>
+    </div>
+
+    <div class="login-link">
+      Already have an account?
+      <a routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"> Sign in here!</a>
+    </div>
+
+    <div class="signInError" *ngIf="signUpError">
+      {{ signUpError }}
+    </div>
+
+    <div class="signInSuccess" *ngIf="signUpSuccess">
+      Signup successful! You can now <a routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">sign in</a>.
+    </div>
+  </form>
+</div>

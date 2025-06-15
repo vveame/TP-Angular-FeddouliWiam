@@ -3,26 +3,39 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IUserCredentials } from '../models/User';
 import { UserService } from '../services/user-service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../services/cart-service';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
   credentials: IUserCredentials = { email: '', password: '' };
-  signInError: boolean = false;
+  signInError: string | false = false;
 
-  constructor(private UserService: UserService, private router: Router) { }
+  constructor(private UserService: UserService, private router: Router, private cartService: CartService) { }
 
   signIn() {
     this.signInError = false;
     this.UserService.signIn(this.credentials).subscribe({
-      next: () => this.router.navigate(['/catalog']),
-      error: () => (this.signInError = true)
+      next: () => {
+        console.log("CartService:", this.cartService);
+        this.cartService.clearStorage();
+        this.router.navigate(['/catalog']);
+      },
+      error: (err) => {
+        if (err.status === 401 && typeof err.error === 'string') {
+          this.signInError = err.error;
+        } else if (typeof err.error === 'string') {
+          this.signInError = err.error;
+        } else {
+          this.signInError = "Something went wrong. Please try again.";
+        }
+      }
     });
   }
 }

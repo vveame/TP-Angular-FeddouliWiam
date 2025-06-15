@@ -20,7 +20,10 @@ export class CartService {
       const stored = sessionStorage.getItem('cart');
       if (stored) {
         try {
-          this.items = JSON.parse(stored);
+          this.items = JSON.parse(stored).map((item: any) => ({
+            itemProduct: Object.assign(new Product(item.itemProduct)),
+            quantity: item.quantity
+          }));
         } catch (e) {
           console.error('Failed to parse cart from sessionStorage', e);
         }
@@ -70,6 +73,20 @@ export class CartService {
 
   clearCart() {
     this.items = [];
+    this.updateCart();
+  }
+
+  clearStorage() {
+    this.items = [];
+    if (this.isBrowser()) {
+      const emptyCart: ShoppingCart = {
+        itemsProduct: [],
+        totalItems: 0,
+        totalPrice: 0
+      };
+      sessionStorage.setItem('cart', JSON.stringify(emptyCart));
+    }
+
     this.updateCart();
   }
 
