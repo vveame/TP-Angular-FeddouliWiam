@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="product" class="product-details">
+  <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}">
+
+  <div class="product-info">
+    <h3>{{ product.getProductTitle() }}</h3>
+    <p><strong>ID:</strong> {{ product.getProductId() }}</p>
+    <p><strong>Prix:</strong> {{ product.getProductPrice() }} MAD</p>
+    <p *ngIf="product.getProductQuantity() > 0"
+       [ngClass]="{'stock': true, 'low': product.getProductQuantity() < 10}">
+      <strong>Quantité en stock:</strong> {{ product.getProductQuantity() }}
+    </p>
+    <p><strong>Catégorie:</strong> {{ product.getProductCategory() }}</p>
+
+    <button class="add-cart"
+            (click)="addToCart()"
+            [disabled]="product.getProductQuantity() === 0">
+      Ajouter au panier
+    </button>
+  </div>
+</div>

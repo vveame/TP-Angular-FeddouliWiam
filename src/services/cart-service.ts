@@ -10,8 +10,10 @@ import { Product } from '../models/Product';
 export class CartService {
   private items: ShoppingCartItem[] = [];
   private cartSubject = new BehaviorSubject<ShoppingCart>(this.getCartData());
+  private cartVisibility = new BehaviorSubject<boolean>(false);
 
   cart = this.cartSubject.asObservable();
+  cartVisible = this.cartVisibility.asObservable();
 
   constructor() {
     if (this.isBrowser()) {
@@ -83,6 +85,18 @@ export class CartService {
 
   getCart(): ShoppingCart {
     return this.getCartData();
+  }
+
+  openCart() {
+    this.cartVisibility.next(true);
+  }
+
+  toggleCart() {
+    this.cartVisibility.next(!this.cartVisibility.getValue());
+  }
+
+  closeCart() {
+    this.cartVisibility.next(false);
   }
 
   // Safe browser check

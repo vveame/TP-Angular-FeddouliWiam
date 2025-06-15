@@ -42,8 +42,10 @@
     <p><strong>Total Produits :</strong> {{ cart.totalItems }}</p>
     <p><strong>Total à Payer :</strong> {{ cart.totalPrice }} MAD</p>
 
-    <button (click)="clearCart()">Vider le Panier</button>
-    <button (click)="checkout()">Passer la commande</button>
+    <div class="cart-actions">
+      <button (click)="clearCart()">Vider le Panier</button>
+      <button (click)="checkout()">Passer la commande</button>
+    </div>
   </div>
 
   <ng-template #emptyCart>

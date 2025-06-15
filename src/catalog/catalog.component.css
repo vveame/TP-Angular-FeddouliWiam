@@ -1,0 +1,141 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+/* Main layout */
+.site-main {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+/* Sidebar filters */
+.sidebar-filters {
+  width: 250px;
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sidebar-filters h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  border-bottom: 2px solid #ef394e;
+  padding-bottom: 6px;
+}
+
+.sidebar-filters ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-filters li {
+  margin-bottom: 12px;
+}
+
+.sidebar-filters a {
+  display: block;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #444;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar-filters a.button:hover,
+.sidebar-filters a.active {
+  background-color: #ef394e;
+  color: white;
+  border-color: #ef394e;
+}
+
+/* Products grid */
+.products-grid {
+  flex-grow: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  min-height: 500px;
+}
+
+.products-grid h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 24px;
+  color: #222;
+}
+
+.products-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 15px;
+}
+
+.products-grid li {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+  transition: box-shadow 0.2s ease;
+}
+
+.products-grid li:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.products-grid img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.product-buttons {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.product-buttons button {
+  flex-grow: 1;
+  background-color: #ef394e;
+  border: none;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-buttons button:hover {
+  background-color: #d32f3a;
+}

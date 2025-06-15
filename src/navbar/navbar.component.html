@@ -1,0 +1,25 @@
+<header class="site-header">
+  <div class="logo">
+    <img class="logo-img" src="/assets/images/logo.png" />
+    <a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">MyShop</a>
+  </div>
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  <div class="user-menu">
+    <a routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button">Signin/Login</a>
+    <a href="#">Aide</a>
+    <button class="cart" (click)="toggleCart()">Panier ({{ cartItemCount }})</button>
+  </div>
+</header>
+
+<!-- Only render if showCart is true -->
+<div *ngIf="showCart">
+  <!-- Overlay -->
+  <div class="modal-overlay" (click)="toggleCart()"></div>
+
+  <!-- Modal content -->
+  <div class="cart-modal">
+    <app-shopping-cart></app-shopping-cart>
+    <button class="close-btn" (click)="toggleCart()">×</button>
+  </div>
+</div>
+
