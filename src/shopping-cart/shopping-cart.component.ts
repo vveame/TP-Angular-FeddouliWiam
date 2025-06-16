@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { CartService } from '../services/cart-service';
 import { ShoppingCart } from '../models/ShoppingCart';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ShoppingCartComponent implements OnInit {
   cart!: ShoppingCart;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe(cart => this.cart = cart);
@@ -45,6 +46,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout() {
-    alert('Checkout process not implemented yet.');
+    this.router.navigate(['/order']);
   }
 }

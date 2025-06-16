@@ -19,7 +19,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "localize": ["en-US"],
+            "allowedCommonJsDependencies": [
+              "leaflet"
+            ],
+            "localize": [
+              "en-US"
+            ],
             "outputPath": "dist/tp2",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -35,6 +40,7 @@
               }
             ],
             "styles": [
+              "./node_modules/leaflet/dist/leaflet.css",
               "src/styles.css"
             ],
             "scripts": [],

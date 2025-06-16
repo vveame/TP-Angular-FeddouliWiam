@@ -7,5 +7,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'signin', renderMode: RenderMode.Prerender },
   { path: 'signup', renderMode: RenderMode.Prerender },
   { path: 'shopping-cart', renderMode: RenderMode.Prerender },
+  { path: 'order', renderMode: RenderMode.Prerender },
+  { path: 'map', renderMode: RenderMode.Client }, // Client-side rendering for interactive map
   { path: '**', renderMode: RenderMode.Server }
 ];
