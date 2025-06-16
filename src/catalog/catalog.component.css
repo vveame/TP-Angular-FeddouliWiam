@@ -31,11 +31,12 @@ body {
 }
 
 .sidebar-filters h4 {
-  margin-top: 0;
+  font-weight: 700;
+  font-size: 20px;
   margin-bottom: 15px;
-  color: #333;
+  color: black;
   border-bottom: 2px solid #ef394e;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .sidebar-filters ul {

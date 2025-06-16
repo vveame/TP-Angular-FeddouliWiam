@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+
+<main class="site-main">
+  <!-- Sidebar with tabs on the left -->
+  <aside class="sidebar-filters tabs">
+    <h4>Mon profil</h4>
+    <button [class.active-tab]="selectedTab === 'personal'" (click)="selectedTab = 'personal'">Infos personnelles</button>
+    <button [class.active-tab]="selectedTab === 'bank'" (click)="selectedTab = 'bank'">Infos bancaires</button>
+    <button [class.active-tab]="selectedTab === 'orders'" (click)="selectedTab = 'orders'">Commandes</button>
+  </aside>
+
+  <!-- Content area on the right -->
+  <section class="profile-section">
+    <!-- Personal -->
+    <div *ngIf="selectedTab === 'personal' && user">
+      <h3>Informations personnelles</h3>
+      <div *ngIf="!editPersonal">
+        <p>Nom: {{ user.getFullName() }}</p>
+        <p>Email: {{ user.getEmail() }}</p>
+        <button (click)="editPersonal = true">Modifier</button>
+      </div>
+      <form *ngIf="editPersonal" (ngSubmit)="savePersonalInfo()">
+        <input [(ngModel)]="fullName" name="name" required />
+        <input [(ngModel)]="email" name="email" required />
+        <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+
+    <!-- Bank -->
+    <div *ngIf="selectedTab === 'bank' && user">
+      <h3>Informations bancaires</h3>
+      <div *ngIf="!editBank">
+        <p>IBAN: {{ user.getIban() }}</p>
+        <p>Banque: {{ user.getBankName() }}</p>
+        <button (click)="editBank = true">Modifier</button>
+      </div>
+      <form *ngIf="editBank" (ngSubmit)="saveBankInfo()">
+        <input [(ngModel)]="iban" name="iban" required />
+        <input [(ngModel)]="bankName" name="bankName" required />
+        <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+
+    <!-- Orders -->
+    <div *ngIf="selectedTab === 'orders' && user">
+      <h3>Historique des commandes</h3>
+      <ul *ngIf="user.getOrderHistory().length > 0; else noOrders">
+        <li *ngFor="let order of user.getOrderHistory()" class="order-item">
+          <strong>Commande :</strong> {{ order.getOrderId() }}<br />
+          <strong>Total :</strong> {{ order.getTotalPrice() }} MAD<br />
+          <strong>Livraison :</strong> {{ order.getDeliveryAddress().description }}<br />
+          <strong>Date :</strong> {{ order.getCreatedAt() | date:'medium' }}<br />
+          <hr />
+        </li>
+      </ul>
+      <ng-template #noOrders>
+        <p>Aucune commande passée.</p>
+      </ng-template>
+    </div>
+  </section>
+</main>

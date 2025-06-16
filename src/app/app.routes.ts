@@ -7,6 +7,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SignupComponent } from '../signup/signup.component';
 import { OrderPageComponent } from '../order-page/order-page.component';
 import { MapComponent } from '../map/map.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 export const routes: Routes = [
 
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product details'},
     { path: 'signin', component: SigninComponent, title: 'My signin page' },
     { path: 'signup', component: SignupComponent, title: 'My signup page' },
+    { path: 'profile', component: ProfileComponent, title: 'My profile page' },
     { path: 'shopping-cart', component: ShoppingCartComponent, title: 'My shopping cart' },
     { path: 'order', component: OrderPageComponent, title: 'My order page' },
     { path: 'navbar', component: SearchBarComponent, title: 'My navbar' },

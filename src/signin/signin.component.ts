@@ -5,6 +5,7 @@ import { IUserCredentials } from '../models/User';
 import { UserService } from '../services/user-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart-service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +23,7 @@ export class SigninComponent {
   signIn() {
     this.signInError = false;
     this.UserService.signIn(this.credentials).subscribe({
-      next: () => {
+      next: (user: User) => {
         console.log("CartService:", this.cartService);
         this.cartService.clearStorage();
         this.router.navigate(['/catalog']);

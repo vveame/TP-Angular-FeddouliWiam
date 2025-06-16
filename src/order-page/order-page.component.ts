@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart-service';
 import { ShoppingCart } from '../models/ShoppingCart';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MapComponent } from '../map/map.component';
+import { Order, DeliveryAddress } from '../models/Order';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-order-page',
@@ -24,10 +26,20 @@ export class OrderPageComponent implements OnInit {
   orderConfirmed = false;
   useAddressString = false; // false = carte, true = saisie texte
   addressString = '';
+  userId: string = '';
 
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.currentUser$.subscribe(user => {
+      if (user) {
+        this.userId = user.getUserId();
+      } else {
+        console.error("Utilisateur non connecté");
+        this.router.navigate(['/signin']);
+        return;
+      }
+    });
     this.cartService.cart.subscribe(cart => this.cart = cart);
 
     if (navigator.geolocation) {
@@ -69,15 +81,18 @@ export class OrderPageComponent implements OnInit {
       // Garder la description si elle existe, sinon peut rester vide ou "Localisation choisie"
     }
 
-    const orderData = {
-      cart: this.cart,
-      paymentMethod: this.paymentMethod,
-      deliveryAddress: this.useAddressString
-        ? { description: this.address.description }
-        : this.address,
-      shippingFee: this.shippingFee,
-      totalPrice: this.totalWithShipping
-    };
+    const deliveryAddress: DeliveryAddress = this.useAddressString
+      ? { description: this.address.description }
+      : this.address;
+
+    const order = new Order(
+      this.userId,
+      this.cart,
+      this.paymentMethod,
+      deliveryAddress,
+      this.shippingFee,
+      this.totalWithShipping
+    );
 
     // TODO: envoyer orderData au backend
 
