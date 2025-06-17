@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<main class="site-main">
+  <button class="back-button" (click)="goBack()">← Retour</button>
+  <!-- Détails commande -->
+  <section class="order-details-left" *ngIf="order">
+    <h2>Détails de la commande</h2>
+    <p><strong>ID:</strong> {{ order.getOrderId() }}</p>
+    <p><strong>Date:</strong> {{ order.getCreatedAt() | date: 'short' }}</p>
+    <p><strong>Statut:</strong>
+      <span class="status-badge" [ngClass]="order.getStatus().toLowerCase()">
+        {{ order.getStatus() }}
+      </span>
+    </p>
+    <p><strong>Méthode de paiement:</strong> {{ order.getPaymentMethod() }}</p>
+    <p><strong>Adresse de livraison:</strong>
+      {{ order.getDeliveryAddress().description || (order.getDeliveryAddress().lat + ', ' +
+      order.getDeliveryAddress().lng) }}
+    </p>
+    <p><strong>Frais de livraison:</strong> {{ order.getShippingFee() }} DH</p>
+    <p><strong>Total:</strong> {{ order.getTotalPrice() }} DH</p>
+  </section>
+
+  <!-- Produits -->
+  <section class="product-summary-right" *ngIf="order">
+    <h3>Produits</h3>
+    <div *ngFor="let item of order.getItems().itemsProduct">
+      <div *ngIf="productDetails[item.itemProduct.getProductId()] as product" class="product-item">
+        <p>
+          <strong>{{ product.getProductTitle() }}</strong> ({{ item.quantity }}x) -
+          {{ product.getProductPrice() }} DH
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div *ngIf="isLoading">
+  <p>Chargement des détails...</p>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map} from 'rxjs';
 import { Order } from '../models/Order';
 
 @Injectable({ providedIn: 'root' })
@@ -18,6 +18,13 @@ export class OrderService {
 
   placeOrder(order: Order): Observable<any> {
     return this.http.post<Order>(this.baseUrl, order.toJSON(), { withCredentials: true });
+  }
+
+  getOrderById(orderId: string) {
+    return this.http.get<Order>(`${this.baseUrl}/${orderId}`, { withCredentials: true }).pipe(
+      // transforme le JSON reçu en instance Order
+      map(data => Order.fromJSON(data))
+    );
   }
 
 }

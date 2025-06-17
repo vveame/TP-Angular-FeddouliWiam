@@ -1,5 +1,5 @@
-export class Product{
-    private productId: number;
+export class Product {
+    private productId: string;
     private productTitle: string;
     private productPrice: number;
     private productQuantity: number = 0;
@@ -13,13 +13,13 @@ export class Product{
         this.productQuantity = data.productQuantity;
         this.productImage = data.productImage;
         this.productCategory = data.productCategory;
-      }
+    }
 
-    public getProductId(): number {
+    public getProductId(): string {
         return this.productId;
     }
-    
-    public setProductId(productId: number): void {
+
+    public setProductId(productId: string): void {
         this.productId = productId;
     }
 
@@ -61,5 +61,9 @@ export class Product{
 
     public setProductCategory(productCategory: string): void {
         this.productCategory = productCategory;
+    }
+
+    public static fromJSON(data: any): Product {
+        return new Product(data)
     }
 }

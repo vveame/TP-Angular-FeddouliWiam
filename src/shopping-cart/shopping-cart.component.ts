@@ -20,7 +20,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.cart.subscribe(cart => this.cart = cart);
   }
 
-  increaseQuantity(productId: number) {
+  increaseQuantity(productId: string) {
     const item = this.cart.itemsProduct.find(i => i.itemProduct.getProductId() === productId);
     if (!item) return;
 
@@ -32,12 +32,12 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  decreaseQuantity(productId: number) {
+  decreaseQuantity(productId: string) {
     const item = this.cart.itemsProduct.find(i => i.itemProduct.getProductId() === productId);
     if (item) this.cartService.updateQuantity(productId, item.quantity - 1);
   }
 
-  remove(productId: number) {
+  remove(productId: string) {
     this.cartService.removeFromCart(productId);
   }
 
@@ -46,6 +46,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout() {
-    this.router.navigate(['/order']);
+    this.router.navigate(['/order-page']);
   }
 }

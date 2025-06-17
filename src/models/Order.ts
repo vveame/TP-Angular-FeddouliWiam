@@ -1,4 +1,5 @@
 import { ShoppingCart } from './ShoppingCart';
+import { Product } from './Product';
 
 export interface DeliveryAddress {
     lat?: number;
@@ -32,16 +33,18 @@ export class Order {
         deliveryAddress: DeliveryAddress,
         shippingFee: number,
         totalPrice: number,
-        status: OrderStatus = OrderStatus.PENDING
+        status: OrderStatus = OrderStatus.PENDING,
+        orderId?: string,               // allow backend to assign
+        createdAt?: Date                // allow backend to assign
     ) {
-        this.orderId = this.generateOrderId();
+        this.orderId = orderId ?? '';  // initially empty
         this.userId = userId;
         this.items = items;
         this.paymentMethod = paymentMethod;
         this.deliveryAddress = deliveryAddress;
         this.shippingFee = shippingFee;
         this.totalPrice = totalPrice;
-        this.createdAt = new Date();
+        this.createdAt = createdAt ?? new Date();
         this.status = status;
     }
 
@@ -51,12 +54,6 @@ export class Order {
 
     public setStatus(status: OrderStatus): void {
         this.status = status;
-    }
-
-    private generateOrderId(): string {
-        const timestamp = Date.now().toString(36);
-        const randomStr = Math.random().toString(36).substring(2, 6);
-        return `ORD-${timestamp}-${randomStr}`;
     }
 
     public getOrderId(): string {
@@ -120,13 +117,14 @@ export class Order {
     }
 
     public toJSON(): any {
+        const items = this.items.itemsProduct.map(item => ({
+            productId: item.itemProduct.getProductId(),
+            quantity: item.quantity,
+        }));
         return {
             orderId: this.orderId,
             userId: this.userId,
-            items: this.items.itemsProduct.map(item => ({
-                productId: item.itemProduct.getProductId(),
-                quantity: item.quantity,
-            })),
+            items,
             paymentMethod: this.paymentMethod,
             deliveryAddress: this.deliveryAddress,
             shippingFee: this.shippingFee,
@@ -137,12 +135,20 @@ export class Order {
     }
 
     public static fromJSON(data: any): Order {
+        const itemsProduct = data.items.map((item: any) => ({
+            itemProduct: { getProductId: () => item.productId },
+            quantity: item.quantity
+        }));
+
+        const cart: ShoppingCart = {
+            itemsProduct,
+            totalItems: data.totalItems ?? itemsProduct.length,
+            totalPrice: data.totalPrice
+        };
+
         const order = new Order(
             data.userId,
-            data.items.map((item: any) => ({
-                itemProduct: { getProductId: () => item.productId },
-                quantity: item.quantity
-            })),
+            cart,
             data.paymentMethod,
             data.deliveryAddress,
             data.shippingFee,
@@ -152,6 +158,7 @@ export class Order {
         const parsedDate = new Date(data.createdAt);
         order.setCreatedAt(isNaN(parsedDate.getTime()) ? new Date() : parsedDate);
         order['orderId'] = data.orderId;
+
         return order;
     }
 

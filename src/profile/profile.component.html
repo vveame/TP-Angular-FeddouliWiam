@@ -48,7 +48,7 @@
       <h3>Historique des commandes</h3>
       <ul *ngIf="orders.length > 0; else noOrders">
         <li *ngFor="let order of orders" class="order-item">
-          <strong>Commande :</strong> {{ order.getOrderId() }}<br />
+          <strong>Commande :</strong> <a [routerLink]="['/order-details', order.getOrderId()]">{{ order.getOrderId() }}</a><br />
           <strong>Total :</strong> {{ order.getTotalPrice() }} MAD<br />
           <strong>Livraison :</strong> <span *ngIf="order.getDeliveryAddress().description; else showCoords">
             {{ order.getDeliveryAddress().description }}

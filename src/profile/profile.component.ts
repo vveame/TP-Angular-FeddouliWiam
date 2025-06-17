@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { OrderService } from '../services/order-service';
 import { Order } from '../models/Order';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, RouterModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private orderService: OrderService
+    private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {

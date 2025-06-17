@@ -8,7 +8,8 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'signup', renderMode: RenderMode.Prerender },
   { path: 'profile', renderMode: RenderMode.Server },
   { path: 'shopping-cart', renderMode: RenderMode.Prerender },
-  { path: 'order', renderMode: RenderMode.Prerender },
+  { path: 'order-page', renderMode: RenderMode.Prerender },
+  { path: 'order-details/:id', renderMode: RenderMode.Server },
   { path: 'navbar', renderMode: RenderMode.Prerender },
   { path: 'search', renderMode: RenderMode.Prerender },
   { path: 'map', renderMode: RenderMode.Client }, // Client-side rendering for interactive map

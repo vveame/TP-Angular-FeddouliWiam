@@ -66,7 +66,7 @@ export class CartService {
     this.updateCart();
   }
 
-  removeFromCart(productId: number) {
+  removeFromCart(productId: string) {
     this.items = this.items.filter(item => item.itemProduct.getProductId() !== productId);
     this.updateCart();
   }
@@ -90,7 +90,7 @@ export class CartService {
     this.updateCart();
   }
 
-  updateQuantity(productId: number, quantity: number) {
+  updateQuantity(productId: string, quantity: number) {
     const item = this.items.find(item => item.itemProduct.getProductId() === productId);
     if (item && quantity > 0) {
       item.quantity = quantity;

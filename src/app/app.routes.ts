@@ -8,6 +8,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { OrderPageComponent } from '../order-page/order-page.component';
 import { MapComponent } from '../map/map.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { OrderDetailsComponent } from '../order-details/order-details.component';
 
 export const routes: Routes = [
 
@@ -17,7 +18,8 @@ export const routes: Routes = [
     { path: 'signup', component: SignupComponent, title: 'My signup page' },
     { path: 'profile', component: ProfileComponent, title: 'My profile page' },
     { path: 'shopping-cart', component: ShoppingCartComponent, title: 'My shopping cart' },
-    { path: 'order', component: OrderPageComponent, title: 'My order page' },
+    { path: 'order-page', component: OrderPageComponent, title: 'My order page' },
+    { path: 'order-details/:id', component: OrderDetailsComponent, title: 'Order Details' },
     { path: 'navbar', component: SearchBarComponent, title: 'My navbar' },
     { path: 'search', component: SearchBarComponent, title: 'Search' },
     { path: 'map', component: MapComponent, title: 'My map' },

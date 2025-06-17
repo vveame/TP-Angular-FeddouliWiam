@@ -219,6 +219,20 @@ app.get('/api/orders/user/:userId', authenticate, (req, res) => {
   res.send(userOrders);
 });
 
+// Récupérer une commande par son ID
+app.get('/api/orders/:orderId', authenticate, (req, res) => {
+  const orderId = req.params.orderId;
+  const orders = readFromFile(ordersFilePath);
+
+  const order = orders.find(o => o.orderId === orderId);
+
+  if (!order) {
+    return res.status(404).send({ message: 'Commande non trouvée.' });
+  }
+
+  res.send(order);
+});
+
 
 // LOCALIZED ANGULAR APP
 const LOCALES = ['fr-CA', 'en-US'];
