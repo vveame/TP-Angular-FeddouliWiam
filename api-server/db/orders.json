@@ -1,0 +1,104 @@
+[
+  {
+    "orderId": "3ca1d446-ef68-49d3-95a3-a7c934da08b5",
+    "userId": "u123",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2
+      },
+      {
+        "productId": 2,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.196020243686704,
+      "lng": -6.151316318421259,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 810,
+    "orderDate": "2025-06-17T16:36:28.193Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "6230db6e-c7fa-4d75-b237-ba1e51479547",
+    "userId": "u123",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "description": "here"
+    },
+    "shippingFee": 60,
+    "totalPrice": 360,
+    "orderDate": "2025-06-17T16:38:06.911Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "47ec1ceb-8890-4ed5-bf9f-68d45c8a4429",
+    "userId": "u123",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.196020243686704,
+      "lng": -6.151316318421259,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 360,
+    "orderDate": "2025-06-17T16:41:43.532Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "a2d78aa9-03a1-4bf6-8678-d3d9606e4b88",
+    "userId": "u123",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.19621552871845,
+      "lng": -6.151479384774387,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 360,
+    "orderDate": "2025-06-17T16:43:48.120Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "c8c12145-267a-4c23-898c-89608c963d32",
+    "userId": "u123",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.196205780100996,
+      "lng": -6.151474165421034,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 360,
+    "orderDate": "2025-06-17T16:46:55.539Z",
+    "status": "pending"
+  }
+]

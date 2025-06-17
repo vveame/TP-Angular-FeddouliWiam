@@ -51,15 +51,9 @@ export class ProfileComponent implements OnInit {
 
       // Fetch orders only if user is valid
       this.orderService.getOrdersByUserId(user.getUserId()).subscribe(data => {
-        this.orders = data.map(o => new Order(
-          o.userId,
-          o.items,
-          o.paymentMethod,
-          o.deliveryAddress,
-          o.shippingFee,
-          o.totalPrice
-        ));
+        this.orders = data;
       });
+
     });
   }
 
@@ -67,19 +61,27 @@ export class ProfileComponent implements OnInit {
     if (!this.user) return;
     this.user.setFullName(this.fullName.trim());
     this.user.setEmail(this.email.trim());
-    this.editPersonal = false;
 
-    // Optional: Save to backend
-    // this.userService.updateUser(this.user).subscribe(...);
+    this.userService.updateUser(this.user).subscribe({
+      next: updated => {
+        this.user = updated;
+        this.editPersonal = false;
+      },
+      error: err => console.error('Erreur mise à jour infos perso', err)
+    });
   }
 
   saveBankInfo(): void {
     if (!this.user) return;
     this.user.setIban(this.iban.trim());
     this.user.setBankName(this.bankName.trim());
-    this.editBank = false;
 
-    // Optional: Save to backend
-    // this.userService.updateUser(this.user).subscribe(...);
+    this.userService.updateUser(this.user).subscribe({
+      next: updated => {
+        this.user = updated;
+        this.editBank = false;
+      },
+      error: err => console.error('Erreur mise à jour infos bancaires', err)
+    });
   }
 }

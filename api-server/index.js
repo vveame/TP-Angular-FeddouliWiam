@@ -15,6 +15,7 @@ const port = 3000;
 
 const usersFilePath = path.join(__dirname, 'db', 'users.json');
 const productsFilePath = path.join(__dirname, 'db', 'products.json');
+const ordersFilePath = path.join(__dirname, 'db', 'orders.json');
 
 const corsOptions = {
   origin: 'http://localhost:4200', // your Angular app origin
@@ -110,7 +111,6 @@ app.post("/api/signup", (req, res) => {
     phone: 0,
     iban: '',
     bankName: '',
-    orderHistory: [],
     userType: 'member'
   };
 
@@ -128,6 +128,34 @@ app.post('/api/signout', authenticate, (req, res) => {
   });
   res.status(200).send('Logged out successfully.');
 });
+
+// Modifier un utilisateur par ID (infos personnelles & bancaires)
+app.put('/api/users/:id', authenticate, (req, res) => {
+  const userId = req.params.id;
+  const updateData = req.body;
+
+  const users = readFromFile(usersFilePath);
+  const userIndex = users.findIndex(u => u.userId === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).send("Utilisateur non trouvé");
+  }
+
+  // Mettre à jour uniquement les champs autorisés
+  const allowedFields = ['fullName', 'email', 'iban', 'bankName', 'phone'];
+  allowedFields.forEach(field => {
+    if (updateData[field] !== undefined) {
+      users[userIndex][field] = updateData[field];
+    }
+  });
+
+  writeToFile(usersFilePath, users);
+
+  // Ne pas renvoyer le mot de passe
+  const { password, ...userWithoutPassword } = users[userIndex];
+  res.status(200).send(userWithoutPassword);
+});
+
 
 app.get("/api/me", authenticate, (req, res) => {
   const users = readFromFile(usersFilePath);
@@ -153,6 +181,42 @@ app.get("/api/me", authenticate, (req, res) => {
     bankName: user.bankName || '',
     userType: user.userType
   });
+});
+
+// Order API
+
+app.post('/api/orders', authenticate, (req, res) => {
+  const orderData = req.body;
+  if (!orderData || !orderData.userId || !orderData.items || !orderData.paymentMethod || !orderData.deliveryAddress) {
+    return res.status(400).send("Données de commande invalides.");
+  }
+
+  const orders = readFromFile(ordersFilePath);
+
+  const newOrder = {
+    orderId: randomUUID(),
+    userId: orderData.userId,
+    items: orderData.items,
+    paymentMethod: orderData.paymentMethod,
+    deliveryAddress: orderData.deliveryAddress,
+    shippingFee: orderData.shippingFee,
+    totalPrice: orderData.totalPrice,
+    orderDate: new Date().toISOString(),
+    status: 'pending'
+  };
+
+  orders.push(newOrder);
+  writeToFile(ordersFilePath, orders);
+
+  res.status(201).send({ message: 'Commande enregistrée avec succès', orderId: newOrder.orderId });
+});
+
+// Récupérer commandes par utilisateur
+app.get('/api/orders/user/:userId', authenticate, (req, res) => {
+  const userId = req.params.userId;
+  const orders = readFromFile(ordersFilePath);
+  const userOrders = orders.filter(order => order.userId === userId);
+  res.send(userOrders);
 });
 
 

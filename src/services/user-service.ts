@@ -37,4 +37,13 @@ export class UserService {
       tap(user => this.currentUserSubject.next(user))
     );
   }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/users/${user.getUserId()}`, user.toJSON(), {
+      withCredentials: true
+    }).pipe(
+      map(data => User.fromJSON(data)),
+      tap(updatedUser => this.currentUserSubject.next(updatedUser))
+    );
+  }
 }

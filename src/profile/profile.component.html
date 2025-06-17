@@ -18,6 +18,7 @@
       <div *ngIf="!editPersonal">
         <p>Nom: {{ user.getFullName() }}</p>
         <p>Email: {{ user.getEmail() }}</p>
+        <p>Téléphone: {{ user.getPhone() }}</p>
         <button (click)="editPersonal = true">Modifier</button>
       </div>
       <form *ngIf="editPersonal" (ngSubmit)="savePersonalInfo()">
@@ -49,8 +50,15 @@
         <li *ngFor="let order of orders" class="order-item">
           <strong>Commande :</strong> {{ order.getOrderId() }}<br />
           <strong>Total :</strong> {{ order.getTotalPrice() }} MAD<br />
-          <strong>Livraison :</strong> {{ order.getDeliveryAddress().description }}<br />
+          <strong>Livraison :</strong> <span *ngIf="order.getDeliveryAddress().description; else showCoords">
+            {{ order.getDeliveryAddress().description }}
+          </span>
+          <ng-template #showCoords>
+            Latitude: {{ order.getDeliveryAddress().lat }}, Longitude: {{ order.getDeliveryAddress().lng }}
+          </ng-template><br />
           <strong>Date :</strong> {{ order.getCreatedAt() | date:'medium' }}<br />
+          <strong>Statut :</strong> <span class="status" [ngClass]="order.getStatus().toLowerCase()">{{
+            order.getStatus() }}</span>
           <hr />
         </li>
       </ul>

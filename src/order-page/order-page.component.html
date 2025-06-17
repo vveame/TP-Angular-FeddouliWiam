@@ -57,7 +57,7 @@
   <div class="thank-you-message">
     <h2>Merci pour votre commande !</h2>
     <p>Votre commande a été confirmée et sera livrée à l'adresse suivante :</p>
-    <p><strong>{{ address.description || ('Latitude: ' + address.lat + ', Longitude: ' + address.lng) }}</strong></p>
+    <p><strong>{{ deliveryAddressDisplay }}</strong></p>
     <p>Méthode de paiement :
       <strong>{{ paymentMethod === 'cash' ? 'Paiement à la livraison' : 'Carte bancaire' }}</strong>
     </p>

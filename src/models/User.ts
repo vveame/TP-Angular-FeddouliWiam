@@ -133,4 +133,16 @@ export class User {
       userTypeEnum
     );
   }
+
+  public toJSON(): any {
+    return {
+      userId: this.userId,
+      fullName: this.fullName,
+      email: this.email,
+      phone: this.phone,
+      iban: this.iban,
+      bankName: this.bankName,
+      userType: this.userType
+    };
+  }
 }

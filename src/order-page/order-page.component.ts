@@ -5,8 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MapComponent } from '../map/map.component';
-import { Order, DeliveryAddress } from '../models/Order';
+import { Order, DeliveryAddress, OrderStatus } from '../models/Order';
 import { UserService } from '../services/user-service';
+import { OrderService } from '../services/order-service';
 
 @Component({
   selector: 'app-order-page',
@@ -28,32 +29,41 @@ export class OrderPageComponent implements OnInit {
   addressString = '';
   userId: string = '';
 
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private userService: UserService, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.userService.currentUser$.subscribe(user => {
       if (user) {
         this.userId = user.getUserId();
+
+        this.cartService.cart.subscribe(cart => this.cart = cart);
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            pos => {
+              this.setDeliveryLocation(pos.coords.latitude, pos.coords.longitude);
+            },
+            err => {
+              console.error("Erreur géolocalisation :", err.message);
+              this.updateShippingFee();
+            }
+          );
+        } else {
+          this.updateShippingFee();
+        }
       } else {
         console.error("Utilisateur non connecté");
         this.router.navigate(['/signin']);
         return;
       }
     });
-    this.cartService.cart.subscribe(cart => this.cart = cart);
+  }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          this.setDeliveryLocation(pos.coords.latitude, pos.coords.longitude);
-        },
-        err => {
-          console.error("Erreur géolocalisation :", err.message);
-          this.updateShippingFee();
-        }
-      );
+  get deliveryAddressDisplay(): string {
+    if (this.address.description && this.address.description.trim().length > 0) {
+      return this.address.description;
     } else {
-      this.updateShippingFee();
+      return `Latitude: ${this.address.lat}, Longitude: ${this.address.lng}`;
     }
   }
 
@@ -78,12 +88,12 @@ export class OrderPageComponent implements OnInit {
         alert("Veuillez définir une position valide sur la carte");
         return;
       }
-      // Garder la description si elle existe, sinon peut rester vide ou "Localisation choisie"
+      this.address.description = '';
     }
 
     const deliveryAddress: DeliveryAddress = this.useAddressString
       ? { description: this.address.description }
-      : this.address;
+      : { lat: this.address.lat, lng: this.address.lng, description: '' };
 
     const order = new Order(
       this.userId,
@@ -91,13 +101,20 @@ export class OrderPageComponent implements OnInit {
       this.paymentMethod,
       deliveryAddress,
       this.shippingFee,
-      this.totalWithShipping
+      this.totalWithShipping,
+      OrderStatus.PENDING
     );
 
-    // TODO: envoyer orderData au backend
-
-    this.orderConfirmed = true;
-    this.cartService.clearStorage();
+    this.orderService.placeOrder(order).subscribe({
+      next: (response) => {
+        this.orderConfirmed = true;
+        this.cartService.clearStorage();
+      },
+      error: (err) => {
+        console.error("Erreur lors de l'envoi de la commande", err);
+        alert("Erreur lors de la commande. Veuillez réessayer.");
+      }
+    });
   }
 
   goBackToCart(): void {
@@ -107,9 +124,7 @@ export class OrderPageComponent implements OnInit {
   onLocationChanged(event: { lat: number; lng: number }): void {
     this.address.lat = event.lat;
     this.address.lng = event.lng;
-    if (!this.address.description) {
-      this.address.description = ''; // ou 'Localisation choisie' si tu veux une valeur par défaut
-    }
+    this.address.description = '';
     this.updateShippingFee();
   }
 
