@@ -4,7 +4,8 @@
   <!-- Sidebar with tabs on the left -->
   <aside class="sidebar-filters tabs">
     <h4>Mon profil</h4>
-    <button [class.active-tab]="selectedTab === 'personal'" (click)="selectedTab = 'personal'">Infos personnelles</button>
+    <button [class.active-tab]="selectedTab === 'personal'" (click)="selectedTab = 'personal'">Infos
+      personnelles</button>
     <button [class.active-tab]="selectedTab === 'bank'" (click)="selectedTab = 'bank'">Infos bancaires</button>
     <button [class.active-tab]="selectedTab === 'orders'" (click)="selectedTab = 'orders'">Commandes</button>
   </aside>
@@ -42,10 +43,10 @@
     </div>
 
     <!-- Orders -->
-    <div *ngIf="selectedTab === 'orders' && user">
+    <div *ngIf="selectedTab === 'orders'">
       <h3>Historique des commandes</h3>
-      <ul *ngIf="user.getOrderHistory().length > 0; else noOrders">
-        <li *ngFor="let order of user.getOrderHistory()" class="order-item">
+      <ul *ngIf="orders.length > 0; else noOrders">
+        <li *ngFor="let order of orders" class="order-item">
           <strong>Commande :</strong> {{ order.getOrderId() }}<br />
           <strong>Total :</strong> {{ order.getTotalPrice() }} MAD<br />
           <strong>Livraison :</strong> {{ order.getDeliveryAddress().description }}<br />

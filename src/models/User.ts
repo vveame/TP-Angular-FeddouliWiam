@@ -1,5 +1,3 @@
-import { Order } from "./Order";
-
 export enum UserType {
   Admin = "admin",
   Member = "member",
@@ -22,7 +20,6 @@ export class User {
   private phone: number;
   private iban: string;
   private bankName: string;
-  private orderHistory: Order[];
   private userType: UserType;
 
   constructor(
@@ -32,7 +29,6 @@ export class User {
     phone: number,
     iban: string,
     bankName: string,
-    orderHistory: Order[] = [],
     userType: UserType = UserType.Member
   ) {
     this.userId = userId;
@@ -41,7 +37,6 @@ export class User {
     this.phone = phone;
     this.iban = iban;
     this.bankName = bankName;
-    this.orderHistory = orderHistory;
     this.userType = userType;
   }
 
@@ -104,18 +99,6 @@ export class User {
     this.bankName = bankName;
   }
 
-  public getOrderHistory(): Order[] {
-    return this.orderHistory;
-  }
-
-  public addOrder(order: Order): void {
-    this.orderHistory.push(order);
-  }
-
-  public clearOrderHistory(): void {
-    this.orderHistory = [];
-  }
-
   public getUserType(): UserType {
     return this.userType;
   }
@@ -147,7 +130,6 @@ export class User {
       Number(data.phone),
       data.iban,
       data.bankName,
-      data.orderHistory || [],
       userTypeEnum
     );
   }

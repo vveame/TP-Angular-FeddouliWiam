@@ -1,3 +1,6 @@
+// npm install leaflet
+// npm install @types/leaflet
+
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 

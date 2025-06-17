@@ -21,7 +21,6 @@
     "password": "password",
     "phone": 6000000000,
     "iban": "MA12345678901234",
-    "bankName": "Banque Populaire",
-    "orderHistory": []
+    "bankName": "Banque Populaire"
   }
 ]

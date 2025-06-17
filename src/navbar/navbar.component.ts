@@ -56,7 +56,7 @@ export class NavbarComponent implements OnDestroy {
     if (this.user) {
       this.userService.signOut();
       this.cartService.clearStorage();
-      this.router.navigate(['/signin']);
+      this.router.navigate(['/catalog']);
     }
   }
 }

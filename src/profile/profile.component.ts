@@ -4,6 +4,8 @@ import { UserService } from '../services/user-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { OrderService } from '../services/order-service';
+import { Order } from '../models/Order';
 
 @Component({
   selector: 'app-profile',
@@ -24,9 +26,11 @@ export class ProfileComponent implements OnInit {
   email = '';
   iban = '';
   bankName = '';
+  orders: Order[] = [];
 
   constructor(
     private userService: UserService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +38,28 @@ export class ProfileComponent implements OnInit {
       this.user = user;
       console.log('ProfileComponent user:', user);
 
-      // Sync form fields
-      if (this.user) {
-        this.fullName = this.user.getFullName();
-        this.email = this.user.getEmail();
-        this.iban = this.user.getIban();
-        this.bankName = this.user.getBankName();
+      if (!user) {
+        this.orders = [];
+        return;
       }
+
+      // Sync form fields
+      this.fullName = user.getFullName();
+      this.email = user.getEmail();
+      this.iban = user.getIban();
+      this.bankName = user.getBankName();
+
+      // Fetch orders only if user is valid
+      this.orderService.getOrdersByUserId(user.getUserId()).subscribe(data => {
+        this.orders = data.map(o => new Order(
+          o.userId,
+          o.items,
+          o.paymentMethod,
+          o.deliveryAddress,
+          o.shippingFee,
+          o.totalPrice
+        ));
+      });
     });
   }
 

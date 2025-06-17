@@ -1,0 +1,42 @@
+[
+  {
+    "productId": 1,
+    "productTitle": "Clavier Gamer",
+    "productPrice": 300,
+    "productQuantity": 4,
+    "productImage": "assets/images/clavier.png",
+    "productCategory": "Accessoires"
+  },
+  {
+    "productId": 2,
+    "productTitle": "Souris Logitech",
+    "productPrice": 150,
+    "productQuantity": 1,
+    "productImage": "assets/images/souris.png",
+    "productCategory": "Accessoires"
+  },
+  {
+    "productId": 3,
+    "productTitle": "Écran 24",
+    "productPrice": 1200,
+    "productQuantity": 100,
+    "productImage": "assets/images/ecran.png",
+    "productCategory": "Ecrans"
+  },
+  {
+    "productId": 4,
+    "productTitle": "Ordinateur Portable",
+    "productPrice": 7000,
+    "productQuantity": 2000,
+    "productImage": "assets/images/laptop.png",
+    "productCategory": "Ordinateurs"
+  },
+  {
+    "productId": 5,
+    "productTitle": "Tapis de souris",
+    "productPrice": 40,
+    "productQuantity": 40,
+    "productImage": "assets/images/tapis.png",
+    "productCategory": "Accessoires"
+  }
+]
