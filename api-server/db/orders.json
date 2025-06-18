@@ -158,5 +158,61 @@
     "totalPrice": 210,
     "orderDate": "2025-06-17T23:44:38.124Z",
     "status": "pending"
+  },
+  {
+    "orderId": "50c964f2-94f7-493f-99ad-59ad0f28fad8",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "description": "Av Mohamed V Larache"
+    },
+    "shippingFee": 60,
+    "totalPrice": 210,
+    "orderDate": "2025-06-18T18:19:45.200Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "b5fd02e7-9738-4423-81b2-ab941a869c49",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "description": "overthere"
+    },
+    "shippingFee": 60,
+    "totalPrice": 210,
+    "orderDate": "2025-06-18T18:22:29.128Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "3b5ca160-e5cf-420f-b080-629888d5ae76",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.19621552871845,
+      "lng": -6.151479384774387,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 210,
+    "orderDate": "2025-06-18T18:36:21.439Z",
+    "status": "pending"
   }
 ]

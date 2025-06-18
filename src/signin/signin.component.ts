@@ -6,11 +6,13 @@ import { UserService } from '../services/user-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart-service';
 import { User } from '../models/User';
+import { AlertService } from '../services/alert-service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, NavbarComponent],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
@@ -18,24 +20,28 @@ export class SigninComponent {
   credentials: IUserCredentials = { email: '', password: '' };
   signInError: string | false = false;
 
-  constructor(private UserService: UserService, private router: Router, private cartService: CartService) { }
+  constructor(private UserService: UserService,
+    private router: Router,
+    private alertService: AlertService,
+    private cartService: CartService) { }
 
   signIn() {
     this.signInError = false;
     this.UserService.signIn(this.credentials).subscribe({
       next: (user: User) => {
-        console.log("CartService:", this.cartService);
+        this.alertService.success("Connexion réussie !");
         this.cartService.clearStorage();
         this.router.navigate(['/catalog']);
       },
       error: (err) => {
+        let message = 'Une erreur est survenue. Veuillez réessayer.';
         if (err.status === 401 && typeof err.error === 'string') {
-          this.signInError = err.error;
+          message = err.error;
         } else if (typeof err.error === 'string') {
-          this.signInError = err.error;
-        } else {
-          this.signInError = "Something went wrong. Please try again.";
+          message = err.error;
         }
+        this.signInError = message;
+        this.alertService.error(message);
       }
     });
   }

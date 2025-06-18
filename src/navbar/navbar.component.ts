@@ -9,6 +9,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { UserService } from '../services/user-service';
 import { User } from '../models/User';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,9 @@ export class NavbarComponent implements OnDestroy {
   private cartSubscription?: Subscription;
   private visibilitySubscription?: Subscription;
 
-  constructor(private cartService: CartService,
+  constructor(
+    private alertService: AlertService,
+    private cartService: CartService,
     private router: Router,
     private userService: UserService
   ) {
@@ -54,10 +57,15 @@ export class NavbarComponent implements OnDestroy {
   }
 
   signOut() {
-    this.userService.signOut().subscribe(() => {
-      this.cartService.clearStorage();
-      this.router.navigate(['/catalog']);
+    this.userService.signOut().subscribe({
+      next: () => {
+        this.cartService.clearStorage();
+        this.router.navigate(['/catalog']);
+        this.alertService.success('Déconnexion réussie.');
+      },
+      error: () => {
+        this.alertService.error('Erreur lors de la déconnexion.');
+      }
     });
   }
-
 }

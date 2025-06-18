@@ -1,0 +1,4 @@
+<div *ngIf="alert" [ngClass]="cssClass(alert.type)" class="alert-box">
+    {{ alert.message }}
+    <button (click)="close()">×</button>
+</div>

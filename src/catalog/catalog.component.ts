@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { StockService } from '../services/stock-service';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-catalog',
@@ -26,17 +27,23 @@ export class CatalogComponent implements OnInit {
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-    public stockService: StockService
-  ) {}
+    public stockService: StockService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((data: Product[]) => {
-      this.allProducts = data.map(item => new Product(item));
-      this.route.queryParams.subscribe(params => {
-        this.filter = params['filter'] ?? '';
-        const search = params['search'] ?? '';
-        this.applyFilter(this.filter, search);
-      });
+    this.productService.getProducts().subscribe({
+      next: (data: Product[]) => {
+        this.allProducts = data.map(item => new Product(item));
+        this.route.queryParams.subscribe(params => {
+          this.filter = params['filter'] ?? '';
+          const search = params['search'] ?? '';
+          this.applyFilter(this.filter, search);
+        });
+      },
+      error: () => {
+        this.alertService.error('Erreur lors du chargement des produits.');
+      }
     });
   }
 
@@ -53,6 +60,6 @@ export class CatalogComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this.cartService.openCart();
+    this.alertService.success(`Produit "${product.getProductTitle()}" ajouté au panier.`);
   }
 }

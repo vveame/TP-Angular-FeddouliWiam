@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { CartService } from '../services/cart-service';
 import { StockService } from '../services/stock-service';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-product-details-component',
@@ -21,7 +22,8 @@ export class ProductDetailsComponent {
   constructor(private cartService: CartService,
     private route: ActivatedRoute,
     private productService: ProductService,
-    public stockService: StockService
+    public stockService: StockService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class ProductDetailsComponent {
   addToCart() {
     if (this.product) {
       this.cartService.addToCart(this.product);
-      this.cartService.openCart();
+      this.alertService.success(`Produit "${this.product.getProductTitle()}" ajouté au panier.`);
     }
   }
 }

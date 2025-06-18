@@ -17,33 +17,25 @@
   <hr />
 
   <h3>Adresse de livraison</h3>
-  
-<label>
-  <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="false" />
-  Sélectionner sur la carte
-</label>
-<label>
-  <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="true" />
-  Saisir une adresse
-</label>
 
-<div *ngIf="useAddressString; else mapMode">
-  <input
-    type="text"
-    placeholder="Entrez votre adresse"
-    [(ngModel)]="addressString"
-    required
-  />
-</div>
+  <label>
+    <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="false" />
+    Sélectionner sur la carte
+  </label>
+  <label>
+    <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="true" />
+    Saisir une adresse
+  </label>
 
-<ng-template #mapMode>
-  <app-map
-    class="map"
-    [latitude]="address.lat"
-    [longitude]="address.lng"
-    (locationChanged)="onLocationChanged($event)">
-  </app-map>
-</ng-template>
+  <div *ngIf="useAddressString; else mapMode">
+    <input type="text" placeholder="Entrez votre adresse" [(ngModel)]="addressString" required />
+  </div>
+
+  <ng-template #mapMode>
+    <app-map class="map" [latitude]="address.lat" [longitude]="address.lng"
+      (locationChanged)="onLocationChanged($event)">
+    </app-map>
+  </ng-template>
 
   <hr />
 
@@ -61,5 +53,6 @@
     <p>Méthode de paiement :
       <strong>{{ paymentMethod === 'cash' ? 'Paiement à la livraison' : 'Carte bancaire' }}</strong>
     </p>
+    <button (click)="goBackToCart()">Go Back</button>
   </div>
 </ng-template>

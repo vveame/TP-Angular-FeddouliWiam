@@ -8,6 +8,7 @@ import { MapComponent } from '../map/map.component';
 import { Order, DeliveryAddress, OrderStatus } from '../models/Order';
 import { UserService } from '../services/user-service';
 import { OrderService } from '../services/order-service';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-order-page',
@@ -29,7 +30,12 @@ export class OrderPageComponent implements OnInit {
   addressString = '';
   userId: string = '';
 
-  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private userService: UserService, private orderService: OrderService) { }
+  constructor(private cartService: CartService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private orderService: OrderService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.userService.currentUser$.subscribe(user => {
@@ -45,6 +51,7 @@ export class OrderPageComponent implements OnInit {
             },
             err => {
               console.error("Erreur géolocalisation :", err.message);
+              this.alertService.warning("Erreur géolocalisation !");
               this.updateShippingFee();
             }
           );
@@ -52,7 +59,7 @@ export class OrderPageComponent implements OnInit {
           this.updateShippingFee();
         }
       } else {
-        console.error("Utilisateur non connecté");
+        this.alertService.warning("Utilisateur non connecté");
         this.router.navigate(['/signin']);
         return;
       }
@@ -73,19 +80,19 @@ export class OrderPageComponent implements OnInit {
 
   confirmOrder(): void {
     if (!this.paymentMethod) {
-      alert("Veuillez sélectionner une méthode de paiement");
+      this.alertService.error("Veuillez sélectionner une méthode de paiement.");
       return;
     }
 
     if (this.useAddressString) {
       if (!this.addressString.trim()) {
-        alert("Veuillez entrer une adresse valide");
+        this.alertService.error("Veuillez entrer une adresse valide.");
         return;
       }
       this.address.description = this.addressString.trim();
     } else {
       if (!this.address.lat || !this.address.lng) {
-        alert("Veuillez définir une position valide sur la carte");
+        this.alertService.error("Veuillez définir une position valide sur la carte.");
         return;
       }
       this.address.description = '';
@@ -109,10 +116,11 @@ export class OrderPageComponent implements OnInit {
       next: (response) => {
         this.orderConfirmed = true;
         this.cartService.clearStorage();
+        this.alertService.success("Commande confirmée avec succès !");
       },
       error: (err) => {
         console.error("Erreur lors de l'envoi de la commande", err);
-        alert("Erreur lors de la commande. Veuillez réessayer.");
+        this.alertService.error("Échec de la commande. Veuillez réessayer plus tard.");
       }
     });
   }

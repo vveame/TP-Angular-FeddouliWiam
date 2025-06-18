@@ -1,8 +1,12 @@
 // npm install leaflet
 // npm install @types/leaflet
 
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  AfterViewInit, Component, EventEmitter, Input,
+  OnChanges, Output, SimpleChanges, Inject, PLATFORM_ID
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-map',
@@ -12,16 +16,18 @@ import { isPlatformBrowser } from '@angular/common';
 export class MapComponent implements AfterViewInit, OnChanges {
   private map!: any;
   private marker!: any;
+  private isBrowser: boolean;
+  private L: any;
 
   @Input() latitude: number = 0;
   @Input() longitude: number = 0;
 
   // Output pour notifier la nouvelle position
-  @Output() locationChanged = new EventEmitter<{lat: number, lng: number}>();
+  @Output() locationChanged = new EventEmitter<{ lat: number, lng: number }>();
 
-  private isBrowser: boolean;
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+    private alertService: AlertService
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -39,23 +45,27 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   private addMarker(L: any): void {
     if (this.map && this.latitude && this.longitude) {
-      this.marker = L.marker([this.latitude, this.longitude], {draggable: true}).addTo(this.map);
+      this.marker = L.marker([this.latitude, this.longitude], { draggable: true }).addTo(this.map);
 
       // Écouter le déplacement du marqueur
       this.marker.on('dragend', () => {
         const pos = this.marker.getLatLng();
-        this.locationChanged.emit({lat: pos.lat, lng: pos.lng});
+        this.locationChanged.emit({ lat: pos.lat, lng: pos.lng });
+        this.alertService.success('Position mise à jour sur la carte.');
         this.map.setView(pos);
       });
     }
   }
 
   private updateMarker(): void {
-    if (this.marker) {
+    if (!this.marker && this.latitude && this.longitude) {
+      this.addMarker(this.L); // store L in a class field to reuse
+    } else if (this.marker) {
       this.marker.setLatLng([this.latitude, this.longitude]);
       this.map.setView([this.latitude, this.longitude], 13);
     }
   }
+
 
   private initMap(): void {
     import('leaflet').then(LModule => {
@@ -82,15 +92,17 @@ export class MapComponent implements AfterViewInit, OnChanges {
         if (this.marker) {
           this.marker.setLatLng(latlng);
         } else {
-          this.marker = L.marker(latlng, {draggable: true}).addTo(this.map);
+          this.marker = L.marker(latlng, { draggable: true }).addTo(this.map);
           this.marker.on('dragend', () => {
             const pos = this.marker.getLatLng();
-            this.locationChanged.emit({lat: pos.lat, lng: pos.lng});
+            this.locationChanged.emit({ lat: pos.lat, lng: pos.lng });
             this.map.setView(pos);
           });
         }
-        this.locationChanged.emit({lat: latlng.lat, lng: latlng.lng});
+        this.locationChanged.emit({ lat: latlng.lat, lng: latlng.lng });
       });
-    });
+    }).catch(() => {
+      this.alertService.error('Erreur lors du chargement de la carte.');
+    });;
   }
 }

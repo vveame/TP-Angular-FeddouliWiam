@@ -7,6 +7,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { OrderService } from '../services/order-service';
 import { Order } from '../models/Order';
 import { RouterModule, Router } from '@angular/router';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-profile',
@@ -33,13 +34,13 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
     this.userService.currentUser$.subscribe(user => {
       this.user = user;
-      console.log('ProfileComponent user:', user);
 
       if (!user) {
         this.orders = [];
@@ -54,8 +55,14 @@ export class ProfileComponent implements OnInit {
       this.bankName = user.getBankName();
 
       // Fetch orders only if user is valid
-      this.orderService.getOrdersByUserId(user.getUserId()).subscribe(data => {
-        this.orders = data;
+      this.orderService.getOrdersByUserId(user.getUserId()).subscribe({
+        next: data => {
+          this.orders = data;
+        },
+        error: err => {
+          console.error("Erreur récupération commandes utilisateur", err);
+          this.alertService.warning("Impossible de récupérer vos commandes.");
+        }
       });
 
     });
@@ -70,9 +77,13 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe({
       next: updated => {
         this.user = updated;
+        this.alertService.success("Informations personnelles mises à jour avec succès !");
         this.editPersonal = false;
       },
-      error: err => console.error('Erreur mise à jour infos perso', err)
+      error: err => {
+        console.error('Erreur mise à jour infos perso', err);
+        this.alertService.error("Échec de la mise à jour des informations personnelles.");
+      }
     });
   }
 
@@ -84,9 +95,13 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe({
       next: updated => {
         this.user = updated;
+        this.alertService.success("Informations bancaires mises à jour avec succès !");
         this.editBank = false;
       },
-      error: err => console.error('Erreur mise à jour infos bancaires', err)
+      error: err => {
+        console.error('Erreur mise à jour infos bancaires', err);
+        this.alertService.error("Échec de la mise à jour des informations bancaires.");
+      }
     });
   }
 

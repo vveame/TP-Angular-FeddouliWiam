@@ -5,6 +5,7 @@ import { ShoppingCart } from '../models/ShoppingCart';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { StockService } from '../services/stock-service';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -17,6 +18,7 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private cartService: CartService,
     private router: Router,
+    private alertService: AlertService,
     public stockService: StockService
   ) { }
 
@@ -32,24 +34,35 @@ export class ShoppingCartComponent implements OnInit {
     if (item.quantity < available) {
       this.cartService.updateQuantity(productId, item.quantity + 1);
     } else {
-      alert('Quantité maximale disponible atteinte');
+      this.alertService.warning('Quantité maximale disponible atteinte');
     }
   }
 
   decreaseQuantity(productId: string) {
     const item = this.cart.itemsProduct.find(i => i.itemProduct.getProductId() === productId);
-    if (item) this.cartService.updateQuantity(productId, item.quantity - 1);
+    if (!item) return;
+
+    const wasLastItem = item.quantity === 1;
+
+    this.cartService.updateQuantity(productId, item.quantity - 1);
+
+    if (wasLastItem) {
+      this.alertService.success('Produit retiré du panier');
+    }
   }
 
   remove(productId: string) {
     this.cartService.removeFromCart(productId);
+    this.alertService.info('Produit supprimé du panier');
   }
 
   clearCart() {
     this.cartService.clearCart();
+    this.alertService.info('Panier vidé');
   }
 
   checkout() {
+    this.alertService.success('Redirection vers la page de commande...');
     this.router.navigate(['/order-page']);
   }
 }

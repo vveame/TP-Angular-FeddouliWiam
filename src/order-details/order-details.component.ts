@@ -7,6 +7,7 @@ import { Product } from '../models/Product';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-order-details',
@@ -23,8 +24,9 @@ export class OrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private orderService: OrderService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
@@ -36,7 +38,7 @@ export class OrderDetailsComponent implements OnInit {
           this.loadProductDetails(order);
         },
         error: err => {
-          console.error("Erreur récupération commande", err);
+          this.alertService.error('Erreur récupération commande');
         }
       });
     }
@@ -44,7 +46,7 @@ export class OrderDetailsComponent implements OnInit {
 
   private loadProductDetails(order: Order): void {
     const productIds = order.getItems().itemsProduct.map(item => item.itemProduct.getProductId());
-    
+
     // Charger les détails de chaque produit
     productIds.forEach(productId => {
       this.productService.getProductById(productId).subscribe({
@@ -52,7 +54,7 @@ export class OrderDetailsComponent implements OnInit {
           this.productDetails[productId] = product;
         },
         error: err => {
-          console.error(`Erreur récupération produit ${productId}`, err);
+          this.alertService.warning(`Impossible de charger le produit ${productId}`);
         },
         complete: () => {
           this.isLoading = false;
@@ -62,6 +64,6 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/profil']);
   }
 }

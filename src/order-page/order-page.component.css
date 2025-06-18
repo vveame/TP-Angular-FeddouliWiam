@@ -142,3 +142,21 @@
   color: #444;
   margin: 10px 0;
 }
+
+.thank-you-message button {
+  margin-top: 25px;
+  background-color: #ef394e;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.thank-you-message button:hover {
+  background-color: #d32f3a;
+  transform: translateY(-1px);
+}
