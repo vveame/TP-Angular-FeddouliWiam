@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, map } from 'rxjs';
+import { BehaviorSubject, Observable, tap, map, switchMap } from 'rxjs';
 import { ISignUpCredentials, IUserCredentials, NewUserForm, User } from '../models/User';
 
 @Injectable({ providedIn: 'root' })
@@ -11,12 +11,14 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  signIn(credentials: IUserCredentials): Observable<any> {
+  signIn(credentials: IUserCredentials): Observable<User> {
     return this.http.post(`${this.apiUrl}/signin`, credentials, {
       responseType: 'text',
       withCredentials: true
     }).pipe(
-      tap(() => this.getCurrentUser().subscribe())
+      // Après connexion, on récupère les infos utilisateur via /me
+      // switchMap permet d'enchaîner un second appel HTTP
+      switchMap(() => this.getCurrentUser())
     );
   }
 

@@ -4,19 +4,28 @@ import { Alert } from '../models/Alert';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
-  private alertSubject = new BehaviorSubject<Alert | null>(null);
-  alert$ = this.alertSubject.asObservable();
+  private alertsSubject = new BehaviorSubject<Alert[]>([]);
+  alerts$ = this.alertsSubject.asObservable();
 
-  // Send a new alert
   showAlert(alert: Alert) {
-    this.alertSubject.next(alert);
+    const current = this.alertsSubject.value;
+    this.alertsSubject.next([...current, alert]);
 
     if (alert.timeout && alert.timeout > 0) {
-      setTimeout(() => this.clearAlert(), alert.timeout);
+      setTimeout(() => this.removeAlert(alert), alert.timeout);
     }
   }
 
-  // Convenience methods
+  removeAlert(alert: Alert) {
+    const filtered = this.alertsSubject.value.filter(a => a !== alert);
+    this.alertsSubject.next(filtered);
+  }
+
+  clearAlerts() {
+    this.alertsSubject.next([]);
+  }
+
+  // Méthodes d’aide
   success(message: string, timeout = 3000) {
     this.showAlert({ type: 'success', message, timeout });
   }
@@ -31,9 +40,5 @@ export class AlertService {
 
   warning(message: string, timeout = 4000) {
     this.showAlert({ type: 'warning', message, timeout });
-  }
-
-  clearAlert() {
-    this.alertSubject.next(null);
   }
 }

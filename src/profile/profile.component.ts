@@ -108,4 +108,8 @@ export class ProfileComponent implements OnInit {
   goToUserManagement() {
     this.router.navigate(['/user-management']);
   }
+
+  goToStockMonitoring() {
+    this.router.navigate(['/stock-monitoring']);
+  }
 }

@@ -139,3 +139,24 @@ button:hover {
   max-width: 480px;
   margin: 20px auto;
 }
+
+.back-button {
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid #ef394e;
+  color: #ef394e;
+  padding: 8px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 25px 0 15px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  width: auto;
+}
+
+.back-button:hover {
+  background-color: #ef394e;
+  color: white;
+}

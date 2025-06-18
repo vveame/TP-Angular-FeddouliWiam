@@ -4,6 +4,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: '', renderMode: RenderMode.Prerender },
   { path: 'catalog', renderMode: RenderMode.Prerender },
   { path: 'product-details/:id', renderMode: RenderMode.Server }, // SSR at request time
+  { path: 'stock-monitoring', renderMode: RenderMode.Prerender },
   { path: 'signin', renderMode: RenderMode.Prerender },
   { path: 'signup', renderMode: RenderMode.Prerender },
   { path: 'profil', renderMode: RenderMode.Server },

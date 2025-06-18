@@ -8,22 +8,22 @@ import { CommonModule } from '@angular/common';
   selector: 'app-alert',
   imports: [CommonModule],
   templateUrl: './alert.component.html',
-  styleUrl: './alert.component.css'
+  styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnDestroy {
-  alert: Alert | null = null;
+  alerts: Alert[] = [];
   private subscription: Subscription;
 
   constructor(private alertService: AlertService) {
-    this.subscription = this.alertService.alert$.subscribe(alert => this.alert = alert);
+    this.subscription = this.alertService.alerts$.subscribe(alerts => this.alerts = alerts);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  close() {
-    this.alertService.clearAlert();
+  close(alert: Alert) {
+    this.alertService.removeAlert(alert);
   }
 
   cssClass(type: string) {

@@ -113,4 +113,8 @@ export class UserManagementComponent implements OnInit {
   cancelEdit(): void {
     this.selectedUser = null;
   }
+
+  goBack(): void {
+    this.router.navigate(['/profil']);
+  }
 }

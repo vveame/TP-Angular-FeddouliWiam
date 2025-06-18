@@ -50,6 +50,27 @@ app.get("/api/products/:id", (req, res) => {
   }
 });
 
+app.put("/api/products/:id/stock", authenticate, isAdmin, (req, res) => {
+  const products = readFromFile(productsFilePath);
+  const productId = parseInt(req.params.id);
+  const { quantity } = req.body;
+
+  const index = products.findIndex(p => p.productId === productId);
+  if (index === -1) {
+    return res.status(404).send("Product not found");
+  }
+
+  if (typeof quantity !== 'number' || quantity <= 0) {
+    return res.status(400).send("Quantité invalide");
+  }
+
+  products[index].productQuantity += quantity;
+  products[index].restockDate = new Date().toISOString();
+
+  writeToFile(productsFilePath, products);
+  return res.status(200).json(products[index]);
+});
+
 // Users API
 
 app.post("/api/signin", (req, res) => {

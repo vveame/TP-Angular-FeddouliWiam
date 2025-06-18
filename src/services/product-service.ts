@@ -7,7 +7,7 @@ import { Product } from '../models/Product';
 export class ProductService {
   private baseUrl = 'http://localhost:3000/api/products';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl);
@@ -18,4 +18,12 @@ export class ProductService {
       map(data => Product.fromJSON(data))
     );
   }
+
+  updateProductStock(id: string, quantity: number): Observable<Product> {
+    return this.http.put<Product>(`${this.baseUrl}/${id}/stock`, { quantity }, { withCredentials: true }).pipe(
+      map(response => Product.fromJSON(response))
+    );
+  }
+
+
 }

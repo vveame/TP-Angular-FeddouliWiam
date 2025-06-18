@@ -3,10 +3,10 @@
     "productId": 1,
     "productTitle": "Clavier Gamer",
     "productPrice": 300,
-    "productQuantity": 4,
+    "productQuantity": 9,
     "productImage": "assets/images/clavier.png",
     "productCategory": "Accessoires",
-    "restockDate": "2025-06-16T12:00:00Z"
+    "restockDate": "2025-06-18T20:32:26.173Z"
   },
   {
     "productId": 2,

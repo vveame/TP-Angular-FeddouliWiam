@@ -13,13 +13,12 @@
     <p><strong>Catégorie:</strong> {{ product.getProductCategory() }}</p>
 
     <p>
-    <span *ngIf="stockService.isLowStock(product)" class="low-stock-message" i18n>
-      Stock faible - dépêchez-vous !
-    </span>
+      <span *ngIf="stockService.getStockMessage(product)" [ngClass]="{
+        'low-stock-message': stockService.isLowStock(product),
+        'restock-badge': !stockService.isLowStock(product) && stockService.isRecentlyRestocked(product)}">
+        {{ stockService.getStockMessage(product) }}
+      </span>
 
-    <span *ngIf="stockService.isRecentlyRestocked(product)" class="restock-badge" i18n>
-      Récemment restocké !
-    </span>
     </p>
 
     <button class="add-cart" (click)="addToCart()" [disabled]="product.getProductQuantity() === 0">

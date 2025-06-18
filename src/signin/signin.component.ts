@@ -8,6 +8,7 @@ import { CartService } from '../services/cart-service';
 import { User } from '../models/User';
 import { AlertService } from '../services/alert-service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { StockService } from '../services/stock-service';
 
 @Component({
   selector: 'app-signin',
@@ -23,6 +24,7 @@ export class SigninComponent {
   constructor(private UserService: UserService,
     private router: Router,
     private alertService: AlertService,
+    private stockService: StockService,
     private cartService: CartService) { }
 
   signIn() {
@@ -31,6 +33,11 @@ export class SigninComponent {
       next: (user: User) => {
         this.alertService.success("Connexion réussie !");
         this.cartService.clearStorage();
+
+        if (user.getUserType() === 'admin') {
+          this.stockService.checkAndNotifyLowStock();
+        }
+
         this.router.navigate(['/catalog']);
       },
       error: (err) => {

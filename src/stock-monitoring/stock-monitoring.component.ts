@@ -1,0 +1,89 @@
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../models/Product';
+import { StockService } from '../services/stock-service';
+import { AlertService } from '../services/alert-service';
+import { ProductService } from '../services/product-service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-stock-monitoring',
+  imports: [CommonModule, FormsModule, NavbarComponent],
+  templateUrl: './stock-monitoring.component.html',
+  styleUrl: './stock-monitoring.component.css'
+})
+export class StockMonitoringComponent implements OnInit {
+  products: Product[] = [];
+  lowStockProducts: Product[] = [];
+  restockQuantities: { [productId: string]: number } = {};
+
+  constructor(
+    public stockService: StockService,
+    private alertService: AlertService,
+    private productService: ProductService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.fetchProducts();
+  }
+
+  getRestockQty(productId: string): number {
+    return this.restockQuantities[productId] || 1;
+  }
+
+  setRestockQty(productId: string, qty: number) {
+    this.restockQuantities[productId] = qty;
+  }
+
+  fetchProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (data: Product[]) => {
+        this.products = data.map(item => Product.fromJSON(item));
+
+        // Détection des stocks faibles après chargement
+        this.lowStockProducts = this.products.filter(product =>
+          this.stockService.isLowStock(product)
+        );
+
+        this.lowStockProducts.forEach(p =>
+          this.alertService.warning(`Stock faible pour ${p.getProductTitle()}`)
+        );
+      },
+      error: (err) => {
+        this.alertService.error("Erreur lors du chargement des produits.");
+        console.error(err);
+      }
+    });
+  }
+
+  restock(id: string): void {
+    const qty = this.getRestockQty(id);
+
+    if (!qty || qty <= 0) {
+      this.alertService.warning("Veuillez entrer une quantité valide.");
+      return;
+    }
+    this.productService.updateProductStock(id, qty).subscribe({
+      next: (product) => {
+        // Mettre à jour le produit local dans la liste
+        const index = this.products.findIndex(p => p.getProductId() === product.getProductId());
+        if (index !== -1) {
+          this.products[index] = product;
+        }
+
+        this.alertService.success(`Produit ${product.getProductTitle()} réapprovisionné`);
+      },
+      error: err => {
+        this.alertService.error(err.message || "Erreur lors du réapprovisionnement");
+      }
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/profil']);
+  }
+
+}

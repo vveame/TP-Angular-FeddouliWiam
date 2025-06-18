@@ -11,6 +11,9 @@
     <div *ngIf="user?.getUserType() === 'admin'" class="admin-button-container">
       <button (click)="goToUserManagement()">Gestion des utilisateurs</button>
     </div>
+    <div *ngIf="user?.getUserType() === 'admin'" class="admin-button-container">
+      <button (click)="goToStockMonitoring()">Suivi de stocks</button>
+    </div>
   </aside>
 
   <!-- Content area on the right -->
