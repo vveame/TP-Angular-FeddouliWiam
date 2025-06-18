@@ -9,6 +9,9 @@ import { OrderPageComponent } from '../order-page/order-page.component';
 import { MapComponent } from '../map/map.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { OrderDetailsComponent } from '../order-details/order-details.component';
+import { UserManagementComponent } from '../user-management/user-management.component';
+import { AuthGuard } from '../guards/auth-guard';
+import { AdminGuard } from '../guards/admin-guard';
 
 export const routes: Routes = [
 
@@ -16,13 +19,14 @@ export const routes: Routes = [
     { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product details'},
     { path: 'signin', component: SigninComponent, title: 'My signin page' },
     { path: 'signup', component: SignupComponent, title: 'My signup page' },
-    { path: 'profile', component: ProfileComponent, title: 'My profile page' },
+    { path: 'profil', component: ProfileComponent, title: 'My profile page', canActivate: [AuthGuard] },
+    { path: 'user-management', component: UserManagementComponent, title: 'Users Management', canActivate: [AuthGuard, AdminGuard] },
     { path: 'shopping-cart', component: ShoppingCartComponent, title: 'My shopping cart' },
-    { path: 'order-page', component: OrderPageComponent, title: 'My order page' },
-    { path: 'order-details/:id', component: OrderDetailsComponent, title: 'Order Details' },
+    { path: 'order-page', component: OrderPageComponent, title: 'My order page',  canActivate: [AuthGuard] },
+    { path: 'order-details/:id', component: OrderDetailsComponent, title: 'Order Details', canActivate: [AuthGuard] },
     { path: 'navbar', component: SearchBarComponent, title: 'My navbar' },
     { path: 'search', component: SearchBarComponent, title: 'Search' },
-    { path: 'map', component: MapComponent, title: 'My map' },
+    { path: 'map', component: MapComponent, title: 'My map', canActivate: [AuthGuard]},
     { path: '', redirectTo: '/catalog', pathMatch: 'full' }, // optional default
     { path: '**', redirectTo: '/catalog' } // optional fallback
 

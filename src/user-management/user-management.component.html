@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<h2>Gestion des Utilisateurs</h2>
+
+<div class="form-container">
+
+  <!-- Formulaire d'ajout : visible uniquement si aucun utilisateur sélectionné -->
+  <div *ngIf="!selectedUser" class="form add-user-form">
+    <h3>Ajouter un utilisateur</h3>
+    <input [(ngModel)]="newUser.fullName" placeholder="Nom complet" />
+    <input [(ngModel)]="newUser.email" placeholder="Email" />
+    <input [(ngModel)]="newUser.password" placeholder="Mot de passe" type="password" />
+
+    <select [(ngModel)]="newUser.userType">
+      <option [value]="'admin'">Admin</option>
+      <option [value]="'member'">Membre</option>
+      <option [value]="'guest'">Invité</option>
+    </select>
+
+    <button (click)="addUser()">Ajouter</button>
+  </div>
+
+  <!-- Formulaire de modification : visible uniquement si utilisateur sélectionné -->
+  <div *ngIf="selectedUser" class="form edit-user-form">
+    <h3>Modifier utilisateur</h3>
+
+    <input [(ngModel)]="selectedUserCopy.fullName" placeholder="Nom complet" />
+    <input [(ngModel)]="selectedUserCopy.email" placeholder="Email" />
+    <input [(ngModel)]="selectedUserCopy.iban" placeholder="IBAN" />
+    <input [(ngModel)]="selectedUserCopy.bankName" placeholder="Banque" />
+    <input [(ngModel)]="selectedUserCopy.phone" placeholder="Téléphone" type="number" />
+
+    <select [(ngModel)]="selectedUserCopy.userType">
+      <option [value]="'admin'">Admin</option>
+      <option [value]="'member'">Membre</option>
+      <option [value]="'guest'">Invité</option>
+    </select>
+
+    <div class="actions-buttons" style="display: flex; gap: 10px;">
+      <button style="flex:1" (click)="updateUser()">Mettre à jour</button>
+      <button style="flex:1" (click)="cancelEdit()">Annuler</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Liste des utilisateurs -->
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.getFullName() }}</td>
+      <td>{{ user.getEmail() }}</td>
+      <td>{{ user.getUserType() }}</td>
+      <td>
+        <button (click)="selectUser(user)">Modifier</button>
+        <button (click)="deleteUser(user.getUserId())">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

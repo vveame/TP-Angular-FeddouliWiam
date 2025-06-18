@@ -1,17 +1,13 @@
 [
   {
-    "userId": "u121",
-    "userType": "member",
-    "fullName": "karima",
-    "email": "karima@email",
-    "password": "password"
-  },
-  {
     "userId": "u122",
-    "userType": "member",
+    "userType": "admin",
     "fullName": "wiam",
     "email": "wiam@email",
-    "password": "wiam123"
+    "password": "wiam123",
+    "iban": "",
+    "bankName": "CIH",
+    "phone": 689974479
   },
   {
     "userId": "u123",

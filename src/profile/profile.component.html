@@ -8,6 +8,9 @@
       personnelles</button>
     <button [class.active-tab]="selectedTab === 'bank'" (click)="selectedTab = 'bank'">Infos bancaires</button>
     <button [class.active-tab]="selectedTab === 'orders'" (click)="selectedTab = 'orders'">Commandes</button>
+    <div *ngIf="user?.getUserType() === 'admin'" class="admin-button-container">
+      <button (click)="goToUserManagement()">Gestion des utilisateurs</button>
+    </div>
   </aside>
 
   <!-- Content area on the right -->
@@ -22,8 +25,12 @@
         <button (click)="editPersonal = true">Modifier</button>
       </div>
       <form *ngIf="editPersonal" (ngSubmit)="savePersonalInfo()">
+        <span>Nom: </span>
         <input [(ngModel)]="fullName" name="name" required />
+        <br /><span>Email: </span>
         <input [(ngModel)]="email" name="email" required />
+        <br /><span>Téléphone: </span>
+        <input [(ngModel)]="phone" name="phone" />
         <button type="submit">Enregistrer</button>
       </form>
     </div>
@@ -32,12 +39,14 @@
     <div *ngIf="selectedTab === 'bank' && user">
       <h3>Informations bancaires</h3>
       <div *ngIf="!editBank">
-        <p>IBAN: {{ user.getIban() }}</p>
-        <p>Banque: {{ user.getBankName() }}</p>
+        <p>IBAN: {{ user.getIban() || 'none' }}</p>
+        <p>Banque: {{ user.getBankName() || 'none' }}</p>
         <button (click)="editBank = true">Modifier</button>
       </div>
       <form *ngIf="editBank" (ngSubmit)="saveBankInfo()">
+        <span>IBAN: </span>
         <input [(ngModel)]="iban" name="iban" required />
+        <br /><span>Banque: </span>
         <input [(ngModel)]="bankName" name="bankName" required />
         <button type="submit">Enregistrer</button>
       </form>
@@ -48,7 +57,8 @@
       <h3>Historique des commandes</h3>
       <ul *ngIf="orders.length > 0; else noOrders">
         <li *ngFor="let order of orders" class="order-item">
-          <strong>Commande :</strong> <a [routerLink]="['/order-details', order.getOrderId()]">{{ order.getOrderId() }}</a><br />
+          <strong>Commande :</strong> <a [routerLink]="['/order-details', order.getOrderId()]">{{ order.getOrderId()
+            }}</a><br />
           <strong>Total :</strong> {{ order.getTotalPrice() }} MAD<br />
           <strong>Livraison :</strong> <span *ngIf="order.getDeliveryAddress().description; else showCoords">
             {{ order.getDeliveryAddress().description }}

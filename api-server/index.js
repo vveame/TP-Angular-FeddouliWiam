@@ -4,10 +4,9 @@
 require('dotenv').config();
 const express = require("express");
 const cookieParser = require('cookie-parser');
-const { generateToken, authenticate } = require('./auth');
+const { generateToken, authenticate, isAdmin, writeToFile, readFromFile } = require('./auth');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
 const { randomUUID } = require('crypto');
 
 
@@ -30,24 +29,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 let baseImageUrl = "assets/images/";
-
-// Reusable file read/write helpers
-function readFromFile(filePath) {
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify([]));
-  }
-  const data = fs.readFileSync(filePath, 'utf8');
-  try {
-    const parsed = JSON.parse(data);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeToFile(filePath, data) {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-}
 
 // Products API
 
@@ -80,11 +61,11 @@ app.post("/api/signin", (req, res) => {
     return res.status(401).send("Invalid credentials.");
   }
 
-  const token = generateToken(user.userId);
+  const token = generateToken(user.userId, user.userType);
 
   res.cookie("authToken", token, {
     httpOnly: true,
-    secure: true,
+    secure: true, //stock en HTTPS 
     sameSite: 'Strict',
     maxAge: 1000 * 60 * 60 * 2, // 2 hours
   });
@@ -142,6 +123,11 @@ app.put('/api/users/:id', authenticate, (req, res) => {
     return res.status(404).send("Utilisateur non trouvé");
   }
 
+  // Vérifier les permissions
+  if (req.user.userType !== 'admin' && req.user.userId !== userId) {
+    return res.status(403).send("Accès refusé");
+  }
+
   // Mettre à jour uniquement les champs autorisés
   const allowedFields = ['fullName', 'email', 'iban', 'bankName', 'phone'];
   allowedFields.forEach(field => {
@@ -157,6 +143,56 @@ app.put('/api/users/:id', authenticate, (req, res) => {
   res.status(200).send(userWithoutPassword);
 });
 
+app.get('/api/users', authenticate, isAdmin, (req, res) => {
+  const users = readFromFile(usersFilePath);
+  const safeUsers = users.map(({ password, ...u }) => u); // Masquer mots de passe
+  res.status(200).send(safeUsers);
+});
+
+app.post('/api/users', authenticate, isAdmin, (req, res) => {
+  const { fullName, email, password, iban, bankName, phone, userType } = req.body;
+
+  if (!fullName || !email || !password) {
+    return res.status(400).send("Champs requis manquants");
+  }
+
+  const users = readFromFile(usersFilePath);
+  if (users.find(u => u.email === email)) {
+    return res.status(409).send("Email déjà utilisé");
+  }
+
+  const newUser = {
+    userId: randomUUID(),
+    fullName,
+    email,
+    password,
+    iban,
+    bankName,
+    phone,
+    userType: userType || "member",
+  };
+
+  users.push(newUser);
+  writeToFile(usersFilePath, users);
+
+  const { password: _, ...safeUser } = newUser;
+  res.status(201).send(safeUser);
+});
+
+app.delete('/api/users/:id', authenticate, isAdmin, (req, res) => {
+  const userId = req.params.id;
+  let users = readFromFile(usersFilePath);
+  const userIndex = users.findIndex(u => u.userId === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).send("Utilisateur non trouvé");
+  }
+
+  users.splice(userIndex, 1);
+  writeToFile(usersFilePath, users);
+  res.status(204).send();
+});
+
 
 app.get("/api/me", authenticate, (req, res) => {
   const users = readFromFile(usersFilePath);
@@ -165,7 +201,7 @@ app.get("/api/me", authenticate, (req, res) => {
   if (!user) return res.status(404).send("User not found.");
 
   // Re-set the authToken cookie to extend session
-  const newToken = generateToken(user.userId);
+  const newToken = generateToken(user.userId, user.userType);
   res.cookie("authToken", newToken, {
     httpOnly: true,
     secure: true,

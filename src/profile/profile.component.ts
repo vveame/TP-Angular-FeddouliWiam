@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { OrderService } from '../services/order-service';
 import { Order } from '../models/Order';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   // Temporary fields for form binding
   fullName = '';
   email = '';
+  phone = 0;
   iban = '';
   bankName = '';
   orders: Order[] = [];
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private orderService: OrderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class ProfileComponent implements OnInit {
       // Sync form fields
       this.fullName = user.getFullName();
       this.email = user.getEmail();
+      this.phone = user.getPhone();
       this.iban = user.getIban();
       this.bankName = user.getBankName();
 
@@ -62,6 +65,7 @@ export class ProfileComponent implements OnInit {
     if (!this.user) return;
     this.user.setFullName(this.fullName.trim());
     this.user.setEmail(this.email.trim());
+    this.user.setPhone(this.phone);
 
     this.userService.updateUser(this.user).subscribe({
       next: updated => {
@@ -84,5 +88,9 @@ export class ProfileComponent implements OnInit {
       },
       error: err => console.error('Erreur mise à jour infos bancaires', err)
     });
+  }
+
+  goToUserManagement() {
+    this.router.navigate(['/user-management']);
   }
 }

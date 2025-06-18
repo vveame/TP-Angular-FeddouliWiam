@@ -1,0 +1,141 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+/* Container général */
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+/* Formulaires (ajout + modification) */
+.form {
+  background: white;
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 20px 25px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  font-size: 16px;
+}
+
+.form h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #222;
+}
+
+/* Inputs et select */
+.form input,
+.form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  color: #222;
+}
+
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: #ef394e;
+  box-shadow: 0 0 5px rgba(239, 57, 78, 0.5);
+}
+
+/* Boutons */
+button {
+  cursor: pointer;
+  background-color: #ef394e;
+  border: none;
+  color: white;
+  padding: 12px 18px;
+  font-weight: 700;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #d32f3a;
+}
+
+/* Table utilisateurs */
+.user-table {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto 50px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  font-size: 16px;
+}
+
+.user-table thead {
+  background-color: #ef394e;
+  color: white;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table tbody tr:hover {
+  background-color: #fce5e8;
+}
+
+.user-table button {
+  padding: 6px 12px;
+  font-size: 14px;
+  margin-right: 6px;
+  width: auto;
+}
+
+/* Pour aligner les boutons actions */
+.user-table td:last-child {
+  white-space: nowrap;
+}
+
+/* Responsive (optionnel) */
+@media (max-width: 600px) {
+  .form, .user-table {
+    width: 95%;
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+.actions-buttons {
+  flex-grow: 1;
+}
+
+.form-container {
+  max-width: 480px;
+  margin: 20px auto;
+}

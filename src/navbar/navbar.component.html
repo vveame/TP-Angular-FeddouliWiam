@@ -5,11 +5,11 @@
   </div>
   <app-search-bar (search)="onSearch($event)"></app-search-bar>
   <div class="user-menu">
-    <a *ngIf="!user" routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button">SignIn/SignUp</a>
+    <a *ngIf="!(user$ | async)" routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button">SignIn/SignUp</a>
     <a href="#">Aide</a>
     <button class="cart" (click)="toggleCart()">Panier ({{ cartItemCount }})</button>
-    <a *ngIf="user" routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Mon Profil</a>
-    <button *ngIf="user" class="cart" (click)="signOut()">SignOut</button>
+    <a *ngIf="user$ | async" routerLink="/profil" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Mon Profil</a>
+    <button *ngIf="user$ | async" class="cart" (click)="signOut()">SignOut</button>
   </div>
 </header>
 

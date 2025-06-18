@@ -13,6 +13,16 @@ export interface ISignUpCredentials extends IUserCredentials {
   fullName: string;
 }
 
+export interface NewUserForm {
+  fullName: string;
+  email: string;
+  password: string;
+  phone?: number;
+  iban?: string;
+  bankName?: string;
+  userType?: UserType;
+}
+
 export class User {
   private userId: string;
   private fullName: string;
@@ -23,21 +33,15 @@ export class User {
   private userType: UserType;
 
   constructor(
-    userId: string,
-    fullName: string,
-    email: string,
-    phone: number,
-    iban: string,
-    bankName: string,
-    userType: UserType = UserType.Member
+    data: any
   ) {
-    this.userId = userId;
-    this.fullName = fullName;
-    this.email = email;
-    this.phone = phone;
-    this.iban = iban;
-    this.bankName = bankName;
-    this.userType = userType;
+    this.userId = data.userId ?? '';
+    this.fullName = data.fullName;
+    this.email = data.email;
+    this.phone = data.phone ?? null;
+    this.iban = data.iban ?? '';
+    this.bankName = data.bankName ?? '';
+    this.userType = data.userType ?? UserType.Member;;
   }
 
   public getFullName(): string {
@@ -108,30 +112,7 @@ export class User {
   }
 
   public static fromJSON(data: any): User {
-    console.log('fromJSON data:', data);
-    
-    let userTypeEnum: UserType;
-    switch ((data.userType || '').toLowerCase()) {
-      case 'admin':
-        userTypeEnum = UserType.Admin;
-        break;
-      case 'member':
-        userTypeEnum = UserType.Member;
-        break;
-      case 'guest':
-      default:
-        userTypeEnum = UserType.Guest;
-    }
-
-    return new User(
-      data.userId,
-      data.fullName,
-      data.email,
-      Number(data.phone),
-      data.iban,
-      data.bankName,
-      userTypeEnum
-    );
+    return new User(data);
   }
 
   public toJSON(): any {

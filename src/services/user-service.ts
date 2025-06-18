@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, map } from 'rxjs';
-import { ISignUpCredentials, IUserCredentials, User } from '../models/User';
+import { ISignUpCredentials, IUserCredentials, NewUserForm, User } from '../models/User';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -24,10 +24,13 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/signup`, credentials, { responseType: 'text' });
   }
 
-  signOut(): void {
-    this.http.post(`${this.apiUrl}/signout`, {}, { withCredentials: true }).subscribe(() => {
-      this.currentUserSubject.next(null);
-    });
+  signOut(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/signout`, {}, {
+      withCredentials: true,
+      responseType: 'text' as 'json'
+    }).pipe(
+      tap(() => this.currentUserSubject.next(null))
+    );
   }
 
   getCurrentUser(): Observable<User> {
@@ -45,5 +48,19 @@ export class UserService {
       map(data => User.fromJSON(data)),
       tap(updatedUser => this.currentUserSubject.next(updatedUser))
     );
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users`, { withCredentials: true }).pipe(
+      // transforme le JSON reçu en instance Order
+      map(data => data.map((item: any) => User.fromJSON(item))));
+  }
+
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/users/${id}`, { withCredentials: true });
+  }
+
+  addUser(data: NewUserForm): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/users`, data, { withCredentials: true });
   }
 }

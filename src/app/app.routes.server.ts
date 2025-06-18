@@ -6,7 +6,8 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'product-details/:id', renderMode: RenderMode.Server }, // SSR at request time
   { path: 'signin', renderMode: RenderMode.Prerender },
   { path: 'signup', renderMode: RenderMode.Prerender },
-  { path: 'profile', renderMode: RenderMode.Server },
+  { path: 'profil', renderMode: RenderMode.Server },
+  { path: 'user-management', renderMode: RenderMode.Server },
   { path: 'shopping-cart', renderMode: RenderMode.Prerender },
   { path: 'order-page', renderMode: RenderMode.Prerender },
   { path: 'order-details/:id', renderMode: RenderMode.Server },
