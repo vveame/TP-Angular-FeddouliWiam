@@ -5,6 +5,7 @@ export class Product {
     private productQuantity: number = 0;
     private productImage: string;
     private productCategory: string;
+    private restockDate: Date | null = null;
 
     constructor(data: any) {
         this.productId = data.productId;
@@ -13,6 +14,18 @@ export class Product {
         this.productQuantity = data.productQuantity;
         this.productImage = data.productImage;
         this.productCategory = data.productCategory;
+
+        if (data.restockDate) {
+            this.restockDate = new Date(data.restockDate);
+        }
+    }
+
+    public getRestockDate(): Date | null {
+        return this.restockDate;
+    }
+
+    public setRestockDate(date: Date): void {
+        this.restockDate = date;
     }
 
     public getProductId(): string {

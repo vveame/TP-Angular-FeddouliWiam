@@ -104,6 +104,8 @@ body {
   text-align: center;
   cursor: default;
   transition: box-shadow 0.2s ease;
+  min-height: 20px;
+  justify-content: space-between;
 }
 
 .products-grid li:hover {
@@ -118,7 +120,7 @@ body {
 }
 
 .product-buttons {
-  margin-top: auto;
+  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -139,4 +141,26 @@ body {
 
 .product-buttons button:hover {
   background-color: #d32f3a;
+}
+
+.restock-badge {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background-color: #28a745; /* green */
+  color: white;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.low-stock-message {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background-color: #dc3545; /* red */
+  color: white;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
 }

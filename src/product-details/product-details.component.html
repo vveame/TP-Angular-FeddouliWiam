@@ -7,15 +7,22 @@
     <h3>{{ product.getProductTitle() }}</h3>
     <p><strong>ID:</strong> {{ product.getProductId() }}</p>
     <p><strong>Prix:</strong> {{ product.getProductPrice() }} MAD</p>
-    <p *ngIf="product.getProductQuantity() > 0"
-       [ngClass]="{'stock': true, 'low': product.getProductQuantity() < 10}">
+    <p *ngIf="product.getProductQuantity() > 0" [ngClass]="{'stock': true, 'low': product.getProductQuantity() < 10}">
       <strong>Quantité en stock:</strong> {{ product.getProductQuantity() }}
     </p>
     <p><strong>Catégorie:</strong> {{ product.getProductCategory() }}</p>
 
-    <button class="add-cart"
-            (click)="addToCart()"
-            [disabled]="product.getProductQuantity() === 0">
+    <p>
+    <span *ngIf="stockService.isLowStock(product)" class="low-stock-message" i18n>
+      Stock faible - dépêchez-vous !
+    </span>
+
+    <span *ngIf="stockService.isRecentlyRestocked(product)" class="restock-badge" i18n>
+      Récemment restocké !
+    </span>
+    </p>
+
+    <button class="add-cart" (click)="addToCart()" [disabled]="product.getProductQuantity() === 0">
       Ajouter au panier
     </button>
   </div>

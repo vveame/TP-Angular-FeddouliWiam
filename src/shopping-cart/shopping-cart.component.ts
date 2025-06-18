@@ -4,6 +4,7 @@ import { CartService } from '../services/cart-service';
 import { ShoppingCart } from '../models/ShoppingCart';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { StockService } from '../services/stock-service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,7 +15,10 @@ import { Router } from '@angular/router';
 export class ShoppingCartComponent implements OnInit {
   cart!: ShoppingCart;
 
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService,
+    private router: Router,
+    public stockService: StockService
+  ) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe(cart => this.cart = cart);

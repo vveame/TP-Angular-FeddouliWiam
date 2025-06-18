@@ -4,10 +4,14 @@
   <aside class="sidebar-filters">
     <h4>Catégories</h4>
     <ul>
-      <li><a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="button">All</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Accessoires'}" routerLinkActive="active" class="button">Accessoires</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Ordinateurs'}" routerLinkActive="active" class="button">Ordinateurs</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Ecrans'}" routerLinkActive="active" class="button">Ecrans</a></li>
+      <li><a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+          class="button">All</a></li>
+      <li><a routerLink="/catalog" [queryParams]="{filter:'Accessoires'}" routerLinkActive="active"
+          class="button">Accessoires</a></li>
+      <li><a routerLink="/catalog" [queryParams]="{filter:'Ordinateurs'}" routerLinkActive="active"
+          class="button">Ordinateurs</a></li>
+      <li><a routerLink="/catalog" [queryParams]="{filter:'Ecrans'}" routerLinkActive="active" class="button">Ecrans</a>
+      </li>
     </ul>
   </aside>
 
@@ -15,10 +19,19 @@
     <h3 i18n>Liste des produits</h3>
     <ul>
       <ng-container *ngFor="let product of products">
-        <li *ngIf="product.getProductQuantity() > 0" 
-            [ngStyle]="{ 'color': product.getProductQuantity() < 10 ? 'red' : 'black' }">
+        <li *ngIf="product.getProductQuantity() > 0">
           <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
+
           <span i18n>{{ product.getProductTitle() }}</span>
+
+          <span *ngIf="stockService.isLowStock(product)" class="low-stock-message" i18n>
+            Stock faible - dépêchez-vous !
+          </span>
+
+          <span *ngIf="stockService.isRecentlyRestocked(product)" class="restock-badge" i18n>
+            Récemment restocké !
+          </span>
+
           <div class="product-buttons">
             <button (click)="goToProductDetails(product)" i18n>Détails</button>
             <button (click)="addToCart(product)">+</button>
@@ -26,6 +39,7 @@
         </li>
       </ng-container>
     </ul>
+
 
   </section>
 </main>

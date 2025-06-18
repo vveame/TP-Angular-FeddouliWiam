@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { StockService } from '../services/stock-service';
 
 @Component({
   selector: 'app-catalog',
@@ -24,7 +25,8 @@ export class CatalogComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public stockService: StockService
   ) {}
 
   ngOnInit() {

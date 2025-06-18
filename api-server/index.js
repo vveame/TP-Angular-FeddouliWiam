@@ -1,4 +1,5 @@
 // npm install cookie-parser
+//npm start
 
 require('dotenv').config();
 const express = require("express");
@@ -187,11 +188,13 @@ app.get("/api/me", authenticate, (req, res) => {
 
 app.post('/api/orders', authenticate, (req, res) => {
   const orderData = req.body;
+
   if (!orderData || !orderData.userId || !orderData.items || !orderData.paymentMethod || !orderData.deliveryAddress) {
     return res.status(400).send("Données de commande invalides.");
   }
 
   const orders = readFromFile(ordersFilePath);
+  const products = readFromFile(productsFilePath);
 
   const newOrder = {
     orderId: randomUUID(),
@@ -205,11 +208,37 @@ app.post('/api/orders', authenticate, (req, res) => {
     status: 'pending'
   };
 
+  // Decrease product quantities
+  let allItemsAvailable = true;
+  for (const item of orderData.items) {
+    const product = products.find(p => p.productId === parseInt(item.productId));
+    if (product) {
+      if (product.productQuantity >= item.quantity) {
+        product.productQuantity -= item.quantity;
+      } else {
+        allItemsAvailable = false;
+        break;
+      }
+    } else {
+      allItemsAvailable = false;
+      break;
+    }
+  }
+
+  if (!allItemsAvailable) {
+    return res.status(400).json({ message: "Stock insuffisant pour l'un des produits." });
+  }
+
+  // Save updated product quantities
+  writeToFile(productsFilePath, products);
+
+  // Save the new order
   orders.push(newOrder);
   writeToFile(ordersFilePath, orders);
 
   res.status(201).send({ message: 'Commande enregistrée avec succès', orderId: newOrder.orderId });
 });
+
 
 // Récupérer commandes par utilisateur
 app.get('/api/orders/user/:userId', authenticate, (req, res) => {

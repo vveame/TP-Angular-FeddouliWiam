@@ -56,7 +56,17 @@ export class NavbarComponent implements OnDestroy {
     if (this.user) {
       this.userService.signOut();
       this.cartService.clearStorage();
-      this.router.navigate(['/catalog']);
+
+      const currentUrl = this.router.url;
+
+      if (currentUrl.startsWith('/catalog')) {
+        // If already on /catalog, reload the page
+        window.location.reload();
+      } else {
+        // Navigate to /catalog
+        this.router.navigate(['/catalog']);
+      }
     }
   }
+
 }

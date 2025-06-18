@@ -140,5 +140,23 @@
     "totalPrice": 1260,
     "orderDate": "2025-06-17T21:31:34.712Z",
     "status": "pending"
+  },
+  {
+    "orderId": "2af49989-db6c-46f1-9da5-863936c8368f",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1
+      }
+    ],
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "description": "overthere"
+    },
+    "shippingFee": 60,
+    "totalPrice": 210,
+    "orderDate": "2025-06-17T23:44:38.124Z",
+    "status": "pending"
   }
 ]

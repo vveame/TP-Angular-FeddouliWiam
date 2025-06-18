@@ -24,9 +24,13 @@
     color: item.quantity >= item.itemProduct.getProductQuantity() ? '#666' : 'white',
     cursor: item.quantity >= item.itemProduct.getProductQuantity() ? 'not-allowed' : 'pointer'
   }">+</button>
-            <p *ngIf="(item.itemProduct.getProductQuantity() - item.quantity) < 10"
+            <p *ngIf="stockService.isLowStock(item.itemProduct)"
               style="color: #d32f2f; font-size: 13px; margin-top: 4px;">
-              Stock restant : {{ item.itemProduct.getProductQuantity() - item.quantity }}
+              Stock faible - dépêchez-vous !
+            </p>
+            <p *ngIf="stockService.isRecentlyRestocked(item.itemProduct)"
+              style="color: green; font-size: 13px; margin-top: 4px;">
+              Récemment restocké !
             </p>
           </td>
           <td>{{ item.itemProduct.getProductPrice() }} MAD</td>
