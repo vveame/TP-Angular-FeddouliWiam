@@ -3,7 +3,7 @@
     "productId": 1,
     "productTitle": "Clavier Gamer",
     "productPrice": 300,
-    "productQuantity": 9,
+    "productQuantity": 7,
     "productImage": "assets/images/clavier.png",
     "productCategory": "Accessoires",
     "restockDate": "2025-06-18T20:32:26.173Z"
@@ -12,7 +12,7 @@
     "productId": 2,
     "productTitle": "Souris Logitech",
     "productPrice": 150,
-    "productQuantity": 997,
+    "productQuantity": 996,
     "productImage": "assets/images/souris.png",
     "productCategory": "Accessoires",
     "restockDate": "2025-06-18T12:00:00Z"
@@ -21,7 +21,7 @@
     "productId": 3,
     "productTitle": "Écran 24",
     "productPrice": 1200,
-    "productQuantity": 100,
+    "productQuantity": 99,
     "productImage": "assets/images/ecran.png",
     "productCategory": "Ecrans",
     "restockDate": "2025-06-16T12:00:00Z"

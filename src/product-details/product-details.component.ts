@@ -8,6 +8,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { CartService } from '../services/cart-service';
 import { StockService } from '../services/stock-service';
 import { AlertService } from '../services/alert-service';
+import { PricingService } from '../services/pricing-service';
 
 @Component({
   selector: 'app-product-details-component',
@@ -23,7 +24,8 @@ export class ProductDetailsComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     public stockService: StockService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private pricingService: PricingService
   ) { }
 
   ngOnInit() {
@@ -37,8 +39,17 @@ export class ProductDetailsComponent {
 
   addToCart() {
     if (this.product) {
-      this.cartService.addToCart(this.product);
+      const price = this.pricingService.getDiscountedPrice(this.product);
+      this.cartService.addToCart(this.product, price);
       this.alertService.success(`Produit "${this.product.getProductTitle()}" ajouté au panier.`);
     }
+  }
+
+  getDiscountedPrice(product: Product): number {
+    return this.pricingService.getDiscountedPrice(product);
+  }
+
+  hasDiscount(product: Product): boolean {
+    return this.pricingService.hasDiscount(product);
   }
 }

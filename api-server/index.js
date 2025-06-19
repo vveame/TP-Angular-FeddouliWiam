@@ -16,6 +16,7 @@ const port = 3000;
 const usersFilePath = path.join(__dirname, 'db', 'users.json');
 const productsFilePath = path.join(__dirname, 'db', 'products.json');
 const ordersFilePath = path.join(__dirname, 'db', 'orders.json');
+const offersFilePath = path.join(__dirname, 'db', 'offers.json');
 
 const corsOptions = {
   origin: 'http://localhost:4200', // your Angular app origin
@@ -69,6 +70,78 @@ app.put("/api/products/:id/stock", authenticate, isAdmin, (req, res) => {
 
   writeToFile(productsFilePath, products);
   return res.status(200).json(products[index]);
+});
+
+// Offers API
+
+// GET all offers
+app.get('/api/offers', (req, res) => {
+  const offers = readFromFile(offersFilePath);
+  res.status(200).json(offers);
+});
+
+// GET single offer
+app.get('/api/offers/:id', (req, res) => {
+  const offers = readFromFile(offersFilePath);
+  const offer = offers.find(o => o.id === req.params.id);
+  if (!offer) return res.status(404).send("Offre non trouvée");
+  res.status(200).json(offer);
+});
+
+// POST new offer
+app.post('/api/offers', authenticate, isAdmin, (req, res) => {
+  const offers = readFromFile(offersFilePath);
+
+  // Validate request
+  const { title, description, discountPercent, startDate, endDate, active, type, productIds } = req.body;
+
+  if (!title || discountPercent === undefined || !startDate || !endDate || !type || !Array.isArray(productIds)) {
+    return res.status(400).send("Champs requis manquants ou invalides.");
+  }
+
+  const newOffer = {
+    id: randomUUID(),
+    title,
+    description: description || '',
+    discountPercent,
+    startDate,
+    endDate,
+    active: active ?? true,
+    type,
+    productIds
+  };
+
+  offers.push(newOffer);
+  writeToFile(offersFilePath, offers);
+  res.status(201).json(newOffer);
+});
+
+// PUT update offer
+app.put('/api/offers/:id', authenticate, isAdmin, (req, res) => {
+  const offers = readFromFile(offersFilePath);
+  const index = offers.findIndex(o => o.id === req.params.id);
+  if (index === -1) return res.status(404).send("Offre non trouvée");
+
+  const updatedOffer = {
+    ...offers[index],
+    ...req.body,
+    id: offers[index].id // Never overwrite ID
+  };
+
+  offers[index] = updatedOffer;
+  writeToFile(offersFilePath, offers);
+  res.status(200).json(updatedOffer);
+});
+
+// DELETE offer
+app.delete('/api/offers/:id', authenticate, isAdmin, (req, res) => {
+  const offers = readFromFile(offersFilePath);
+  const index = offers.findIndex(o => o.id === req.params.id);
+  if (index === -1) return res.status(404).send("Offre non trouvée");
+
+  const deleted = offers.splice(index, 1);
+  writeToFile(offersFilePath, offers);
+  res.status(200).json({ message: "Offre supprimée", deleted });
 });
 
 // Users API

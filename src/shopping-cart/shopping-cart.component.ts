@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { StockService } from '../services/stock-service';
 import { AlertService } from '../services/alert-service';
+import { Product } from '../models/Product';
+import { PricingService } from '../services/pricing-service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,7 +21,8 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private cartService: CartService,
     private router: Router,
     private alertService: AlertService,
-    public stockService: StockService
+    public stockService: StockService,
+    private pricingService: PricingService
   ) { }
 
   ngOnInit(): void {
@@ -64,5 +67,13 @@ export class ShoppingCartComponent implements OnInit {
   checkout() {
     this.alertService.success('Redirection vers la page de commande...');
     this.router.navigate(['/order-page']);
+  }
+
+  getDiscountedPrice(product: Product): number {
+    return this.pricingService.getDiscountedPrice(product);
+  }
+
+  hasDiscount(product: Product): boolean {
+    return this.pricingService.hasDiscount(product);
   }
 }

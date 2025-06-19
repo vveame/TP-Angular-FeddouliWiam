@@ -22,7 +22,8 @@ export class CartService {
         try {
           this.items = JSON.parse(stored).map((item: any) => ({
             itemProduct: Object.assign(new Product(item.itemProduct)),
-            quantity: item.quantity
+            quantity: item.quantity,
+            price: item.price ?? item.itemProduct.getProductPrice() // récupération prix stocké sinon prix normal
           }));
         } catch (e) {
           console.error('Failed to parse cart from sessionStorage', e);
@@ -34,7 +35,8 @@ export class CartService {
 
   private getCartData(): ShoppingCart {
     const totalItems = this.items.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = this.items.reduce((sum, item) => sum + item.quantity * item.itemProduct.getProductPrice(), 0);
+    // Calcul du total avec prix unitaire stocké (avec remise)
+    const totalPrice = this.items.reduce((sum, item) => sum + item.quantity * item.price, 0);
     return { itemsProduct: this.items, totalItems, totalPrice };
   }
 
@@ -45,7 +47,10 @@ export class CartService {
     }
   }
 
-  addToCart(product: Product) {
+  // Le prix remisé est passé en paramètre (sinon prix normal)
+  addToCart(product: Product, price?: number) {
+    const unitPrice = price ?? product.getProductPrice();
+
     const index = this.items.findIndex(item => item.itemProduct.getProductId() === product.getProductId());
     if (index !== -1) {
       const existing = this.items[index];
@@ -57,7 +62,7 @@ export class CartService {
       }
     } else {
       if (product.getProductQuantity() > 0) {
-        this.items.push({ itemProduct: product, quantity: 1 });
+        this.items.push({ itemProduct: product, quantity: 1, price: unitPrice });
       } else {
         alert('Produit en rupture de stock');
         return;

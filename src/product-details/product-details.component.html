@@ -6,7 +6,16 @@
   <div class="product-info">
     <h3>{{ product.getProductTitle() }}</h3>
     <p><strong>ID:</strong> {{ product.getProductId() }}</p>
-    <p><strong>Prix:</strong> {{ product.getProductPrice() }} MAD</p>
+    <!-- Prix avec remise -->
+    <p *ngIf="hasDiscount(product); else normalPrice">
+      <del>{{ product.getProductPrice() }} MAD</del>
+      <span style="color: #28a745; font-weight: bold;">
+        {{ getDiscountedPrice(product) | number:'1.2-2' }} MAD
+      </span>
+    </p>
+    <ng-template #normalPrice>
+      <p>{{ product.getProductPrice() }} MAD</p>
+    </ng-template>
     <p *ngIf="product.getProductQuantity() > 0" [ngClass]="{'stock': true, 'low': product.getProductQuantity() < 10}">
       <strong>Quantité en stock:</strong> {{ product.getProductQuantity() }}
     </p>

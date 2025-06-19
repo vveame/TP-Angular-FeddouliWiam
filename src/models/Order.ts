@@ -1,5 +1,4 @@
 import { ShoppingCart } from './ShoppingCart';
-import { Product } from './Product';
 
 export interface DeliveryAddress {
     lat?: number;
@@ -120,6 +119,7 @@ export class Order {
         const items = this.items.itemsProduct.map(item => ({
             productId: item.itemProduct.getProductId(),
             quantity: item.quantity,
+            price: item.price
         }));
         return {
             orderId: this.orderId,
@@ -137,7 +137,8 @@ export class Order {
     public static fromJSON(data: any): Order {
         const itemsProduct = data.items.map((item: any) => ({
             itemProduct: { getProductId: () => item.productId },
-            quantity: item.quantity
+            quantity: item.quantity,
+            price: item.price
         }));
 
         const cart: ShoppingCart = {

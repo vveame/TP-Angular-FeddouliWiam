@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+
+<button class="back-button" (click)="goBack()">← Retour</button>
+<h2>Gestion des Offres</h2>
+
+<form [formGroup]="offerForm" (ngSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="form-group">
+      <label>Titre *</label>
+      <input formControlName="title" type="text" required />
+    </div>
+
+    <div class="form-group">
+      <label>Type d’offre *</label>
+      <select formControlName="type" required>
+        <option value="offre spéciale">Offre spéciale</option>
+        <option value="promotion">Promotion</option>
+        <option value="remise">Remise</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Remise (%) *</label>
+      <input formControlName="discountPercent" type="number" min="0" max="100" required />
+    </div>
+
+    <div class="form-group">
+      <label>Active</label>
+      <input formControlName="active" type="checkbox" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Date début *</label>
+      <input formControlName="startDate" type="date" required />
+    </div>
+
+    <div class="form-group">
+      <label>Date fin *</label>
+      <input formControlName="endDate" type="date" required />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="flex: 1 1 100%;">
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Filtrer par catégorie</label>
+      <select formControlName="selectedCategory" (change)="onCategoryChange()">
+        <option value="">Toutes catégories</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="form-group checkbox-row">
+      <label>
+        <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)" />
+        Tout sélectionner
+      </label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="flex: 1 1 100%;">
+      <label>Produits concernés</label>
+      <select formControlName="productIds" multiple size="5">
+        <option *ngFor="let p of filteredProducts" [value]="p.getProductId()">
+          {{ p.getProductTitle() }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" [disabled]="offerForm.invalid">
+      {{ editingOffer ? 'Mettre à jour' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="resetForm()">Annuler</button>
+  </div>
+</form>
+
+<hr />
+
+<table class="offer-table">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Remise (%)</th>
+      <th>Début</th>
+      <th>Fin</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let offer of offers">
+      <td>{{ offer.getTitle() }}</td>
+      <td>{{ offer.getDescription() || '–' }}</td>
+      <td>{{ offer.getDiscountPercent() }}%</td>
+      <td>{{ offer.getStartDate() | date:'shortDate' }}</td>
+      <td>{{ offer.getEndDate() | date:'shortDate' }}</td>
+      <td>
+        <span [ngClass]="offer.isActive() ? 'status-active' : 'status-inactive'">
+          {{ offer.isActive() ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <button (click)="editOffer(offer)">Modifier</button>
+        <button class="danger" (click)="deleteOffer(offer.getId()!)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

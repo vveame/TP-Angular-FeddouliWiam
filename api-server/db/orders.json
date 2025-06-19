@@ -214,5 +214,51 @@
     "totalPrice": 210,
     "orderDate": "2025-06-18T18:36:21.439Z",
     "status": "pending"
+  },
+  {
+    "orderId": "f3d1dcdb-6de4-4bb4-8b51-d601665c1c26",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 2
+      }
+    ],
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "lat": 35.196205780100996,
+      "lng": -6.151474165421034,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 600,
+    "orderDate": "2025-06-19T03:43:08.018Z",
+    "status": "pending"
+  },
+  {
+    "orderId": "b1ebec45-44f7-4143-8f63-e47b54357f3d",
+    "userId": "u122",
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1,
+        "price": 135
+      },
+      {
+        "productId": 3,
+        "quantity": 1,
+        "price": 1200
+      }
+    ],
+    "paymentMethod": "cash",
+    "deliveryAddress": {
+      "lat": 35.19617833974409,
+      "lng": -6.1514462299660995,
+      "description": ""
+    },
+    "shippingFee": 60,
+    "totalPrice": 1395,
+    "orderDate": "2025-06-19T04:07:11.215Z",
+    "status": "pending"
   }
 ]

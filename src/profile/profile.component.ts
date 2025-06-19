@@ -112,4 +112,8 @@ export class ProfileComponent implements OnInit {
   goToStockMonitoring() {
     this.router.navigate(['/stock-monitoring']);
   }
+
+  goToOfferManagement() {
+    this.router.navigate(['/offers']);
+  }
 }

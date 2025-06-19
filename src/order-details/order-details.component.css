@@ -120,3 +120,13 @@ div[ngIf="isLoading"] {
 .status-badge.cancelled {
   background-color: #f44336; /* rouge */
 }
+
+.badge-discount {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}

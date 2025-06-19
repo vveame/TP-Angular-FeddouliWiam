@@ -2,6 +2,7 @@
 
 <main class="site-main">
   <button class="back-button" (click)="goBack()">← Retour</button>
+
   <!-- Détails commande -->
   <section class="order-details-left" *ngIf="order">
     <h2>Détails de la commande</h2>
@@ -14,8 +15,7 @@
     </p>
     <p><strong>Méthode de paiement:</strong> {{ order.getPaymentMethod() }}</p>
     <p><strong>Adresse de livraison:</strong>
-      {{ order.getDeliveryAddress().description || (order.getDeliveryAddress().lat + ', ' +
-      order.getDeliveryAddress().lng) }}
+      {{ order.getDeliveryAddress().description || (order.getDeliveryAddress().lat + ', ' + order.getDeliveryAddress().lng) }}
     </p>
     <p><strong>Frais de livraison:</strong> {{ order.getShippingFee() }} DH</p>
     <p><strong>Total:</strong> {{ order.getTotalPrice() }} DH</p>
@@ -28,7 +28,15 @@
       <div *ngIf="productDetails[item.itemProduct.getProductId()] as product" class="product-item">
         <p>
           <strong>{{ product.getProductTitle() }}</strong> ({{ item.quantity }}x) -
-          {{ product.getProductPrice() }} DH
+          <span *ngIf="item.price !== undefined">
+            <ng-container *ngIf="item.price < product.getProductPrice(); else normalPrice">
+              <del>{{ product.getProductPrice() }} DH</del>
+              &nbsp;
+              <span style="color: #28a745; font-weight: bold;">{{ item.price }} DH</span>
+              <span class="badge-discount">Remise appliquée</span>
+            </ng-container>
+            <ng-template #normalPrice>{{ item.price }} DH</ng-template>
+          </span>
         </p>
       </div>
     </div>

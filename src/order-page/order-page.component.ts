@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart-service';
 import { ShoppingCart } from '../models/ShoppingCart';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MapComponent } from '../map/map.component';
@@ -9,6 +9,7 @@ import { Order, DeliveryAddress, OrderStatus } from '../models/Order';
 import { UserService } from '../services/user-service';
 import { OrderService } from '../services/order-service';
 import { AlertService } from '../services/alert-service';
+import { PricingService } from '../services/pricing-service';
 
 @Component({
   selector: 'app-order-page',
@@ -18,24 +19,26 @@ import { AlertService } from '../services/alert-service';
 })
 export class OrderPageComponent implements OnInit {
   cart!: ShoppingCart;
-  shippingFee = 15;  // frais par défaut minimum
+  shippingFee = 15;
   address = {
-    lat: 33.5731,        // position entreprise par défaut
+    lat: 33.5731,
     lng: -7.5898,
-    description: 'Company Location' // description par défaut
+    description: 'Company Location'
   };
   paymentMethod = '';
   orderConfirmed = false;
-  useAddressString = false; // false = carte, true = saisie texte
+  useAddressString = false;
   addressString = '';
   userId: string = '';
 
-  constructor(private cartService: CartService,
+  constructor(
+    private cartService: CartService,
     private router: Router,
-    private route: ActivatedRoute,
     private userService: UserService,
     private orderService: OrderService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private pricingService: PricingService
+  ) {}
 
   ngOnInit(): void {
     this.userService.currentUser$.subscribe(user => {
@@ -46,9 +49,7 @@ export class OrderPageComponent implements OnInit {
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
-            pos => {
-              this.setDeliveryLocation(pos.coords.latitude, pos.coords.longitude);
-            },
+            pos => this.setDeliveryLocation(pos.coords.latitude, pos.coords.longitude),
             err => {
               console.error("Erreur géolocalisation :", err.message);
               this.alertService.warning("Erreur géolocalisation !");
@@ -61,21 +62,18 @@ export class OrderPageComponent implements OnInit {
       } else {
         this.alertService.warning("Utilisateur non connecté");
         this.router.navigate(['/signin']);
-        return;
       }
     });
   }
 
   get deliveryAddressDisplay(): string {
-    if (this.address.description && this.address.description.trim().length > 0) {
-      return this.address.description;
-    } else {
-      return `Latitude: ${this.address.lat}, Longitude: ${this.address.lng}`;
-    }
+    return this.address.description?.trim()
+      ? this.address.description
+      : `Latitude: ${this.address.lat}, Longitude: ${this.address.lng}`;
   }
 
   get totalWithShipping(): number {
-    return (this.cart?.totalPrice || 0) + this.shippingFee;
+    return this.getDiscountedTotalPrice() + this.shippingFee;
   }
 
   confirmOrder(): void {
@@ -98,9 +96,22 @@ export class OrderPageComponent implements OnInit {
       this.address.description = '';
     }
 
+    // Appliquer les prix remisés à chaque produit
+    this.cart.itemsProduct.forEach(item => {
+      const originalPrice = item.itemProduct.getProductPrice();
+      const discountedPrice = this.pricingService.hasDiscount(item.itemProduct)
+        ? this.pricingService.getDiscountedPrice(item.itemProduct)
+        : originalPrice;
+
+      (item as any).unitPrice = discountedPrice;
+    });
+
     const deliveryAddress: DeliveryAddress = this.useAddressString
       ? { description: this.address.description }
       : { lat: this.address.lat, lng: this.address.lng, description: '' };
+
+    const totalPrice = this.getDiscountedTotalPrice();
+    const finalTotal = totalPrice + this.shippingFee;
 
     const order = new Order(
       this.userId,
@@ -108,12 +119,12 @@ export class OrderPageComponent implements OnInit {
       this.paymentMethod,
       deliveryAddress,
       this.shippingFee,
-      this.totalWithShipping,
+      finalTotal,
       OrderStatus.PENDING
     );
 
     this.orderService.placeOrder(order).subscribe({
-      next: (response) => {
+      next: () => {
         this.orderConfirmed = true;
         this.cartService.clearStorage();
         this.alertService.success("Commande confirmée avec succès !");
@@ -125,15 +136,22 @@ export class OrderPageComponent implements OnInit {
     });
   }
 
+  private getDiscountedTotalPrice(): number {
+    return this.cart.itemsProduct.reduce((total, item) => {
+      const unitPrice = (item as any).unitPrice ??
+        (this.pricingService.hasDiscount(item.itemProduct)
+          ? this.pricingService.getDiscountedPrice(item.itemProduct)
+          : item.itemProduct.getProductPrice());
+      return total + unitPrice * item.quantity;
+    }, 0);
+  }
+
   goBackToCart(): void {
     this.router.navigate(['/catalog']);
   }
 
   onLocationChanged(event: { lat: number; lng: number }): void {
-    this.address.lat = event.lat;
-    this.address.lng = event.lng;
-    this.address.description = '';
-    this.updateShippingFee();
+    this.setDeliveryLocation(event.lat, event.lng);
   }
 
   private setDeliveryLocation(lat: number, lng: number): void {
@@ -143,25 +161,22 @@ export class OrderPageComponent implements OnInit {
   }
 
   private updateShippingFee(): void {
-    const distanceKm = this.calculateDistance(
-      33.5731, -7.5898,
-      this.address.lat,
-      this.address.lng
-    );
-
-    if (distanceKm <= 3) this.shippingFee = 15;
-    else if (distanceKm <= 7) this.shippingFee = 25;
-    else if (distanceKm <= 15) this.shippingFee = 40;
-    else this.shippingFee = 60;
+    const distanceKm = this.calculateDistance(33.5731, -7.5898, this.address.lat, this.address.lng);
+    this.shippingFee =
+      distanceKm <= 3 ? 15 :
+      distanceKm <= 7 ? 25 :
+      distanceKm <= 15 ? 40 : 60;
   }
 
   private calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const R = 6371; // km
+    const R = 6371;
     const dLat = this.deg2rad(lat2 - lat1);
     const dLon = this.deg2rad(lon2 - lon1);
-    const a = Math.sin(dLat / 2) ** 2 + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(this.deg2rad(lat1)) *
+              Math.cos(this.deg2rad(lat2)) *
+              Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
   private deg2rad(deg: number): number {

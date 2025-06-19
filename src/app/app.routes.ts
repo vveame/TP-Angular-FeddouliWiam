@@ -13,12 +13,14 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { AuthGuard } from '../guards/auth-guard';
 import { AdminGuard } from '../guards/admin-guard';
 import { StockMonitoringComponent } from '../stock-monitoring/stock-monitoring.component';
+import { OfferManagementComponent } from '../offer-management/offer-management.component';
 
 export const routes: Routes = [
 
     { path: 'catalog', component: CatalogComponent, title: 'My Catalog products' },
     { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product details'},
     { path: 'stock-monitoring', component: StockMonitoringComponent, title: 'Stock Monitoring', canActivate: [AuthGuard, AdminGuard] },
+    { path: 'offers', component: OfferManagementComponent, title: 'Offers Management', canActivate: [AuthGuard, AdminGuard] },
     { path: 'signin', component: SigninComponent, title: 'My signin page' },
     { path: 'signup', component: SignupComponent, title: 'My signup page' },
     { path: 'profil', component: ProfileComponent, title: 'My profile page', canActivate: [AuthGuard] },

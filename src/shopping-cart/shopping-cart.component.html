@@ -24,17 +24,29 @@
     color: item.quantity >= item.itemProduct.getProductQuantity() ? '#666' : 'white',
     cursor: item.quantity >= item.itemProduct.getProductQuantity() ? 'not-allowed' : 'pointer'
   }">+</button>
-            <p *ngIf="stockService.isLowStock(item.itemProduct)"
-              style="color: #d32f2f; font-size: 13px; margin-top: 4px;">
-              Stock faible - dépêchez-vous !
-            </p>
-            <p *ngIf="stockService.isRecentlyRestocked(item.itemProduct)"
-              style="color: green; font-size: 13px; margin-top: 4px;">
-              Récemment restocké !
+            <!-- Message de stock -->
+            <p *ngIf="stockService.getStockMessage(item.itemProduct)" [ngClass]="{
+                  'low-stock-message': stockService.isLowStock(item.itemProduct),
+                  'restock-badge': !stockService.isLowStock(item.itemProduct) && stockService.isRecentlyRestocked(item.itemProduct)
+                }">
+              {{ stockService.getStockMessage(item.itemProduct) }}
             </p>
           </td>
-          <td>{{ item.itemProduct.getProductPrice() }} MAD</td>
-          <td>{{ item.quantity * item.itemProduct.getProductPrice() }} MAD</td>
+          <td>
+
+            <!-- Prix avec remise -->
+            <p *ngIf="hasDiscount(item.itemProduct); else normalPrice">
+              <del>{{ item.itemProduct.getProductPrice() }} MAD</del>
+              <span style="color: #28a745; font-weight: bold; display: flex; flex-direction: column;">
+                {{ getDiscountedPrice(item.itemProduct) | number:'1.2-2' }} MAD
+              </span>
+            </p>
+            <ng-template #normalPrice>
+              <p>{{ item.itemProduct.getProductPrice() }} MAD</p>
+            </ng-template>
+
+          <td>{{ (item.quantity * item.price) | number:'1.2-2' }} MAD</td>
+
           <td>
             <button class="remove-btn" (click)="remove(item.itemProduct.getProductId())">❌</button>
           </td>

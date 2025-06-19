@@ -4,31 +4,68 @@
   <aside class="sidebar-filters">
     <h4>Catégories</h4>
     <ul>
-      <li><a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-          class="button">All</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Accessoires'}" routerLinkActive="active"
-          class="button">Accessoires</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Ordinateurs'}" routerLinkActive="active"
-          class="button">Ordinateurs</a></li>
-      <li><a routerLink="/catalog" [queryParams]="{filter:'Ecrans'}" routerLinkActive="active" class="button">Ecrans</a>
+      <li>
+        <a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="button">All</a>
+      </li>
+      <li>
+        <a routerLink="/catalog" [queryParams]="{ filter: 'Accessoires' }" routerLinkActive="active"
+          class="button">Accessoires</a>
+      </li>
+      <li>
+        <a routerLink="/catalog" [queryParams]="{ filter: 'Ordinateurs' }" routerLinkActive="active"
+          class="button">Ordinateurs</a>
+      </li>
+      <li>
+        <a routerLink="/catalog" [queryParams]="{ filter: 'Ecrans' }" routerLinkActive="active"
+          class="button">Ecrans</a>
       </li>
     </ul>
   </aside>
 
   <section class="products-grid">
+    <div *ngIf="activeOffers.length > 0" class="offers-banner">
+      <h2>Offres en cours</h2>
+      <div class="offers-list">
+        <div class="offer-card" *ngFor="let offer of activeOffers">
+          <h4>{{ offer.getTitle() }}</h4>
+          <p>{{ offer.getDescription() }}</p>
+          <strong>-{{ offer.getDiscountPercent() }}%</strong>
+          <span class="offer-type">{{ offer.getType() }}</span>
+          <small>Jusqu’au {{ offer.getEndDate() | date }}</small>
+        </div>
+      </div>
+    </div>
     <h3 i18n>Liste des produits</h3>
     <ul>
       <ng-container *ngFor="let product of products">
         <li *ngIf="product.getProductQuantity() > 0">
-          <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="50" height="50">
+          <span *ngIf="hasDiscount(product)" class="badge">Promo</span>
+          
+          <img [src]="product.getProductImage()" alt="{{ product.getProductTitle() }}" width="80" height="80" />
 
-          <span i18n>{{ product.getProductTitle() }}</span>
+          <h4>{{ product.getProductTitle() }}</h4>
 
-          <span *ngIf="stockService.getStockMessage(product)" [ngClass]="{'low-stock-message': stockService.isLowStock(product), 
-          'restock-badge': !stockService.isLowStock(product) && stockService.isRecentlyRestocked(product)}">
+          <!-- Prix avec remise -->
+          <p *ngIf="hasDiscount(product); else normalPrice">
+            <del>{{ product.getProductPrice() }} MAD</del>
+            <span style="color: #28a745; font-weight: bold;">
+              {{ getDiscountedPrice(product) | number:'1.2-2' }} MAD
+            </span>
+          </p>
+          <ng-template #normalPrice>
+            <p>{{ product.getProductPrice() }} MAD</p>
+          </ng-template>
+
+          <!-- Message de stock -->
+          <span *ngIf="stockService.getStockMessage(product)" [ngClass]="{
+                  'low-stock-message': stockService.isLowStock(product),
+                  'restock-badge': !stockService.isLowStock(product) && stockService.isRecentlyRestocked(product)
+                }">
             {{ stockService.getStockMessage(product) }}
           </span>
 
+          <!-- Boutons -->
           <div class="product-buttons">
             <button (click)="goToProductDetails(product)" i18n>Détails</button>
             <button (click)="addToCart(product)">+</button>
@@ -36,7 +73,5 @@
         </li>
       </ng-container>
     </ul>
-
-
   </section>
 </main>

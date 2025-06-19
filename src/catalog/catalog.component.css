@@ -164,3 +164,90 @@ body {
   font-weight: 500;
   display: inline-block;
 }
+
+.offers-banner {
+  background-color: #ffe8e8;
+  padding: 25px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.offers-banner h2 {
+  font-size: 28px;
+  color: #ef394e;
+  margin-bottom: 20px;
+}
+
+.offers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.offer-card {
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 220px;
+  text-align: left;
+  border-left: 4px solid #ef394e;
+}
+
+.offer-card h4 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #222;
+}
+
+.offer-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.offer-card strong {
+  color: #28a745;
+  font-size: 18px;
+}
+
+.offer-type {
+  display: inline-block;
+  margin-top: 8px;
+  background-color: #f0f0f0;
+  color: #444;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.offers-banner small {
+  display: block;
+  margin-top: 4px;
+  color: #666;
+  font-size: 0.85em;
+}
+
+.product-item {
+  position: relative;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ff4136;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
