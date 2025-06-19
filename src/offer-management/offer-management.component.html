@@ -72,7 +72,9 @@
     <div class="form-group" style="flex: 1 1 100%;">
       <label i18n>Selected Products</label>
       <select formControlName="productIds" multiple size="5">
-        <option *ngFor="let p of filteredProducts" [value]="p.getProductId()">
+        <option *ngFor="let p of filteredProducts" [value]="p.getProductId()" [ngClass]="{
+          'outside-category': p.getProductCategory() !== offerForm.get('selectedCategory')?.value
+        }">
           {{ p.getProductTitle() }}
         </option>
       </select>

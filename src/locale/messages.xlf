@@ -193,7 +193,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">96,97</context>
+          <context context-type="linenumber">98,99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4095719924885338783" datatype="html">
@@ -208,6 +208,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
           <context context-type="linenumber">58,59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">9,10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8716359834484489616" datatype="html">
@@ -228,56 +232,56 @@
         <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">86,87</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5701618810648052610" datatype="html">
         <source>Title</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">95,96</context>
+          <context context-type="linenumber">97,98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6131874190146381475" datatype="html">
         <source>Discount (%)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">97,98</context>
+          <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5162686434580248853" datatype="html">
         <source>Start</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">98,99</context>
+          <context context-type="linenumber">100,101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1241348629231510663" datatype="html">
         <source>End</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">101,102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5611592591303869712" datatype="html">
         <source>Status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">100,101</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193976279273491157" datatype="html">
         <source>Actions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">101,102</context>
+          <context context-type="linenumber">103,104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7585826646011739428" datatype="html">
         <source>Edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">117,118</context>
+          <context context-type="linenumber">119,120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/profile/profile.component.html</context>
@@ -292,7 +296,7 @@
         <source>Delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">118,119</context>
+          <context context-type="linenumber">120,121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2954756221793137916" datatype="html">
@@ -1013,46 +1017,53 @@
           <context context-type="linenumber">3,4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3135863211850041600" datatype="html">
+        <source>Filter by Category:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="categoryLabel" datatype="html">
         <source>Category:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="priceLabel" datatype="html">
         <source>Price:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="quantityInStockLabel" datatype="html">
         <source>Quantity in Stock:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="lastRestockedLabel" datatype="html">
         <source>Last Restocked:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="restockQuantityPlaceholder" datatype="html">
         <source>Quantity to Restock</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">32,33</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="restockButton" datatype="html">
         <source> Restock </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">41,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="userManagementTitle" datatype="html">

@@ -1,29 +1,46 @@
 [
   {
-    "id": "1750294461274",
-    "title": "h",
-    "description": "j",
-    "discountPercent": 10,
-    "startDate": "2025-06-18T00:00:00.000Z",
-    "endDate": "2025-06-29T00:00:00.000Z",
-    "active": false,
+    "id": "71b5411c-96a2-4a38-88e7-410b67a6fa0a",
+    "title": "Summer Sale !",
+    "description": "Enjoy 20% off on a selection of products to celebrate summer!",
+    "discountPercent": 20,
+    "startDate": "2025-06-19T00:00:00.000Z",
+    "endDate": "2025-07-19T00:00:00.000Z",
+    "active": true,
     "type": "remise",
     "productIds": [
-      1,
-      2
+      "162",
+      "163",
+      "164",
+      "165",
+      "166",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "154",
+      "155",
+      "156",
+      "157",
+      "158"
     ]
   },
   {
-    "id": "c8656d46-4559-49e6-8007-6bda8014604b",
-    "title": "new offer",
-    "description": "h",
-    "discountPercent": 65,
-    "startDate": "2025-06-19T00:00:00.000Z",
-    "endDate": "2025-06-20T00:00:00.000Z",
-    "active": false,
-    "type": "promotion",
+    "id": "17f57079-b6f1-4d54-9755-72525a81c5ef",
+    "title": "New Product Launch Offer",
+    "description": "Get 10% off to celebrate the release of our new fragrance.",
+    "discountPercent": 10,
+    "startDate": "2025-06-14T00:00:00.000Z",
+    "endDate": "2025-06-28T00:00:00.000Z",
+    "active": true,
+    "type": "offre spéciale",
     "productIds": [
-      5
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
     ]
   }
 ]

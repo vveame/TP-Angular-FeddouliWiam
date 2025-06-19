@@ -145,3 +145,44 @@ button:disabled {
   background-color: #ef394e;
   color: white;
 }
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-bar label {
+  font-weight: 600;
+  color: #333;
+  font-size: 15px;
+}
+
+.filter-bar select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-bar select:focus {
+  border-color: #ef394e;
+  box-shadow: 0 0 5px rgba(239, 57, 78, 0.5);
+}
+
+@media (max-width: 600px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .filter-bar select {
+    width: 100%;
+  }
+}

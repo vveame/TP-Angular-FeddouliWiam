@@ -1,93 +1,22 @@
 [
   {
-    "orderId": "3ca1d446-ef68-49d3-95a3-a7c934da08b5",
-    "userId": "u123",
+    "orderId": "6102bca8-05ce-47a3-a3a2-f053684d3437",
+    "userId": "u122",
     "items": [
       {
-        "productId": 1,
-        "quantity": 2
+        "productId": "1",
+        "quantity": 1,
+        "price": 9.99
       },
       {
-        "productId": 2,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.196020243686704,
-      "lng": -6.151316318421259,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 810,
-    "orderDate": "2025-06-17T16:36:28.193Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "6230db6e-c7fa-4d75-b237-ba1e51479547",
-    "userId": "u123",
-    "items": [
+        "productId": "9",
+        "quantity": 3,
+        "price": 62.99099999999999
+      },
       {
-        "productId": 1,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "description": "here"
-    },
-    "shippingFee": 60,
-    "totalPrice": 360,
-    "orderDate": "2025-06-17T16:38:06.911Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "47ec1ceb-8890-4ed5-bf9f-68d45c8a4429",
-    "userId": "u123",
-    "items": [
-      {
-        "productId": 1,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.196020243686704,
-      "lng": -6.151316318421259,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 360,
-    "orderDate": "2025-06-17T16:41:43.532Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "a2d78aa9-03a1-4bf6-8678-d3d9606e4b88",
-    "userId": "u123",
-    "items": [
-      {
-        "productId": 1,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.19621552871845,
-      "lng": -6.151479384774387,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 360,
-    "orderDate": "2025-06-17T16:43:48.120Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "c8c12145-267a-4c23-898c-89608c963d32",
-    "userId": "u123",
-    "items": [
-      {
-        "productId": 1,
-        "quantity": 1
+        "productId": "14",
+        "quantity": 2,
+        "price": 499.99
       }
     ],
     "paymentMethod": "cash",
@@ -97,168 +26,8 @@
       "description": ""
     },
     "shippingFee": 60,
-    "totalPrice": 360,
-    "orderDate": "2025-06-17T16:46:55.539Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "cb777bbb-8833-45aa-9ea1-740fb0d962cb",
-    "userId": "u123",
-    "items": [
-      {
-        "productId": 3,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.19621009821008,
-      "lng": -6.151478107473701,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 1260,
-    "orderDate": "2025-06-17T21:09:01.131Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "1b655d16-942a-4ad3-83c4-08fe7095baf2",
-    "userId": "u123",
-    "items": [
-      {
-        "productId": 3,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "card",
-    "deliveryAddress": {
-      "lat": 35.19616364549356,
-      "lng": -6.151429820600859,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 1260,
-    "orderDate": "2025-06-17T21:31:34.712Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "2af49989-db6c-46f1-9da5-863936c8368f",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 2,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "card",
-    "deliveryAddress": {
-      "description": "overthere"
-    },
-    "shippingFee": 60,
-    "totalPrice": 210,
-    "orderDate": "2025-06-17T23:44:38.124Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "50c964f2-94f7-493f-99ad-59ad0f28fad8",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 2,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "description": "Av Mohamed V Larache"
-    },
-    "shippingFee": 60,
-    "totalPrice": 210,
-    "orderDate": "2025-06-18T18:19:45.200Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "b5fd02e7-9738-4423-81b2-ab941a869c49",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 2,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "card",
-    "deliveryAddress": {
-      "description": "overthere"
-    },
-    "shippingFee": 60,
-    "totalPrice": 210,
-    "orderDate": "2025-06-18T18:22:29.128Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "3b5ca160-e5cf-420f-b080-629888d5ae76",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 2,
-        "quantity": 1
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.19621552871845,
-      "lng": -6.151479384774387,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 210,
-    "orderDate": "2025-06-18T18:36:21.439Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "f3d1dcdb-6de4-4bb4-8b51-d601665c1c26",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 1,
-        "quantity": 2
-      }
-    ],
-    "paymentMethod": "card",
-    "deliveryAddress": {
-      "lat": 35.196205780100996,
-      "lng": -6.151474165421034,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 600,
-    "orderDate": "2025-06-19T03:43:08.018Z",
-    "status": "pending"
-  },
-  {
-    "orderId": "b1ebec45-44f7-4143-8f63-e47b54357f3d",
-    "userId": "u122",
-    "items": [
-      {
-        "productId": 2,
-        "quantity": 1,
-        "price": 135
-      },
-      {
-        "productId": 3,
-        "quantity": 1,
-        "price": 1200
-      }
-    ],
-    "paymentMethod": "cash",
-    "deliveryAddress": {
-      "lat": 35.19617833974409,
-      "lng": -6.1514462299660995,
-      "description": ""
-    },
-    "shippingFee": 60,
-    "totalPrice": 1395,
-    "orderDate": "2025-06-19T04:07:11.215Z",
+    "totalPrice": 1258.943,
+    "orderDate": "2025-06-19T20:25:31.194Z",
     "status": "pending"
   }
 ]

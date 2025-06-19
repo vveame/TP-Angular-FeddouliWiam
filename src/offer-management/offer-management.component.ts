@@ -55,15 +55,18 @@ export class OfferManagementComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (products: Product[]) => {
         this.allProducts = products.map(p => new Product(p));
-        // Extraire les catégories uniques
         this.categories = Array.from(new Set(this.allProducts.map(p => p.getProductCategory())));
 
+        const selectedIds: string[] = this.offerForm.get('productIds')?.value || [];
+        const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
+
         const selectedCategory = this.offerForm.get('selectedCategory')?.value || '';
-        if (!selectedCategory) {
-          this.filteredProducts = [...this.allProducts];
-        } else {
-          this.filteredProducts = this.allProducts.filter(p => p.getProductCategory() === selectedCategory);
-        }
+        const categoryProducts = selectedCategory
+          ? this.allProducts.filter(p => p.getProductCategory() === selectedCategory)
+          : this.allProducts;
+
+        // merge selected products with filtered category products
+        this.filteredProducts = Array.from(new Set([...categoryProducts, ...selectedProducts]));
       },
       error: () => this.alertService.error('Error loading products.')
     });
@@ -78,16 +81,14 @@ export class OfferManagementComponent implements OnInit {
 
   onCategoryChange() {
     const category = this.offerForm.get('selectedCategory')?.value || '';
-    if (!category) {
-      this.filteredProducts = [...this.allProducts];
-    } else {
-      this.filteredProducts = this.allProducts.filter(p => p.getProductCategory() === category);
-    }
-
     const selectedIds: string[] = this.offerForm.get('productIds')?.value || [];
-    const filteredIds = this.filteredProducts.map(p => p.getProductId());
-    const newSelection = selectedIds.filter(id => filteredIds.includes(id));
-    this.offerForm.patchValue({ productIds: newSelection });
+
+    const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
+    const categoryProducts = category
+      ? this.allProducts.filter(p => p.getProductCategory() === category)
+      : this.allProducts;
+
+    this.filteredProducts = Array.from(new Set([...categoryProducts, ...selectedProducts]));
   }
 
   isAllSelected(): boolean {

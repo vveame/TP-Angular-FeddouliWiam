@@ -1,7 +1,6 @@
-<!--npx xlf-auto-translate -i messages.xlf -o messages.fr.xlf -f en -t fr-->
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="fr" date="2025-06-19T10:20:28Z">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="fr" date="2025-06-19T21:40:8Z">
     <body>
       <trans-unit id="1902100407096396858" datatype="html">
         <source>Categories</source>
@@ -219,7 +218,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">96,97</context>
+          <context context-type="linenumber">98,99</context>
         </context-group>
         <target>Description</target>
       </trans-unit>
@@ -236,6 +235,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
           <context context-type="linenumber">58,59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">9,10</context>
         </context-group>
         <target>Toutes les catégories</target>
       </trans-unit>
@@ -259,7 +262,7 @@
         <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">86,87</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
         <target>Annuler</target>
       </trans-unit>
@@ -267,7 +270,7 @@
         <source>Title</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">95,96</context>
+          <context context-type="linenumber">97,98</context>
         </context-group>
         <target>Titre</target>
       </trans-unit>
@@ -275,7 +278,7 @@
         <source>Discount (%)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">97,98</context>
+          <context context-type="linenumber">99,100</context>
         </context-group>
         <target>Rabais (%)</target>
       </trans-unit>
@@ -283,7 +286,7 @@
         <source>Start</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">98,99</context>
+          <context context-type="linenumber">100,101</context>
         </context-group>
         <target>Commencer</target>
       </trans-unit>
@@ -291,7 +294,7 @@
         <source>End</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">101,102</context>
         </context-group>
         <target>Fin</target>
       </trans-unit>
@@ -299,7 +302,7 @@
         <source>Status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">100,101</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
         <target>Statut</target>
       </trans-unit>
@@ -307,7 +310,7 @@
         <source>Actions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">101,102</context>
+          <context context-type="linenumber">103,104</context>
         </context-group>
         <target>Actes</target>
       </trans-unit>
@@ -315,7 +318,7 @@
         <source>Edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">117,118</context>
+          <context context-type="linenumber">119,120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/profile/profile.component.html</context>
@@ -331,7 +334,7 @@
         <source>Delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/offer-management/offer-management.component.html</context>
-          <context context-type="linenumber">118,119</context>
+          <context context-type="linenumber">120,121</context>
         </context-group>
         <target>Supprimer</target>
       </trans-unit>
@@ -903,7 +906,7 @@
           <context context-type="sourcefile">src/shopping-cart/shopping-cart.component.html</context>
           <context context-type="linenumber">70</context>
         </context-group>
-        <target>[WARN] Failed to translate</target>
+        <target>Produits totaux:</target>
       </trans-unit>
       <trans-unit id="totalToPayLabel" datatype="html">
         <source>Total to Pay:</source>
@@ -1149,11 +1152,19 @@
         </context-group>
         <target>← Retour</target>
       </trans-unit>
+      <trans-unit id="3135863211850041600" datatype="html">
+        <source>Filter by Category:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+        <target>Filtre par catégorie:</target>
+      </trans-unit>
       <trans-unit id="categoryLabel" datatype="html">
         <source>Category:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <target>Catégorie:</target>
       </trans-unit>
@@ -1161,7 +1172,7 @@
         <source>Price:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <target>Prix:</target>
       </trans-unit>
@@ -1169,7 +1180,7 @@
         <source>Quantity in Stock:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <target>Quantité en stock:</target>
       </trans-unit>
@@ -1177,7 +1188,7 @@
         <source>Last Restocked:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <target>Dernier réapprovisionnement:</target>
       </trans-unit>
@@ -1185,7 +1196,7 @@
         <source>Quantity to Restock</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">32,33</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
         <target>Quantité à réapprovisionner</target>
       </trans-unit>
@@ -1193,7 +1204,7 @@
         <source> Restock </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">41,43</context>
         </context-group>
         <target> Réapprovisionner </target>
       </trans-unit>

@@ -287,3 +287,8 @@ form button[type="button"] {
     min-height: 100px;
   }
 }
+
+option.outside-category {
+  color: #999;
+  font-style: italic;
+}

@@ -18,6 +18,9 @@ export class StockMonitoringComponent implements OnInit {
   products: Product[] = [];
   lowStockProducts: Product[] = [];
   restockQuantities: { [productId: string]: number } = {};
+  selectedCategory: string = '';
+  categories: string[] = [];
+
 
   constructor(
     public stockService: StockService,
@@ -42,6 +45,7 @@ export class StockMonitoringComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.products = data.map(item => Product.fromJSON(item));
+        this.categories = Array.from(new Set(this.products.map(p => p.getProductCategory())));
 
         // Détection des stocks faibles après chargement
         this.lowStockProducts = this.products.filter(product =>
@@ -84,6 +88,15 @@ export class StockMonitoringComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/profil']);
+  }
+
+  get filteredProducts(): Product[] {
+    if (!this.selectedCategory) return this.products;
+    return this.products.filter(p => p.getProductCategory() === this.selectedCategory);
+  }
+
+  onCategoryChange(category: string) {
+    this.selectedCategory = category;
   }
 
 }

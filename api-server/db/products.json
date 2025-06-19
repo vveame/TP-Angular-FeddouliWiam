@@ -6,7 +6,7 @@
     "productQuantity": 99,
     "productImage": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
     "productCategory": "beauty",
-    "restockDate": null
+    "restockDate": "2025-06-19T19:49:11.628Z"
   },
   {
     "productId": "2",
@@ -48,46 +48,46 @@
     "productId": "6",
     "productTitle": "Calvin Klein CK One",
     "productPrice": 49.99,
-    "productQuantity": 29,
+    "productQuantity": 30,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/thumbnail.webp",
     "productCategory": "fragrances",
-    "restockDate": null
+    "restockDate": "2025-06-19T20:17:44.493Z"
   },
   {
     "productId": "7",
     "productTitle": "Chanel Coco Noir Eau De",
     "productPrice": 129.99,
-    "productQuantity": 58,
+    "productQuantity": 59,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/thumbnail.webp",
     "productCategory": "fragrances",
-    "restockDate": null
+    "restockDate": "2025-06-19T20:17:45.294Z"
   },
   {
     "productId": "8",
     "productTitle": "Dior J'adore",
     "productPrice": 89.99,
-    "productQuantity": 98,
+    "productQuantity": 99,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
     "productCategory": "fragrances",
-    "restockDate": null
+    "restockDate": "2025-06-19T20:17:47.905Z"
   },
   {
     "productId": "9",
     "productTitle": "Dolce Shine Eau de",
     "productPrice": 69.99,
-    "productQuantity": 4,
+    "productQuantity": 2,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/dolce-shine-eau-de/thumbnail.webp",
     "productCategory": "fragrances",
-    "restockDate": null
+    "restockDate": "2025-06-19T20:17:49.227Z"
   },
   {
     "productId": "10",
     "productTitle": "Gucci Bloom Eau de",
     "productPrice": 79.99,
-    "productQuantity": 91,
+    "productQuantity": 92,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/gucci-bloom-eau-de/thumbnail.webp",
     "productCategory": "fragrances",
-    "restockDate": null
+    "restockDate": "2025-06-19T20:17:50.993Z"
   },
   {
     "productId": "11",
@@ -120,7 +120,7 @@
     "productId": "14",
     "productTitle": "Knoll Saarinen Executive Conference Chair",
     "productPrice": 499.99,
-    "productQuantity": 26,
+    "productQuantity": 24,
     "productImage": "https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/thumbnail.webp",
     "productCategory": "furniture",
     "restockDate": null
