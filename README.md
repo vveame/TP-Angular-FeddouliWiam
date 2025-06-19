@@ -1,24 +1,115 @@
 # TP-Angular-FeddouliWiam
 
-Nom et Prenom : Feddouli Wiam
+## Personal Informations
 
-Num Inscription : DCC0001/24
+- Full Name : Feddouli Wiam
 
-Ecran de liste des produits:
+- Inscription Num : DCC0001/24
 
-![image](https://github.com/user-attachments/assets/6283501d-a185-457c-a2bb-a714e6fddebe)
+## Downloaded dependencies
 
-Détails des produits:
+- cookie-parser
 
-![image](https://github.com/user-attachments/assets/910314b4-2d24-4a8f-a913-0be16731f2ba)
+```bash
+npm install cookie-parser
+```
 
-# Downloaded dependencies
+- JWT (JSON Web Token)
 
-i18n for Internationalisation & Localisation
+```bash
+npm install jsonwebtoken
+```
+
+- node-fetch & Fetching products from DummyJSON
+
+```bash
+npm install node-fetch
+node dummyJSON.js
+```
+
+- Generate JWT_SECRET & dotenv
+
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))" 
+npm install dotenv
+```
+
+- Leaflet
+
+```bash
+npm install @types/leaflet
+```
+
+- i18n (internationalization)
 
 ```bash
 ng add @angular/localize
+ng extract-i18n --output-path src/locale
+npx xlf-auto-translate -i messages.xlf -o messages.fr.xlf -f en -t fr
+ng build --localize
 ```
+
+## App GUI 
+
+### signin/
+
+![image](https://github.com/user-attachments/assets/b1cd063c-9225-45bf-b91b-f490f6ebef4b)
+
+### signup/
+
+![image](https://github.com/user-attachments/assets/2c8ac87f-4108-458b-9142-078f3097cd1c)
+
+### catalog/
+
+![image](https://github.com/user-attachments/assets/5ab8535c-4e84-47d0-92ce-8e339fc4221f)
+
+### product-details/
+
+![image](https://github.com/user-attachments/assets/75daadce-4ac2-41b0-bbc0-e8cb866edba7)
+
+### shopping-cart/
+
+![image](https://github.com/user-attachments/assets/3d85e699-0709-44d0-94e3-6d42d4294dca)
+
+### order-page/
+
+![image](https://github.com/user-attachments/assets/178e6dee-d595-4f17-aa8c-a0f20c6204ca)
+
+![image](https://github.com/user-attachments/assets/142f7275-663b-441d-b7a6-636341883a61)
+
+![image](https://github.com/user-attachments/assets/ceb961eb-c3e8-46d9-b096-5214a2620efd)
+
+### profile/ as admin
+
+- userType member wont have access to "Stock Monitoring", "Offer Management" and "User Management" !
+
+![image](https://github.com/user-attachments/assets/c8b4a138-2ec2-4235-b263-25bc42c016e2)
+
+![image](https://github.com/user-attachments/assets/519a6bb3-e5ab-4ba8-969a-91571fc23065)
+
+![image](https://github.com/user-attachments/assets/5150ba12-03ae-4785-8540-a4f74f078a61)
+
+### order-details/
+
+![image](https://github.com/user-attachments/assets/0ebe2fd6-d80f-402d-a539-312f6c824926)
+
+### stock-monitoring
+
+![image](https://github.com/user-attachments/assets/c1fb78b2-8fdb-42d2-9fef-f0737803a350)
+
+### offer-management/
+
+![image](https://github.com/user-attachments/assets/48ed802e-ec63-4389-a4bb-2d625e082fb8)
+
+![image](https://github.com/user-attachments/assets/94a63726-e0e7-45d0-ae06-7d91f99c430e)
+
+### user-management/
+
+![image](https://github.com/user-attachments/assets/05bc09a7-00d8-4730-a5ce-a06e3321b5fa)
+
+### i18n internationalization/arabic
+
+![image](https://github.com/user-attachments/assets/c24e7a48-ff45-4bda-bc10-0f84b40ac00c)
 
 # Auto generated Angular ReadME.md
 
