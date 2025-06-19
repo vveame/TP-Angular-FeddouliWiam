@@ -20,7 +20,7 @@
     "discountPercent": 65,
     "startDate": "2025-06-19T00:00:00.000Z",
     "endDate": "2025-06-20T00:00:00.000Z",
-    "active": true,
+    "active": false,
     "type": "promotion",
     "productIds": [
       5

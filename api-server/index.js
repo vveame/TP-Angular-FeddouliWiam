@@ -394,7 +394,7 @@ app.get('/api/orders/:orderId', authenticate, (req, res) => {
 
 
 // LOCALIZED ANGULAR APP
-const LOCALES = ['fr-CA', 'en-US'];
+const LOCALES = ['fr', 'en-US', 'ar', 'es'];
 
 LOCALES.forEach((locale) => {
   const localePath = path.join(__dirname, '..', 'dist/tp2/browser', locale);
@@ -404,17 +404,19 @@ LOCALES.forEach((locale) => {
   app.use(`/${locale}`, express.static(localePath));
 
   app.get(`/${locale}/*`, (req, res) => {
-    res.sendFile(path.join(localePath, 'index.html'));
+    res.sendFile(path.join(localePath, 'index.csr.html'));
   });
 });
 
 // Redirect root to default language
 app.get('/', (req, res) => {
-  res.redirect('/fr-CA');
+  res.redirect('/en-US');
 });
 
 app.listen(port, () => {
   console.log(`API Server & Angular localized app listening on port ${port}`);
-  console.log(`-> http://localhost:${port}/fr-CA`);
+  console.log(`-> http://localhost:${port}/fr`);
   console.log(`-> http://localhost:${port}/en-US`);
+  console.log(`-> http://localhost:${port}/ar`);
+  console.log(`-> http://localhost:${port}/es`);
 });

@@ -7,7 +7,9 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "fr-CA": "src/locale/messages.fr.xlf"
+          "fr": "src/locale/messages.fr.xlf",
+          "ar": "src/locale/messages.ar.xlf",
+          "es": "src/locale/messages.es.xlf"
         }
       },
       "projectType": "application",
@@ -23,7 +25,9 @@
               "leaflet"
             ],
             "localize": [
-              "fr-CA"
+              "fr",
+              "ar",
+              "es"
             ],
             "outputPath": "dist/tp2",
             "index": "src/index.html",
