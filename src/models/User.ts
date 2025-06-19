@@ -1,7 +1,6 @@
 export enum UserType {
   Admin = "admin",
-  Member = "member",
-  Guest = "guest"
+  Member = "member"
 }
 
 export interface IUserCredentials {

@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ShoppingCartItem } from '../models/ShoppingCartItem';
 import { ShoppingCart } from '../models/ShoppingCart';
 import { Product } from '../models/Product';
+import { AlertService } from './alert-service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class CartService {
   cart = this.cartSubject.asObservable();
   cartVisible = this.cartVisibility.asObservable();
 
-  constructor() {
+  constructor(
+    private alertService: AlertService
+  ) {
     if (this.isBrowser()) {
       const stored = sessionStorage.getItem('cart');
       if (stored) {
@@ -57,14 +60,14 @@ export class CartService {
       if (existing.quantity < product.getProductQuantity()) {
         existing.quantity++;
       } else {
-        alert('Stock insuffisant pour ce produit');
+        this.alertService.warning('Insufficient stock for this product.');
         return;
       }
     } else {
       if (product.getProductQuantity() > 0) {
         this.items.push({ itemProduct: product, quantity: 1, price: unitPrice });
       } else {
-        alert('Produit en rupture de stock');
+        this.alertService.error('Product is out of stock.');
         return;
       }
     }

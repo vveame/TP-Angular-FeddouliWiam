@@ -42,18 +42,18 @@ app.get("/api/products", (req, res) => {
 // GET single product by ID
 app.get("/api/products/:id", (req, res) => {
   const products = readFromFile(productsFilePath);
-  const productId = parseInt(req.params.id);
+  const productId = req.params.id;
   const product = products.find(p => p.productId === productId);
   if (product) {
     res.status(200).send(product);
   } else {
-    res.status(404).send("Product not found");
+    res.status(404).send("Product not found.");
   }
 });
 
 app.put("/api/products/:id/stock", authenticate, isAdmin, (req, res) => {
   const products = readFromFile(productsFilePath);
-  const productId = parseInt(req.params.id);
+  const productId = req.params.id;
   const { quantity } = req.body;
 
   const index = products.findIndex(p => p.productId === productId);
@@ -62,7 +62,7 @@ app.put("/api/products/:id/stock", authenticate, isAdmin, (req, res) => {
   }
 
   if (typeof quantity !== 'number' || quantity <= 0) {
-    return res.status(400).send("Quantité invalide");
+    return res.status(400).send("Invalid quantity.");
   }
 
   products[index].productQuantity += quantity;
@@ -84,7 +84,7 @@ app.get('/api/offers', (req, res) => {
 app.get('/api/offers/:id', (req, res) => {
   const offers = readFromFile(offersFilePath);
   const offer = offers.find(o => o.id === req.params.id);
-  if (!offer) return res.status(404).send("Offre non trouvée");
+  if (!offer) return res.status(404).send("Offer not found.");
   res.status(200).json(offer);
 });
 
@@ -96,7 +96,7 @@ app.post('/api/offers', authenticate, isAdmin, (req, res) => {
   const { title, description, discountPercent, startDate, endDate, active, type, productIds } = req.body;
 
   if (!title || discountPercent === undefined || !startDate || !endDate || !type || !Array.isArray(productIds)) {
-    return res.status(400).send("Champs requis manquants ou invalides.");
+    return res.status(400).send("Required fields missing or invalid.");
   }
 
   const newOffer = {
@@ -120,7 +120,7 @@ app.post('/api/offers', authenticate, isAdmin, (req, res) => {
 app.put('/api/offers/:id', authenticate, isAdmin, (req, res) => {
   const offers = readFromFile(offersFilePath);
   const index = offers.findIndex(o => o.id === req.params.id);
-  if (index === -1) return res.status(404).send("Offre non trouvée");
+  if (index === -1) return res.status(404).send("Offer not found.");
 
   const updatedOffer = {
     ...offers[index],
@@ -137,11 +137,11 @@ app.put('/api/offers/:id', authenticate, isAdmin, (req, res) => {
 app.delete('/api/offers/:id', authenticate, isAdmin, (req, res) => {
   const offers = readFromFile(offersFilePath);
   const index = offers.findIndex(o => o.id === req.params.id);
-  if (index === -1) return res.status(404).send("Offre non trouvée");
+  if (index === -1) return res.status(404).send("Offer not found.");
 
   const deleted = offers.splice(index, 1);
   writeToFile(offersFilePath, offers);
-  res.status(200).json({ message: "Offre supprimée", deleted });
+  res.status(200).json({ message: "Offer deleted.", deleted });
 });
 
 // Users API
@@ -214,12 +214,12 @@ app.put('/api/users/:id', authenticate, (req, res) => {
   const userIndex = users.findIndex(u => u.userId === userId);
 
   if (userIndex === -1) {
-    return res.status(404).send("Utilisateur non trouvé");
+    return res.status(404).send("User not found.");
   }
 
   // Vérifier les permissions
   if (req.user.userType !== 'admin' && req.user.userId !== userId) {
-    return res.status(403).send("Accès refusé");
+    return res.status(403).send("Access denied.");
   }
 
   // Mettre à jour uniquement les champs autorisés
@@ -247,12 +247,12 @@ app.post('/api/users', authenticate, isAdmin, (req, res) => {
   const { fullName, email, password, iban, bankName, phone, userType } = req.body;
 
   if (!fullName || !email || !password) {
-    return res.status(400).send("Champs requis manquants");
+    return res.status(400).send("Required fields missing.");
   }
 
   const users = readFromFile(usersFilePath);
   if (users.find(u => u.email === email)) {
-    return res.status(409).send("Email déjà utilisé");
+    return res.status(409).send("Email already in use.");
   }
 
   const newUser = {
@@ -279,7 +279,7 @@ app.delete('/api/users/:id', authenticate, isAdmin, (req, res) => {
   const userIndex = users.findIndex(u => u.userId === userId);
 
   if (userIndex === -1) {
-    return res.status(404).send("Utilisateur non trouvé");
+    return res.status(404).send("User not found.");
   }
 
   users.splice(userIndex, 1);
@@ -320,7 +320,7 @@ app.post('/api/orders', authenticate, (req, res) => {
   const orderData = req.body;
 
   if (!orderData || !orderData.userId || !orderData.items || !orderData.paymentMethod || !orderData.deliveryAddress) {
-    return res.status(400).send("Données de commande invalides.");
+    return res.status(400).send("Invalid order data.");
   }
 
   const orders = readFromFile(ordersFilePath);
@@ -341,7 +341,7 @@ app.post('/api/orders', authenticate, (req, res) => {
   // Decrease product quantities
   let allItemsAvailable = true;
   for (const item of orderData.items) {
-    const product = products.find(p => p.productId === parseInt(item.productId));
+    const product = products.find(p => p.productId === item.productId);
     if (product) {
       if (product.productQuantity >= item.quantity) {
         product.productQuantity -= item.quantity;
@@ -356,7 +356,7 @@ app.post('/api/orders', authenticate, (req, res) => {
   }
 
   if (!allItemsAvailable) {
-    return res.status(400).json({ message: "Stock insuffisant pour l'un des produits." });
+    return res.status(400).json({ message: "Insufficient stock for one of the products." });
   }
 
   // Save updated product quantities
@@ -366,7 +366,7 @@ app.post('/api/orders', authenticate, (req, res) => {
   orders.push(newOrder);
   writeToFile(ordersFilePath, orders);
 
-  res.status(201).send({ message: 'Commande enregistrée avec succès', orderId: newOrder.orderId });
+  res.status(201).send({ message: 'Order successfully recorded.', orderId: newOrder.orderId });
 });
 
 
@@ -386,7 +386,7 @@ app.get('/api/orders/:orderId', authenticate, (req, res) => {
   const order = orders.find(o => o.orderId === orderId);
 
   if (!order) {
-    return res.status(404).send({ message: 'Commande non trouvée.' });
+    return res.status(404).send({ message: 'Order not found.' });
   }
 
   res.send(order);

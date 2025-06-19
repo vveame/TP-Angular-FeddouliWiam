@@ -41,7 +41,7 @@ export class ProductDetailsComponent {
     if (this.product) {
       const price = this.pricingService.getDiscountedPrice(this.product);
       this.cartService.addToCart(this.product, price);
-      this.alertService.success(`Produit "${this.product.getProductTitle()}" ajouté au panier.`);
+      this.alertService.success(`Product "${this.product.getProductTitle()}" added to cart.`);
     }
   }
 

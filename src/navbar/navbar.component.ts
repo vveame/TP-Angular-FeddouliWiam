@@ -61,10 +61,10 @@ export class NavbarComponent implements OnDestroy {
       next: () => {
         this.cartService.clearStorage();
         this.router.navigate(['/catalog']);
-        this.alertService.success('Déconnexion réussie.');
+        this.alertService.success('Successfully logged out.');
       },
       error: () => {
-        this.alertService.error('Erreur lors de la déconnexion.');
+        this.alertService.error('Error during logout.');
       }
     });
   }

@@ -51,8 +51,8 @@ export class OrderPageComponent implements OnInit {
           navigator.geolocation.getCurrentPosition(
             pos => this.setDeliveryLocation(pos.coords.latitude, pos.coords.longitude),
             err => {
-              console.error("Erreur géolocalisation :", err.message);
-              this.alertService.warning("Erreur géolocalisation !");
+              console.error("Geolocation error :", err.message);
+              this.alertService.warning("Geolocation error !");
               this.updateShippingFee();
             }
           );
@@ -60,7 +60,7 @@ export class OrderPageComponent implements OnInit {
           this.updateShippingFee();
         }
       } else {
-        this.alertService.warning("Utilisateur non connecté");
+        this.alertService.warning("User not logged in.");
         this.router.navigate(['/signin']);
       }
     });
@@ -78,19 +78,19 @@ export class OrderPageComponent implements OnInit {
 
   confirmOrder(): void {
     if (!this.paymentMethod) {
-      this.alertService.error("Veuillez sélectionner une méthode de paiement.");
+      this.alertService.error(" Please select a payment method.");
       return;
     }
 
     if (this.useAddressString) {
       if (!this.addressString.trim()) {
-        this.alertService.error("Veuillez entrer une adresse valide.");
+        this.alertService.error("Please enter a valid address.");
         return;
       }
       this.address.description = this.addressString.trim();
     } else {
       if (!this.address.lat || !this.address.lng) {
-        this.alertService.error("Veuillez définir une position valide sur la carte.");
+        this.alertService.error("Please set a valid position on the map.");
         return;
       }
       this.address.description = '';
@@ -127,11 +127,11 @@ export class OrderPageComponent implements OnInit {
       next: () => {
         this.orderConfirmed = true;
         this.cartService.clearStorage();
-        this.alertService.success("Commande confirmée avec succès !");
+        this.alertService.success("Order successfully confirmed!");
       },
       error: (err) => {
-        console.error("Erreur lors de l'envoi de la commande", err);
-        this.alertService.error("Échec de la commande. Veuillez réessayer plus tard.");
+        console.error("Error while submitting the order", err);
+        this.alertService.error("Order failed. Please try again later.");
       }
     });
   }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { AlertService } from '../services/alert-service';
 
 @Component({
   selector: 'app-user-management',
@@ -28,7 +29,10 @@ export class UserManagementComponent implements OnInit {
     userType: UserType.Member
   };
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService,
+    private router: Router,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -37,7 +41,7 @@ export class UserManagementComponent implements OnInit {
   fetchUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: users => this.users = users,
-      error: () => alert("Erreur de chargement des utilisateurs")
+      error: () => alert("Error loading users.")
     });
   }
 
@@ -65,36 +69,36 @@ export class UserManagementComponent implements OnInit {
 
     this.userService.updateUser(this.selectedUser).subscribe({
       next: () => {
-        alert('Utilisateur mis à jour');
+        alert('User updated!');
         this.selectedUser = null;
         this.selectedUserCopy = null;
         this.fetchUsers();
       },
-      error: () => alert("Erreur de mise à jour")
+      error: () => alert("Update failed.")
     });
   }
 
   deleteUser(id: string): void {
-    if (!confirm("Confirmer la suppression ?")) return;
+    if (!confirm("Confirm deletion?")) return;
 
     this.userService.deleteUser(id).subscribe({
       next: () => {
-        alert("Utilisateur supprimé");
+        alert("User deleted!");
         this.fetchUsers();
       },
-      error: () => alert("Erreur de suppression")
+      error: () => alert("Deletion error.")
     });
   }
 
   addUser(): void {
     if (!this.newUser.fullName || !this.newUser.email || !this.newUser.password) {
-      alert("Nom, email et mot de passe requis");
+      this.alertService.error("Full name, email, and password are required.");
       return;
     }
 
     this.userService.addUser(this.newUser).subscribe({
       next: () => {
-        alert("Utilisateur ajouté");
+        alert("User added!");
         this.newUser = {
           fullName: '',
           email: '',
@@ -106,7 +110,7 @@ export class UserManagementComponent implements OnInit {
         };
         this.fetchUsers();
       },
-      error: () => alert("Erreur d'ajout")
+      error: () => alert("Add error.")
     });
   }
 

@@ -1,28 +1,40 @@
 <app-navbar></app-navbar>
 
 <div class="stock-monitoring-container">
-    <button class="back-button" (click)="goBack()">← Retour</button>
-    <div *ngFor="let product of products" class="product-item"
-        [ngClass]="{'low-stock': stockService.isLowStock(product)}">
+  <button class="back-button" (click)="goBack()" i18n="@@backButton">← Back</button>
+  
+  <div *ngFor="let product of products" class="product-item"
+       [ngClass]="{'low-stock': stockService.isLowStock(product)}">
 
-        <img [src]="product.getProductImage()" alt="{{product.getProductTitle()}}" class="product-image" />
+    <img [src]="product.getProductImage()" alt="{{product.getProductTitle()}}" class="product-image" />
 
-        <div class="product-info">
-            <h3>{{ product.getProductTitle() }}</h3>
-            <p>Catégorie : {{ product.getProductCategory() }}</p>
-            <p>Prix : {{ product.getProductPrice()}} MAD</p>
-            <p>Quantité en stock : {{ product.getProductQuantity() }}</p>
-            <p *ngIf="product.getRestockDate()">
-                Dernier réapprovisionnement : {{ product.getRestockDate() | date:'short' }}
-            </p>
-        </div>
-
-        <!-- input quantité -->
-        <input type="number" min="1" [ngModel]="getRestockQty(product.getProductId())"
-            (ngModelChange)="setRestockQty(product.getProductId(), $event)" placeholder="Quantité à réapprovisionner" />
-
-        <button (click)="restock(product.getProductId())">
-            Réapprovisionner
-        </button>
+    <div class="product-info">
+      <h3>{{ product.getProductTitle() }}</h3>
+      <p>
+        <span i18n="@@categoryLabel">Category:</span> {{ product.getProductCategory() }}
+      </p>
+      <p>
+        <span i18n="@@priceLabel">Price:</span>$ {{ product.getProductPrice() }}
+      </p>
+      <p>
+        <span i18n="@@quantityInStockLabel">Quantity in Stock:</span> {{ product.getProductQuantity() }}
+      </p>
+      <p *ngIf="product.getRestockDate()">
+        <span i18n="@@lastRestockedLabel">Last Restocked:</span> {{ product.getRestockDate() | date:'short' }}
+      </p>
     </div>
+
+    <!-- Restock quantity input -->
+    <input 
+      type="number" min="1" 
+      [ngModel]="getRestockQty(product.getProductId())"
+      (ngModelChange)="setRestockQty(product.getProductId(), $event)" 
+      placeholder="Quantity to Restock" 
+      i18n-placeholder="@@restockQuantityPlaceholder" 
+    />
+
+    <button (click)="restock(product.getProductId())" i18n="@@restockButton">
+      Restock
+    </button>
+  </div>
 </div>

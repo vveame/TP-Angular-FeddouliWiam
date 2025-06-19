@@ -5,9 +5,9 @@
   "projects": {
     "TP2": {
       "i18n": {
-        "sourceLocale": "fr-CA",
+        "sourceLocale": "en-US",
         "locales": {
-          "en-US": "src/locale/messages.en.xlf"
+          "fr-CA": "src/locale/messages.fr.xlf"
         }
       },
       "projectType": "application",
@@ -23,7 +23,7 @@
               "leaflet"
             ],
             "localize": [
-              "en-US"
+              "fr-CA"
             ],
             "outputPath": "dist/tp2",
             "index": "src/index.html",

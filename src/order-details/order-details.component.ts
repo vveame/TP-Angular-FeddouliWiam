@@ -38,7 +38,7 @@ export class OrderDetailsComponent implements OnInit {
           this.loadProductDetails(order);
         },
         error: err => {
-          this.alertService.error('Erreur récupération commande');
+          this.alertService.error('Error retrieving order.');
         }
       });
     }
@@ -54,7 +54,7 @@ export class OrderDetailsComponent implements OnInit {
           this.productDetails[productId] = product;
         },
         error: err => {
-          this.alertService.warning(`Impossible de charger le produit ${productId}`);
+          this.alertService.warning(`Unable to load product ${productId}`);
         },
         complete: () => {
           this.isLoading = false;

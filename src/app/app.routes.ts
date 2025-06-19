@@ -17,20 +17,20 @@ import { OfferManagementComponent } from '../offer-management/offer-management.c
 
 export const routes: Routes = [
 
-    { path: 'catalog', component: CatalogComponent, title: 'My Catalog products' },
+    { path: 'catalog', component: CatalogComponent, title: 'Products Catalog' },
     { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product details'},
     { path: 'stock-monitoring', component: StockMonitoringComponent, title: 'Stock Monitoring', canActivate: [AuthGuard, AdminGuard] },
     { path: 'offers', component: OfferManagementComponent, title: 'Offers Management', canActivate: [AuthGuard, AdminGuard] },
-    { path: 'signin', component: SigninComponent, title: 'My signin page' },
-    { path: 'signup', component: SignupComponent, title: 'My signup page' },
-    { path: 'profil', component: ProfileComponent, title: 'My profile page', canActivate: [AuthGuard] },
+    { path: 'signin', component: SigninComponent, title: 'Signin page' },
+    { path: 'signup', component: SignupComponent, title: 'Signup page' },
+    { path: 'profil', component: ProfileComponent, title: 'Profile page', canActivate: [AuthGuard] },
     { path: 'user-management', component: UserManagementComponent, title: 'Users Management', canActivate: [AuthGuard, AdminGuard] },
-    { path: 'shopping-cart', component: ShoppingCartComponent, title: 'My shopping cart' },
-    { path: 'order-page', component: OrderPageComponent, title: 'My order page',  canActivate: [AuthGuard] },
+    { path: 'shopping-cart', component: ShoppingCartComponent, title: 'Shopping cart' },
+    { path: 'order-page', component: OrderPageComponent, title: 'Order page',  canActivate: [AuthGuard] },
     { path: 'order-details/:id', component: OrderDetailsComponent, title: 'Order Details', canActivate: [AuthGuard] },
-    { path: 'navbar', component: SearchBarComponent, title: 'My navbar' },
+    { path: 'navbar', component: SearchBarComponent, title: 'Navbar' },
     { path: 'search', component: SearchBarComponent, title: 'Search' },
-    { path: 'map', component: MapComponent, title: 'My map', canActivate: [AuthGuard]},
+    { path: 'map', component: MapComponent, title: 'Map', canActivate: [AuthGuard]},
     { path: '', redirectTo: '/catalog', pathMatch: 'full' }, // optional default
     { path: '**', redirectTo: '/catalog' } // optional fallback
 

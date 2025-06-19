@@ -51,7 +51,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
       this.marker.on('dragend', () => {
         const pos = this.marker.getLatLng();
         this.locationChanged.emit({ lat: pos.lat, lng: pos.lng });
-        this.alertService.success('Position mise à jour sur la carte.');
+        this.alertService.success('Position updated on the map.');
         this.map.setView(pos);
       });
     }
@@ -102,7 +102,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.locationChanged.emit({ lat: latlng.lat, lng: latlng.lng });
       });
     }).catch(() => {
-      this.alertService.error('Erreur lors du chargement de la carte.');
+      this.alertService.error('Error loading the map.');
     });;
   }
 }

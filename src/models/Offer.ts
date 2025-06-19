@@ -1,4 +1,4 @@
-export type OfferType = 'offre spéciale' | 'promotion' | 'remise';
+export type OfferType = 'special offer' | 'promotion' | 'discount';
 
 export class Offer {
   private id: string | null;

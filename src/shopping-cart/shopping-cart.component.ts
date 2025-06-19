@@ -37,7 +37,7 @@ export class ShoppingCartComponent implements OnInit {
     if (item.quantity < available) {
       this.cartService.updateQuantity(productId, item.quantity + 1);
     } else {
-      this.alertService.warning('Quantité maximale disponible atteinte');
+      this.alertService.warning('Maximum available quantity reached.');
     }
   }
 
@@ -50,22 +50,21 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.updateQuantity(productId, item.quantity - 1);
 
     if (wasLastItem) {
-      this.alertService.success('Produit retiré du panier');
+      this.alertService.success('Product removed from cart.');
     }
   }
 
   remove(productId: string) {
     this.cartService.removeFromCart(productId);
-    this.alertService.info('Produit supprimé du panier');
+    this.alertService.info('Product deleted from cart.');
   }
 
   clearCart() {
     this.cartService.clearCart();
-    this.alertService.info('Panier vidé');
+    this.alertService.info('Cart emptied.');
   }
 
   checkout() {
-    this.alertService.success('Redirection vers la page de commande...');
     this.router.navigate(['/order-page']);
   }
 

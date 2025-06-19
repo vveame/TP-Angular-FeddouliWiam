@@ -60,8 +60,8 @@ export class ProfileComponent implements OnInit {
           this.orders = data;
         },
         error: err => {
-          console.error("Erreur récupération commandes utilisateur", err);
-          this.alertService.warning("Impossible de récupérer vos commandes.");
+          console.error("Error retrieving user orders", err);
+          this.alertService.warning("Unable to retrieve your orders.");
         }
       });
 
@@ -77,12 +77,12 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe({
       next: updated => {
         this.user = updated;
-        this.alertService.success("Informations personnelles mises à jour avec succès !");
+        this.alertService.success("Personal information updated successfully!");
         this.editPersonal = false;
       },
       error: err => {
-        console.error('Erreur mise à jour infos perso', err);
-        this.alertService.error("Échec de la mise à jour des informations personnelles.");
+        console.error('Error updating personal info', err);
+        this.alertService.error(" Failed to update personal information.");
       }
     });
   }
@@ -95,12 +95,12 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe({
       next: updated => {
         this.user = updated;
-        this.alertService.success("Informations bancaires mises à jour avec succès !");
+        this.alertService.success("Bank information updated successfully!");
         this.editBank = false;
       },
       error: err => {
-        console.error('Erreur mise à jour infos bancaires', err);
-        this.alertService.error("Échec de la mise à jour des informations bancaires.");
+        console.error('Error updating bank info', err);
+        this.alertService.error("Failed to update bank information.");
       }
     });
   }

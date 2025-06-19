@@ -40,7 +40,7 @@ export class OfferManagementComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       active: [true],
-      type: ['remise', Validators.required],
+      type: ['discount', Validators.required],
       selectedCategory: [''],
       productIds: [[], Validators.required]
     });
@@ -65,14 +65,14 @@ export class OfferManagementComponent implements OnInit {
           this.filteredProducts = this.allProducts.filter(p => p.getProductCategory() === selectedCategory);
         }
       },
-      error: () => this.alertService.error('Erreur lors du chargement des produits.')
+      error: () => this.alertService.error('Error loading products.')
     });
   }
 
   loadOffers() {
     this.offerService.getOffers().subscribe({
       next: (offers: Offer[]) => this.offers = offers,
-      error: () => this.alertService.error('Erreur lors du chargement des offres.')
+      error: () => this.alertService.error('Error loading offers.')
     });
   }
 
@@ -160,7 +160,7 @@ export class OfferManagementComponent implements OnInit {
   }
 
   deleteOffer(id: string): void {
-    if (confirm('Voulez-vous vraiment supprimer cette offre ?')) {
+    if (confirm('Are you sure you want to delete this offer?')) {
       this.offerService.deleteOffer(id).subscribe(() => this.loadOffers());
     }
   }
@@ -174,7 +174,7 @@ export class OfferManagementComponent implements OnInit {
       startDate: '',
       endDate: '',
       active: true,
-      type: 'remise',
+      type: 'discount',
       productIds: []
     });
   }

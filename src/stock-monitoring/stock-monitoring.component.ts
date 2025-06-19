@@ -49,11 +49,11 @@ export class StockMonitoringComponent implements OnInit {
         );
 
         this.lowStockProducts.forEach(p =>
-          this.alertService.warning(`Stock faible pour ${p.getProductTitle()}`)
+          this.alertService.warning(`Low stock for ${p.getProductTitle()}`)
         );
       },
       error: (err) => {
-        this.alertService.error("Erreur lors du chargement des produits.");
+        this.alertService.error("Error loading products.");
         console.error(err);
       }
     });
@@ -63,7 +63,7 @@ export class StockMonitoringComponent implements OnInit {
     const qty = this.getRestockQty(id);
 
     if (!qty || qty <= 0) {
-      this.alertService.warning("Veuillez entrer une quantité valide.");
+      this.alertService.warning("Please enter a valid quantity.");
       return;
     }
     this.productService.updateProductStock(id, qty).subscribe({
@@ -74,10 +74,10 @@ export class StockMonitoringComponent implements OnInit {
           this.products[index] = product;
         }
 
-        this.alertService.success(`Produit ${product.getProductTitle()} réapprovisionné`);
+        this.alertService.success(`Product ${product.getProductTitle()} restocked`);
       },
       error: err => {
-        this.alertService.error(err.message || "Erreur lors du réapprovisionnement");
+        this.alertService.error(err.message || "Error during restocking.");
       }
     });
   }

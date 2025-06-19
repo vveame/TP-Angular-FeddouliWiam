@@ -1,34 +1,34 @@
 <div class="order-confirmation" *ngIf="!orderConfirmed; else thankYou">
-  <h2>Confirmation de Commande</h2>
+  <h2 i18n>Order Confirmation</h2>
 
-  <p><strong>Total Produits:</strong> {{ cart.totalPrice || 0 }} MAD</p>
-  <p><strong>Frais de livraison:</strong> {{ shippingFee }} MAD</p>
-  <p><strong>Total à payer:</strong> {{ totalWithShipping }} MAD</p>
+  <p><strong i18n>Total Products:</strong>$ {{ cart.totalPrice || 0 }}</p>
+  <p><strong i18n>Shipping Fee:</strong>$ {{ shippingFee }}</p>
+  <p><strong i18n>Total to Pay:</strong>$ {{ totalWithShipping }}</p>
 
   <hr />
 
-  <h3>Méthode de paiement</h3>
+  <h3 i18n>Payment Method</h3>
   <select [(ngModel)]="paymentMethod" required>
-    <option value="" disabled selected>Sélectionnez une méthode</option>
-    <option value="cash">Paiement à la livraison</option>
-    <option value="card">Carte bancaire</option>
+    <option value="" disabled selected i18n>Select a method</option>
+    <option value="cash" i18n>Cash on Delivery</option>
+    <option value="card" i18n>Credit Card</option>
   </select>
 
   <hr />
 
-  <h3>Adresse de livraison</h3>
+  <h3 i18n>Delivery Address</h3>
 
   <label>
     <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="false" />
-    Sélectionner sur la carte
+    <span i18n>Select on Map</span>
   </label>
   <label>
     <input type="radio" name="addressMode" [(ngModel)]="useAddressString" [value]="true" />
-    Saisir une adresse
+    <span i18n>Enter Address</span>
   </label>
 
   <div *ngIf="useAddressString; else mapMode">
-    <input type="text" placeholder="Entrez votre adresse" [(ngModel)]="addressString" required />
+    <input type="text" placeholder="Enter your address" i18n-placeholder [(ngModel)]="addressString" required />
   </div>
 
   <ng-template #mapMode>
@@ -40,19 +40,19 @@
   <hr />
 
   <div class="actions">
-    <button (click)="goBackToCart()">Modifier le panier</button>
-    <button (click)="confirmOrder()">Confirmer la commande</button>
+    <button (click)="goBackToCart()" i18n>Edit Cart</button>
+    <button (click)="confirmOrder()" i18n>Confirm Order</button>
   </div>
 </div>
 
 <ng-template #thankYou>
   <div class="thank-you-message">
-    <h2>Merci pour votre commande !</h2>
-    <p>Votre commande a été confirmée et sera livrée à l'adresse suivante :</p>
+    <h2 i18n>Thank you for your order!</h2>
+    <p i18n>Your order has been confirmed and will be delivered to the following address:</p>
     <p><strong>{{ deliveryAddressDisplay }}</strong></p>
-    <p>Méthode de paiement :
-      <strong>{{ paymentMethod === 'cash' ? 'Paiement à la livraison' : 'Carte bancaire' }}</strong>
+    <p i18n>Payment Method:
+      <strong>{{ paymentMethod === 'cash' ? 'Cash on Delivery' : 'Credit Card' }}</strong>
     </p>
-    <button (click)="goBackToCart()">Go Back</button>
+    <button (click)="goBackToCart()" i18n>Go Back</button>
   </div>
 </ng-template>

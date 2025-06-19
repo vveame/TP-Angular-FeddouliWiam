@@ -46,10 +46,10 @@ export class SignupComponent {
       next: () => {
         this.signUpSuccess = true;
         this.signUpError = false;
-        this.alertService.success("Compte créé avec succès !");
+        this.alertService.success("Account created successfully!");
       },
       error: (err) => {
-        let message = "Une erreur est survenue. Veuillez réessayer.";
+        let message = "An error occurred. Please try again.";
         if (err.status === 409 && typeof err.error === 'string') {
           message = err.error;
         } else if (typeof err.error === 'string') {

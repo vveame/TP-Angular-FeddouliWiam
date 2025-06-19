@@ -25,6 +25,7 @@ export class CatalogComponent implements OnInit {
   products: Product[] = [];
   allProducts: Product[] = [];
   activeOffers: Offer[] = [];
+  categories: string[] = [];
 
   constructor(
     private productService: ProductService,
@@ -46,6 +47,7 @@ export class CatalogComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.allProducts = data.map(item => new Product(item));
+        this.categories = Array.from(new Set(this.allProducts.map(p => p.getProductCategory())));
         this.route.queryParams.subscribe(params => {
           this.filter = params['filter'] ?? '';
           const search = params['search'] ?? '';
@@ -83,7 +85,7 @@ export class CatalogComponent implements OnInit {
   addToCart(product: Product) {
     const price = this.pricingService.getDiscountedPrice(product);
     this.cartService.addToCart(product, price);
-    this.alertService.success(`Produit "${product.getProductTitle()}" ajouté au panier.`);
+    this.alertService.success(`Product "${product.getProductTitle()}" added to cart.`);
   }
 
   getDiscountedPrice(product: Product): number {

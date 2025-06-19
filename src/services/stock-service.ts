@@ -28,9 +28,9 @@ export class StockService {
 
   getStockMessage(product: Product): string | null {
     if (this.isLowStock(product)) {
-      return 'Stock faible - dépêchez-vous !';
+      return 'Low stock - hurry up !';
     } else if (this.isRecentlyRestocked(product)) {
-      return 'Récemment restocké !';
+      return 'Recently restocked !';
     } else {
       return null;
     }
@@ -47,13 +47,13 @@ export class StockService {
 
         if (lowStockProducts.length > 0) {
           this.alertService.warning(
-            `${lowStockProducts.length} produit(s) ont un stock faible`,
+            `${lowStockProducts.length} product(s) have low stock.`,
             5000
           );
         }
       },
       error: () => {
-        this.alertService.error("Erreur lors de la vérification du stock.");
+        this.alertService.error("Error checking stock levels.");
       }
     });
   }

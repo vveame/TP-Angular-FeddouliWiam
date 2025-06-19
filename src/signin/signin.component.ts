@@ -31,7 +31,7 @@ export class SigninComponent {
     this.signInError = false;
     this.UserService.signIn(this.credentials).subscribe({
       next: (user: User) => {
-        this.alertService.success("Connexion réussie !");
+        this.alertService.success("Login successful!");
         this.cartService.clearStorage();
 
         if (user.getUserType() === 'admin') {
@@ -41,7 +41,7 @@ export class SigninComponent {
         this.router.navigate(['/catalog']);
       },
       error: (err) => {
-        let message = 'Une erreur est survenue. Veuillez réessayer.';
+        let message = 'An error occurred. Please try again.';
         if (err.status === 401 && typeof err.error === 'string') {
           message = err.error;
         } else if (typeof err.error === 'string') {
