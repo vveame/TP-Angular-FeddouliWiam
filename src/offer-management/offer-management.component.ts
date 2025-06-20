@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { ProductService } from '../services/product-service';
 import { Product } from '../models/Product';
 import { AlertService } from '../services/alert-service';
-import { SearchService } from '../services/search-service';
 
 
 @Component({
@@ -27,14 +26,12 @@ export class OfferManagementComponent implements OnInit {
   filteredProducts: Product[] = [];
   selectedCategory = '';
   categories: string[] = []; // all categories
-  searchTerm: string = '';
 
   constructor(private offerService: OfferService,
     private router: Router,
     private productService: ProductService,
     private fb: FormBuilder,
-    private alertService: AlertService,
-    private searchService: SearchService
+    private alertService: AlertService
   ) {
     this.offerForm = this.fb.group({
       title: ['', Validators.required],
@@ -53,12 +50,6 @@ export class OfferManagementComponent implements OnInit {
     this.loadOffers();
     this.loadProducts();
 
-    // Subscribe to search term changes
-    this.searchService.query$.subscribe(query => {
-      this.searchTerm = query;
-      this.updateFilteredProducts();
-    });
-
     this.offerForm.get('selectedCategory')?.valueChanges.subscribe(() => this.updateFilteredProducts());
     this.offerForm.get('productIds')?.valueChanges.subscribe(() => this.updateFilteredProducts());
   }
@@ -75,7 +66,6 @@ export class OfferManagementComponent implements OnInit {
     });
   }
 
-
   loadOffers() {
     this.offerService.getOffers().subscribe({
       next: (offers: Offer[]) => this.offers = offers,
@@ -91,15 +81,10 @@ export class OfferManagementComponent implements OnInit {
       ? this.allProducts.filter(p => p.getProductCategory() === selectedCategory)
       : this.allProducts;
 
-    const searchedProducts = categoryProducts.filter(p =>
-      this.searchTerm === '' ||
-      p.getProductTitle().toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-
     const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
 
     // Merge without duplicates
-    this.filteredProducts = Array.from(new Set([...searchedProducts, ...selectedProducts]));
+    this.filteredProducts = Array.from(new Set([...categoryProducts, ...selectedProducts]));
   }
 
   isAllSelected(): boolean {

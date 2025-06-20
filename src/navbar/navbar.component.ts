@@ -45,26 +45,36 @@ export class NavbarComponent implements OnDestroy {
       this.showCart = visible;
     });
 
+    let previousRoute = '';
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.currentRoute = event.urlAfterRedirects;
+        const newRoute = event.urlAfterRedirects;
+
+        const hadSearch = this.shouldShowSearchForRoute(previousRoute);
+        const hasSearch = this.shouldShowSearchForRoute(newRoute);
+
+        // If we navigate away from a search page to a non-search page, reset the query
+        if (hadSearch && !hasSearch) {
+          this.searchService.updateQuery('');
+        }
+
+        previousRoute = newRoute;
+        this.currentRoute = newRoute;
       }
     });
   }
 
   onSearch(query: string) {
     this.searchService.updateQuery(query);
+  }
 
-    if (this.router.url.startsWith('/catalog')) {
-      // Fallback if not on catalog
-      this.router.navigate(['/catalog'], { queryParams: { search: query } });
-    }
+  private shouldShowSearchForRoute(route: string): boolean {
+    return ['/catalog', '/stock-monitoring'].some(path => route.startsWith(path));
   }
 
   shouldShowSearch(): boolean {
-    return ['/catalog', '/offers', '/stock-monitoring'].some(path =>
-      this.currentRoute.startsWith(path)
-    );
+    return this.shouldShowSearchForRoute(this.currentRoute);
   }
 
   toggleCart() {

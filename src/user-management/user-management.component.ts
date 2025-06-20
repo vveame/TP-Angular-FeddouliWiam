@@ -69,12 +69,12 @@ export class UserManagementComponent implements OnInit {
 
     this.userService.updateUser(this.selectedUser).subscribe({
       next: () => {
-        alert('User updated!');
+        this.alertService.success('User updated!');
         this.selectedUser = null;
         this.selectedUserCopy = null;
         this.fetchUsers();
       },
-      error: () => alert("Update failed.")
+      error: () => this.alertService.error("Update failed.")
     });
   }
 
@@ -83,7 +83,7 @@ export class UserManagementComponent implements OnInit {
 
     this.userService.deleteUser(id).subscribe({
       next: () => {
-        alert("User deleted!");
+        this.alertService.success("User deleted!");
         this.fetchUsers();
       },
       error: () => alert("Deletion error.")
@@ -98,7 +98,7 @@ export class UserManagementComponent implements OnInit {
 
     this.userService.addUser(this.newUser).subscribe({
       next: () => {
-        alert("User added!");
+        this.alertService.success("User added!");
         this.newUser = {
           fullName: '',
           email: '',
@@ -110,7 +110,7 @@ export class UserManagementComponent implements OnInit {
         };
         this.fetchUsers();
       },
-      error: () => alert("Add error.")
+      error: () => this.alertService.error("Add error.")
     });
   }
 

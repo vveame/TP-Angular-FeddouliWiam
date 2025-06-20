@@ -3,7 +3,7 @@
     "productId": "1",
     "productTitle": "Essence Mascara Lash Princess",
     "productPrice": 9.99,
-    "productQuantity": 101,
+    "productQuantity": 95,
     "productImage": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
     "productCategory": "beauty",
     "restockDate": "2025-06-20T12:21:32.413Z"
@@ -39,7 +39,7 @@
     "productId": "5",
     "productTitle": "Red Nail Polish",
     "productPrice": 8.99,
-    "productQuantity": 79,
+    "productQuantity": 77,
     "productImage": "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/thumbnail.webp",
     "productCategory": "beauty",
     "restockDate": null
@@ -48,7 +48,7 @@
     "productId": "6",
     "productTitle": "Calvin Klein CK One",
     "productPrice": 49.99,
-    "productQuantity": 30,
+    "productQuantity": 27,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/thumbnail.webp",
     "productCategory": "fragrances",
     "restockDate": "2025-06-19T20:17:44.493Z"
@@ -84,7 +84,7 @@
     "productId": "10",
     "productTitle": "Gucci Bloom Eau de",
     "productPrice": 79.99,
-    "productQuantity": 92,
+    "productQuantity": 91,
     "productImage": "https://cdn.dummyjson.com/product-images/fragrances/gucci-bloom-eau-de/thumbnail.webp",
     "productCategory": "fragrances",
     "restockDate": "2025-06-19T20:17:50.993Z"
@@ -1047,10 +1047,10 @@
     "productId": "117",
     "productTitle": "Sportbike Motorcycle",
     "productPrice": 7499.99,
-    "productQuantity": 0,
+    "productQuantity": 100,
     "productImage": "https://cdn.dummyjson.com/product-images/motorcycle/sportbike-motorcycle/thumbnail.webp",
     "productCategory": "motorcycle",
-    "restockDate": null
+    "restockDate": "2025-06-20T16:57:23.810Z"
   },
   {
     "productId": "118",
@@ -1182,10 +1182,10 @@
     "productId": "132",
     "productTitle": "Samsung Galaxy S8",
     "productPrice": 499.99,
-    "productQuantity": 0,
+    "productQuantity": 1000,
     "productImage": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/thumbnail.webp",
     "productCategory": "smartphones",
-    "restockDate": null
+    "restockDate": "2025-06-20T16:13:36.564Z"
   },
   {
     "productId": "133",
@@ -1371,10 +1371,10 @@
     "productId": "153",
     "productTitle": "Volleyball",
     "productPrice": 11.99,
-    "productQuantity": 0,
+    "productQuantity": 100,
     "productImage": "https://cdn.dummyjson.com/product-images/sports-accessories/volleyball/thumbnail.webp",
     "productCategory": "sports-accessories",
-    "restockDate": null
+    "restockDate": "2025-06-20T17:20:24.494Z"
   },
   {
     "productId": "154",

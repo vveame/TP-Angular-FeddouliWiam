@@ -47,8 +47,7 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/users/${user.getUserId()}`, user.toJSON(), {
       withCredentials: true
     }).pipe(
-      map(data => User.fromJSON(data)),
-      tap(updatedUser => this.currentUserSubject.next(updatedUser))
+      map(data => User.fromJSON(data))
     );
   }
 

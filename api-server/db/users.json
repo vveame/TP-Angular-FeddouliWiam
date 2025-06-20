@@ -2,10 +2,10 @@
   {
     "userId": "u122",
     "userType": "admin",
-    "fullName": "wiam",
-    "email": "wiam@email",
+    "fullName": "wiam feddouli",
+    "email": "wiam@gmail.com",
     "password": "wiam123",
-    "iban": "123456789",
+    "iban": "23456789",
     "bankName": "CIH",
     "phone": 689974479
   },
@@ -18,5 +18,15 @@
     "phone": "6000000009",
     "iban": "MA12345678901234",
     "bankName": "Banque Populaire"
+  },
+  {
+    "userId": "4c0cb175-88fb-454e-b992-6e5813edada9",
+    "fullName": "karima",
+    "email": "karima@email",
+    "password": "karima",
+    "phone": 0,
+    "iban": "456789",
+    "bankName": "fgh",
+    "userType": "member"
   }
 ]
