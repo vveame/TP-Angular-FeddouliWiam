@@ -101,9 +101,9 @@ ng build --localize
 
 ### - offer-management/
 
-![image](https://github.com/user-attachments/assets/48ed802e-ec63-4389-a4bb-2d625e082fb8)
+![image](https://github.com/user-attachments/assets/ff16600b-74f3-4824-bd1c-6f173fce625b)
 
-![image](https://github.com/user-attachments/assets/94a63726-e0e7-45d0-ae06-7d91f99c430e)
+![image](https://github.com/user-attachments/assets/32881a97-9303-4af7-84d4-cbe4903de3fd)
 
 ### - user-management/
 
