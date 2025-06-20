@@ -186,3 +186,38 @@ button:disabled {
     width: 100%;
   }
 }
+
+.stock-banner {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.low-stock .stock-banner {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.out-stock .stock-banner {
+  background-color: #dc3545;
+  color: white;
+}
+
+.restocked .stock-banner {
+  background-color: #28a745;
+  color: white;
+}
+
+button.danger {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.danger:hover {
+  background-color: #495057;
+}

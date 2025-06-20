@@ -35,7 +35,7 @@ export class SigninComponent {
         this.cartService.clearStorage();
 
         if (user.getUserType() === 'admin') {
-          this.stockService.checkAndNotifyLowStock();
+          this.stockService.checkAndNotifyStock();
         }
 
         this.router.navigate(['/catalog']);

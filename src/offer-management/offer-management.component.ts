@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../services/product-service';
 import { Product } from '../models/Product';
 import { AlertService } from '../services/alert-service';
+import { SearchService } from '../services/search-service';
 
 
 @Component({
@@ -26,12 +27,14 @@ export class OfferManagementComponent implements OnInit {
   filteredProducts: Product[] = [];
   selectedCategory = '';
   categories: string[] = []; // all categories
+  searchTerm: string = '';
 
   constructor(private offerService: OfferService,
     private router: Router,
     private productService: ProductService,
     private fb: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private searchService: SearchService
   ) {
     this.offerForm = this.fb.group({
       title: ['', Validators.required],
@@ -49,6 +52,15 @@ export class OfferManagementComponent implements OnInit {
   ngOnInit(): void {
     this.loadOffers();
     this.loadProducts();
+
+    // Subscribe to search term changes
+    this.searchService.query$.subscribe(query => {
+      this.searchTerm = query;
+      this.updateFilteredProducts();
+    });
+
+    this.offerForm.get('selectedCategory')?.valueChanges.subscribe(() => this.updateFilteredProducts());
+    this.offerForm.get('productIds')?.valueChanges.subscribe(() => this.updateFilteredProducts());
   }
 
   loadProducts() {
@@ -57,20 +69,12 @@ export class OfferManagementComponent implements OnInit {
         this.allProducts = products.map(p => new Product(p));
         this.categories = Array.from(new Set(this.allProducts.map(p => p.getProductCategory())));
 
-        const selectedIds: string[] = this.offerForm.get('productIds')?.value || [];
-        const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
-
-        const selectedCategory = this.offerForm.get('selectedCategory')?.value || '';
-        const categoryProducts = selectedCategory
-          ? this.allProducts.filter(p => p.getProductCategory() === selectedCategory)
-          : this.allProducts;
-
-        // merge selected products with filtered category products
-        this.filteredProducts = Array.from(new Set([...categoryProducts, ...selectedProducts]));
+        this.updateFilteredProducts();  // initialize filteredProducts properly
       },
       error: () => this.alertService.error('Error loading products.')
     });
   }
+
 
   loadOffers() {
     this.offerService.getOffers().subscribe({
@@ -79,16 +83,23 @@ export class OfferManagementComponent implements OnInit {
     });
   }
 
-  onCategoryChange() {
-    const category = this.offerForm.get('selectedCategory')?.value || '';
+  updateFilteredProducts() {
     const selectedIds: string[] = this.offerForm.get('productIds')?.value || [];
+    const selectedCategory: string = this.offerForm.get('selectedCategory')?.value || '';
 
-    const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
-    const categoryProducts = category
-      ? this.allProducts.filter(p => p.getProductCategory() === category)
+    const categoryProducts = selectedCategory
+      ? this.allProducts.filter(p => p.getProductCategory() === selectedCategory)
       : this.allProducts;
 
-    this.filteredProducts = Array.from(new Set([...categoryProducts, ...selectedProducts]));
+    const searchedProducts = categoryProducts.filter(p =>
+      this.searchTerm === '' ||
+      p.getProductTitle().toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    const selectedProducts = this.allProducts.filter(p => selectedIds.includes(p.getProductId()));
+
+    // Merge without duplicates
+    this.filteredProducts = Array.from(new Set([...searchedProducts, ...selectedProducts]));
   }
 
   isAllSelected(): boolean {

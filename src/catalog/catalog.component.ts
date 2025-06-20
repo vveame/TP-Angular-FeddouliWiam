@@ -12,6 +12,7 @@ import { AlertService } from '../services/alert-service';
 import { PricingService } from '../services/pricing-service';
 import { Offer } from '../models/Offer';
 import { OfferService } from '../services/offer-service';
+import { SearchService } from '../services/search-service';
 
 @Component({
   selector: 'app-catalog',
@@ -35,7 +36,8 @@ export class CatalogComponent implements OnInit {
     public stockService: StockService,
     private alertService: AlertService,
     private pricingService: PricingService,
-    private offerService: OfferService
+    private offerService: OfferService,
+    private searchService: SearchService
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,11 @@ export class CatalogComponent implements OnInit {
           this.filter = params['filter'] ?? '';
           const search = params['search'] ?? '';
           this.applyFilter(this.filter, search);
+        });
+
+        // Listen to live updates from search bar
+        this.searchService.query$.subscribe((query) => {
+          this.applyFilter(this.filter, query);
         });
       },
       error: () => {

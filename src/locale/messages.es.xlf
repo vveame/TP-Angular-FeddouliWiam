@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="es" date="2025-06-19T21:42:23Z">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="es" date="2025-06-20T14:30:29Z">
     <body>
       <trans-unit id="1902100407096396858" datatype="html">
         <source>Categories</source>
@@ -70,7 +70,7 @@
         <source> MyShop </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">6,7</context>
         </context-group>
         <target> Myshop </target>
       </trans-unit>
@@ -78,7 +78,7 @@
         <source> Sign In / Sign Up </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">20,21</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
         <target> Iniciar sesión / Registrarse </target>
       </trans-unit>
@@ -86,7 +86,7 @@
         <source>Help</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">23,25</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
         <target>Ayuda</target>
       </trans-unit>
@@ -94,7 +94,7 @@
         <source> Cart ( <x id="INTERPOLATION" equiv-text="{{ cartItemCount }}"/>) </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">26,28</context>
+          <context context-type="linenumber">27,28</context>
         </context-group>
         <target> Carro ( <x id="INTERPOLATION" equiv-text="{{ cartItemCount }}"/>) </target>
       </trans-unit>
@@ -102,7 +102,7 @@
         <source> My Profile </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">36,37</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
         <target> Mi perfil </target>
       </trans-unit>
@@ -110,7 +110,7 @@
         <source> Sign Out </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/navbar/navbar.component.html</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="linenumber">36,37</context>
         </context-group>
         <target> Desconectar </target>
       </trans-unit>
@@ -1160,11 +1160,51 @@
         </context-group>
         <target>Filtrar por categoría:</target>
       </trans-unit>
+      <trans-unit id="6957641941100078727" datatype="html">
+        <source>Filter by Stock:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+        <target>Filtrar por stock:</target>
+      </trans-unit>
+      <trans-unit id="1616102757855967475" datatype="html">
+        <source>All</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+        <target>Toda</target>
+      </trans-unit>
+      <trans-unit id="2447410334552520706" datatype="html">
+        <source>Low Stock</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+        <target>Stock bajo</target>
+      </trans-unit>
+      <trans-unit id="1836549981104910073" datatype="html">
+        <source>Out of Stock</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+        <target>Agotado</target>
+      </trans-unit>
+      <trans-unit id="4577666535320994359" datatype="html">
+        <source>Recently Restocked</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+        <target>Recientemente reabastecido</target>
+      </trans-unit>
       <trans-unit id="categoryLabel" datatype="html">
         <source>Category:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <target>Categoría:</target>
       </trans-unit>
@@ -1172,7 +1212,7 @@
         <source>Price:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <target>Precio:</target>
       </trans-unit>
@@ -1180,7 +1220,7 @@
         <source>Quantity in Stock:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <target>Cantidad en stock:</target>
       </trans-unit>
@@ -1188,7 +1228,7 @@
         <source>Last Restocked:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <target>Última reabastecimiento:</target>
       </trans-unit>
@@ -1196,7 +1236,7 @@
         <source>Quantity to Restock</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">37,38</context>
+          <context context-type="linenumber">51,52</context>
         </context-group>
         <target>Cantidad para reabastecer</target>
       </trans-unit>
@@ -1204,9 +1244,17 @@
         <source> Restock </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
         <target> Repoblar </target>
+      </trans-unit>
+      <trans-unit id="3405197996265549541" datatype="html">
+        <source> Empty Stock </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/stock-monitoring/stock-monitoring.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+        <target> Stock vacío </target>
       </trans-unit>
       <trans-unit id="userManagementTitle" datatype="html">
         <source>User Management</source>

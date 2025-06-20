@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CartService } from '../services/cart-service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component'
 import { UserService } from '../services/user-service';
 import { User } from '../models/User';
 import { AlertService } from '../services/alert-service';
+import { SearchService } from '../services/search-service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnDestroy {
   cartItemCount = 0;
   showCart = false;
   user$!: Observable<User | null>;
+  currentRoute: string = '';
 
   private cartSubscription?: Subscription;
   private visibilitySubscription?: Subscription;
@@ -30,7 +32,8 @@ export class NavbarComponent implements OnDestroy {
     private alertService: AlertService,
     private cartService: CartService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private searchService: SearchService
   ) {
     this.user$ = this.userService.currentUser$;
 
@@ -41,10 +44,27 @@ export class NavbarComponent implements OnDestroy {
     this.visibilitySubscription = this.cartService.cartVisible.subscribe(visible => {
       this.showCart = visible;
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects;
+      }
+    });
   }
 
   onSearch(query: string) {
-    this.router.navigate(['/catalog'], { queryParams: { search: query } });
+    this.searchService.updateQuery(query);
+
+    if (this.router.url.startsWith('/catalog')) {
+      // Fallback if not on catalog
+      this.router.navigate(['/catalog'], { queryParams: { search: query } });
+    }
+  }
+
+  shouldShowSearch(): boolean {
+    return ['/catalog', '/offers', '/stock-monitoring'].some(path =>
+      this.currentRoute.startsWith(path)
+    );
   }
 
   toggleCart() {

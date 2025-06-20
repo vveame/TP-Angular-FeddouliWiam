@@ -1,8 +1,8 @@
-/* Header */
 .site-header {
-  background-color: #ef394e; /* Rouge jumia */
+  background-color: #ef394e;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
   color: white;
   gap: 20px;
@@ -12,37 +12,46 @@
   z-index: 1000;
 }
 
-/* Logo container */
-.site-header .logo {
+/* Group search + menu */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+/* Search bar */
+.search-wrapper {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-wrapper app-search-bar {
+  width: 100%;
+}
+
+/* Logo styles (unchanged) */
+.logo {
   display: flex;
   align-items: center;
   text-decoration: none;
 }
 
-/* Logo image */
 .logo-img {
   height: 40px;
   width: auto;
-  display: block;
   filter: brightness(0) invert(1);
 }
 
-/* Logo text */
 .site-header .logo a {
   color: white;
   font-weight: 900;
   font-size: 28px;
   letter-spacing: 1.5px;
-  cursor: pointer;
   text-decoration: none;
-}
-
-.site-header app-search-bar {
-  flex: 1 1 auto;
-  min-width: 200px;
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
 }
 
 .user-menu {

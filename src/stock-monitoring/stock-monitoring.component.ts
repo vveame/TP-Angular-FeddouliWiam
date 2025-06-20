@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
+import { SearchService } from '../services/search-service';
 
 @Component({
   selector: 'app-stock-monitoring',
@@ -20,17 +21,24 @@ export class StockMonitoringComponent implements OnInit {
   restockQuantities: { [productId: string]: number } = {};
   selectedCategory: string = '';
   categories: string[] = [];
-
+  selectedStockStatus: string = ''; // '' = tous
+  stockStatusOptions: string[] = ['low', 'out', 'restocked', 'all'];
+  searchTerm: string = '';
 
   constructor(
     public stockService: StockService,
     private alertService: AlertService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) { }
 
   ngOnInit(): void {
     this.fetchProducts();
+
+    this.searchService.query$.subscribe(query => {
+      this.searchTerm = query.toLowerCase();
+    });
   }
 
   getRestockQty(productId: string): number {
@@ -86,17 +94,51 @@ export class StockMonitoringComponent implements OnInit {
     });
   }
 
+  emptyStock(id: string): void {
+    this.productService.updateProductStock(id, 0).subscribe({
+      next: (product) => {
+        // Mettre à jour le produit local dans la liste
+        const index = this.products.findIndex(p => p.getProductId() === product.getProductId());
+        if (index !== -1) {
+          this.products[index] = product;
+        }
+
+        this.alertService.success(`Stock for ${product.getProductTitle()} emptied.`);
+      },
+      error: err => {
+        this.alertService.error(err.message || "Error during emptying stock.");
+      }
+    });
+  }
+
   goBack(): void {
     this.router.navigate(['/profil']);
   }
 
   get filteredProducts(): Product[] {
-    if (!this.selectedCategory) return this.products;
-    return this.products.filter(p => p.getProductCategory() === this.selectedCategory);
+    return this.products
+      .filter(p => !this.selectedCategory || p.getProductCategory() === this.selectedCategory)
+      .filter(p => this.filterByStockStatus(p))
+      .filter(p =>
+        !this.searchTerm || p.getProductTitle().toLowerCase().includes(this.searchTerm)
+      );
   }
 
   onCategoryChange(category: string) {
     this.selectedCategory = category;
+  }
+
+  filterByStockStatus(product: Product): boolean {
+    switch (this.selectedStockStatus) {
+      case 'low':
+        return this.stockService.isLowStock(product) && product.getProductQuantity() > 0;
+      case 'out':
+        return product.getProductQuantity() === 0;
+      case 'restocked':
+        return this.stockService.isRecentlyRestocked(product);
+      default:
+        return true; // all
+    }
   }
 
 }

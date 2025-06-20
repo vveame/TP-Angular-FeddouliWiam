@@ -54,7 +54,7 @@
   <div class="form-row">
     <div class="form-group">
       <label i18n>Filter by Category</label>
-      <select formControlName="selectedCategory" (change)="onCategoryChange()">
+      <select formControlName="selectedCategory">
         <option value="" i18n>All Categories</option>
         <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
       </select>

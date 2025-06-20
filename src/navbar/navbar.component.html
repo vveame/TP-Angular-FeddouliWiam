@@ -1,4 +1,5 @@
 <header class="site-header">
+  <!-- Logo -->
   <div class="logo">
     <img class="logo-img" src="/assets/images/logo.png" />
     <a routerLink="/catalog" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" i18n>
@@ -6,39 +7,35 @@
     </a>
   </div>
 
-  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  <!-- Search + User Menu container -->
+  <div class="header-right">
+    <!-- Search -->
+    <div class="search-wrapper" *ngIf="shouldShowSearch()">
+      <app-search-bar (search)="onSearch($event)"></app-search-bar>
+    </div>
 
-  <div class="user-menu">
-    <a
-      *ngIf="!(user$ | async)"
-      routerLink="/signin"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="button"
-      i18n
-    >
-      Sign In / Sign Up
-    </a>
+    <!-- User menu -->
+    <div class="user-menu">
+      <a *ngIf="!(user$ | async)" routerLink="/signin" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" class="button" i18n>
+        Sign In / Sign Up
+      </a>
 
-    <a href="#" i18n>Help</a>
+      <a href="#" i18n>Help</a>
 
-    <button class="cart" (click)="toggleCart()" i18n>
-      Cart ({{ cartItemCount }})
-    </button>
+      <button class="cart" (click)="toggleCart()" i18n>
+        Cart ({{ cartItemCount }})
+      </button>
 
-    <a
-      *ngIf="user$ | async"
-      routerLink="/profil"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      i18n
-    >
-      My Profile
-    </a>
+      <a *ngIf="user$ | async" routerLink="/profil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        i18n>
+        My Profile
+      </a>
 
-    <button *ngIf="user$ | async" class="cart" (click)="signOut()" i18n>
-      Sign Out
-    </button>
+      <button *ngIf="user$ | async" class="cart" (click)="signOut()" i18n>
+        Sign Out
+      </button>
+    </div>
   </div>
 </header>
 

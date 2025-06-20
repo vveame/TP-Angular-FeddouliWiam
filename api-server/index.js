@@ -61,12 +61,19 @@ app.put("/api/products/:id/stock", authenticate, isAdmin, (req, res) => {
     return res.status(404).send("Product not found");
   }
 
-  if (typeof quantity !== 'number' || quantity <= 0) {
+  if (typeof quantity !== 'number' || quantity < 0) {
     return res.status(400).send("Invalid quantity.");
   }
 
-  products[index].productQuantity += quantity;
-  products[index].restockDate = new Date().toISOString();
+  if (quantity === 0) {
+    // Empty stock
+    products[index].productQuantity = 0;
+    products[index].restockDate = null;
+  } else {
+    // Add to stock
+    products[index].productQuantity += quantity;
+    products[index].restockDate = new Date().toISOString();
+  }
 
   writeToFile(productsFilePath, products);
   return res.status(200).json(products[index]);
