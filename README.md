@@ -49,29 +49,31 @@ npx xlf-auto-translate -i messages.xlf -o messages.fr.xlf -f en -t fr
 ng build --localize
 ```
 
-## App GUI 
+## Application GUI 
 
-### signin/
+### - signin/
 
-![image](https://github.com/user-attachments/assets/b1cd063c-9225-45bf-b91b-f490f6ebef4b)
+![image](https://github.com/user-attachments/assets/a897eb36-5185-480a-8881-3917944f0109)
 
-### signup/
+### - signup/
 
-![image](https://github.com/user-attachments/assets/2c8ac87f-4108-458b-9142-078f3097cd1c)
+![image](https://github.com/user-attachments/assets/11b93c5c-7178-4ddc-b9bd-11cc83c100d3)
 
-### catalog/
+### - catalog/
 
 ![image](https://github.com/user-attachments/assets/5ab8535c-4e84-47d0-92ce-8e339fc4221f)
 
-### product-details/
+![image](https://github.com/user-attachments/assets/d64d7022-9765-4568-b242-cf534d15ac30)
 
-![image](https://github.com/user-attachments/assets/75daadce-4ac2-41b0-bbc0-e8cb866edba7)
+### - product-details/
 
-### shopping-cart/
+![image](https://github.com/user-attachments/assets/bfcdc50c-d5cf-47c4-98f9-ce95db24db31)
+
+### - shopping-cart/
 
 ![image](https://github.com/user-attachments/assets/3d85e699-0709-44d0-94e3-6d42d4294dca)
 
-### order-page/
+### - order-page/
 
 ![image](https://github.com/user-attachments/assets/178e6dee-d595-4f17-aa8c-a0f20c6204ca)
 
@@ -79,37 +81,37 @@ ng build --localize
 
 ![image](https://github.com/user-attachments/assets/ceb961eb-c3e8-46d9-b096-5214a2620efd)
 
-### profile/ as admin
+### - profile/ as admin
 
 - userType member wont have access to "Stock Monitoring", "Offer Management" and "User Management" !
 
-![image](https://github.com/user-attachments/assets/c8b4a138-2ec2-4235-b263-25bc42c016e2)
+![image](https://github.com/user-attachments/assets/36730277-cdd0-4e91-8c94-08d20fee1114)
 
-![image](https://github.com/user-attachments/assets/519a6bb3-e5ab-4ba8-969a-91571fc23065)
+![image](https://github.com/user-attachments/assets/79b0ba42-fa13-4657-8e4a-a8f478e1ca9d)
 
-![image](https://github.com/user-attachments/assets/5150ba12-03ae-4785-8540-a4f74f078a61)
+![image](https://github.com/user-attachments/assets/efe1eee3-f190-465a-9c77-8915ef51ec2b)
 
-### order-details/
+### - order-details/
 
-![image](https://github.com/user-attachments/assets/0ebe2fd6-d80f-402d-a539-312f6c824926)
+![image](https://github.com/user-attachments/assets/20c5992a-c0d4-4ce8-91eb-387a35b658d2)
 
-### stock-monitoring
+### - stock-monitoring/
 
-![image](https://github.com/user-attachments/assets/c1fb78b2-8fdb-42d2-9fef-f0737803a350)
+![image](https://github.com/user-attachments/assets/5c1a2090-1618-4f9c-9865-0413c318a6a4)
 
-### offer-management/
+### - offer-management/
 
 ![image](https://github.com/user-attachments/assets/48ed802e-ec63-4389-a4bb-2d625e082fb8)
 
 ![image](https://github.com/user-attachments/assets/94a63726-e0e7-45d0-ae06-7d91f99c430e)
 
-### user-management/
+### - user-management/
 
-![image](https://github.com/user-attachments/assets/05bc09a7-00d8-4730-a5ce-a06e3321b5fa)
+![image](https://github.com/user-attachments/assets/b9b8c3ca-7b82-41ad-b817-2f071b685d8b)
 
-### i18n internationalization/arabic
+### - i18n internationalization/arabic
 
-![image](https://github.com/user-attachments/assets/c24e7a48-ff45-4bda-bc10-0f84b40ac00c)
+![image](https://github.com/user-attachments/assets/5f4ae517-7492-4ce8-902c-f4f782cd90c1)
 
 # Auto generated Angular ReadME.md
 
